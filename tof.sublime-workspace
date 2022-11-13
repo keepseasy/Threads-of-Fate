@@ -1,0 +1,1296 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"text",
+				"textbf"
+			],
+			[
+				"За",
+				"Защита"
+			],
+			[
+				"Выслив",
+				"Вспыльчивость"
+			],
+			[
+				"en",
+				"enhList"
+			],
+			[
+				"r",
+				"try"
+			],
+			[
+				"ge",
+				"genInfo"
+			],
+			[
+				"for",
+				"forms"
+			],
+			[
+				"pro",
+				"propList"
+			],
+			[
+				"Бо",
+				"Бомба"
+			],
+			[
+				"t",
+				"tbd"
+			],
+			[
+				"tr",
+				"tryInt"
+			],
+			[
+				"дос",
+				"доспех"
+			],
+			[
+				"pr",
+				"print"
+			],
+			[
+				"str",
+				"outStr"
+			],
+			[
+				"e",
+				"entityList"
+			],
+			[
+				"rol",
+				"rolls"
+			],
+			[
+				"ro",
+				"roll"
+			],
+			[
+				"re",
+				"return"
+			],
+			[
+				"n",
+				"number"
+			],
+			[
+				"par",
+				"parseCmd"
+			],
+			[
+				"no",
+				"noCrit"
+			],
+			[
+				"co",
+				"condition"
+			],
+			[
+				"con",
+				"conditionRep"
+			],
+			[
+				"c",
+				"condition"
+			],
+			[
+				"p",
+				"print"
+			],
+			[
+				"si",
+				"sign"
+			],
+			[
+				"fil",
+				"filNum"
+			],
+			[
+				"st",
+				"startLegit"
+			],
+			[
+				"fi",
+				"filterReady"
+			],
+			[
+				"sta",
+				"startFraud"
+			],
+			[
+				"us",
+				"user_pb"
+			],
+			[
+				"u",
+				"user_pb"
+			],
+			[
+				"l",
+				"user_led"
+			],
+			[
+				"cst_",
+				"csr_writedata"
+			],
+			[
+				"csr",
+				"csr_address"
+			],
+			[
+				"s",
+				"sof"
+			],
+			[
+				"pb",
+				"user_pb"
+			],
+			[
+				"csr_rea",
+				"csr_readdata"
+			],
+			[
+				"cs",
+				"csr_waitrequest"
+			],
+			[
+				"id",
+				"IDLE"
+			],
+			[
+				"in",
+				"INIT"
+			],
+			[
+				"ms",
+				"msixTable"
+			],
+			[
+				"pow",
+				"powB"
+			],
+			[
+				"I",
+				"IDLE"
+			],
+			[
+				"cmda",
+				"cmdata"
+			],
+			[
+				"cmd",
+				"cmdata"
+			],
+			[
+				"lo",
+				"logic"
+			],
+			[
+				"pc",
+				"pciDataWidth"
+			],
+			[
+				"pci_r",
+				"pci_readdata"
+			],
+			[
+				"pci",
+				"pci_waitrequest"
+			],
+			[
+				"addr",
+				"addrWidth"
+			],
+			[
+				"ram_w",
+				"ram_write"
+			],
+			[
+				"num",
+				"numErr"
+			],
+			[
+				"cm",
+				"cmdRq"
+			],
+			[
+				"Id",
+				"IDLE"
+			],
+			[
+				"ne",
+				"nextState"
+			],
+			[
+				"Re",
+				"READ_SUB"
+			],
+			[
+				"pab",
+				"pageBit"
+			],
+			[
+				"ra",
+				"ram_writedata"
+			],
+			[
+				"ram",
+				"ram_address"
+			],
+			[
+				"ram_r",
+				"ram_read"
+			],
+			[
+				"wa",
+				"WAIT_INIT"
+			],
+			[
+				"le",
+				"ledFill"
+			],
+			[
+				"led",
+				"ledFill"
+			],
+			[
+				"cmdQ",
+				"cmdAq"
+			],
+			[
+				"a",
+				"assign"
+			],
+			[
+				"q",
+				"qPow"
+			],
+			[
+				"pa",
+				"pageBit"
+			],
+			[
+				"nq",
+				"nqNum"
+			],
+			[
+				"et",
+				"eth_address"
+			],
+			[
+				"nvm_w",
+				"nvm_writedata"
+			],
+			[
+				"nvm_re",
+				"nvm_read"
+			],
+			[
+				"cl",
+				"clk"
+			],
+			[
+				"nvm",
+				"nvm_readvalid"
+			],
+			[
+				"nqa",
+				"nqAddr"
+			],
+			[
+				"que",
+				"queueNum"
+			],
+			[
+				"nvm_",
+				"nvm_writedata"
+			],
+			[
+				"read",
+				"readAq"
+			],
+			[
+				"w",
+				"nvm_waitrequest"
+			],
+			[
+				"nvm_r",
+				"nvm_read"
+			],
+			[
+				"nvmwr",
+				"nvm_writedata"
+			],
+			[
+				"beg",
+				"beg\tbegin .. end"
+			],
+			[
+				"nm",
+				"nvm_waitrequest"
+			],
+			[
+				"nvm_a",
+				"nvm_address"
+			],
+			[
+				"nvmdat",
+				"nvm_writedata"
+			],
+			[
+				"wr",
+				"wReq"
+			],
+			[
+				"b",
+				"beg\tbegin .. end"
+			],
+			[
+				"is",
+				"isRead"
+			],
+			[
+				"de",
+				"devAddr"
+			],
+			[
+				"qD",
+				"qAddr"
+			],
+			[
+				"ini",
+				"INIT_COMPLETION"
+			],
+			[
+				"asq",
+				"asqAddr"
+			],
+			[
+				"ac",
+				"acqNum"
+			],
+			[
+				"as",
+				"asqBaseAddr"
+			],
+			[
+				"io",
+				"ioqSize"
+			],
+			[
+				"wd",
+				"wdat"
+			],
+			[
+				"int",
+				"intLOaddr"
+			],
+			[
+				"msi",
+				"msixAddr"
+			],
+			[
+				"etr",
+				"eth_address"
+			],
+			[
+				"eth",
+				"eth_write"
+			],
+			[
+				"up",
+				"updTime"
+			],
+			[
+				"curt",
+				"curTimePipe"
+			],
+			[
+				"upd",
+				"updTimePipe"
+			],
+			[
+				"curTimeDel",
+				"curTimeDelay1"
+			],
+			[
+				"syn",
+				"syncSop"
+			],
+			[
+				"cur",
+				"curTime"
+			],
+			[
+				"curti",
+				"curTimeDelay"
+			],
+			[
+				"al",
+				"always_ff\talways_ff Async"
+			],
+			[
+				"s0s",
+				"s0sop"
+			],
+			[
+				"fr",
+				"frameSkipStb"
+			],
+			[
+				"tic",
+				"rTicket"
+			],
+			[
+				"end",
+				"endcase"
+			],
+			[
+				"ref",
+				"refFreq"
+			],
+			[
+				"cy",
+				"cycleCount"
+			],
+			[
+				"cu",
+				"cycleCount"
+			],
+			[
+				"ppm",
+				"ppmCount"
+			],
+			[
+				"res",
+				"restartPipe"
+			],
+			[
+				"rest",
+				"restartPipe"
+			],
+			[
+				"wri",
+				"write"
+			],
+			[
+				"f",
+				"frameSkipStb"
+			],
+			[
+				"fram",
+				"frameSkipStb"
+			],
+			[
+				"clk",
+				"clk_rx"
+			],
+			[
+				"c12",
+				"c12async"
+			],
+			[
+				"s0",
+				"s0posShift"
+			],
+			[
+				"v",
+				"sfpVendorAddr"
+			],
+			[
+				"data",
+				"data0"
+			],
+			[
+				"wo",
+				"words"
+			],
+			[
+				"i",
+				"i2cReaddata"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+		[
+			[
+				[
+					"Packages/AAAPackageDev/Support/Convert to ....sublime-build",
+					""
+				],
+				[
+					"Packages/AAAPackageDev/Support/Convert to ....sublime-build",
+					"JSON"
+				],
+				[
+					"Packages/AAAPackageDev/Support/Convert to ....sublime-build",
+					"Property List"
+				],
+				[
+					"Packages/AAAPackageDev/Support/Convert to ....sublime-build",
+					"YAML (Block Style)"
+				],
+				[
+					"Packages/AAAPackageDev/Support/Convert to ....sublime-build",
+					"YAML (Default Style)"
+				]
+			],
+			[
+				"Packages/AAAPackageDev/Support/Convert to ....sublime-build",
+				"JSON"
+			]
+		],
+		[
+			[
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					""
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Traditional"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"PdfLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"XeLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"LuaLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Basic Builder"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Basic Builder - PdfLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Basic Builder - XeLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Basic Builder - LuaLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Script Builder"
+				]
+			],
+			[
+				"Packages/LaTeXTools/LaTeX.sublime-build",
+				"Basic Builder - PdfLaTeX"
+			]
+		]
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 127.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"Package Control: re",
+				"Package Control: Remove Package"
+			],
+			[
+				"Package Control: li",
+				"Package Control: List Packages"
+			],
+			[
+				"Package Control: ins",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: inst",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: in",
+				"Package Control: Install Package"
+			],
+			[
+				"Hex",
+				"Hex Viewer: Toggle Hex View"
+			],
+			[
+				"Package Control: lis",
+				"Package Control: List Packages"
+			],
+			[
+				"Package Control: list",
+				"Package Control: List Packages"
+			],
+			[
+				"Package Control: u",
+				"Package Control: Upgrade/Overwrite All Packages"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"upp",
+				"Convert Case: Upper Case"
+			],
+			[
+				"low",
+				"Convert Case: Lower Case"
+			],
+			[
+				"up",
+				"Convert Case: Upper Case"
+			],
+			[
+				"mip",
+				"Set Syntax: MIPS"
+			],
+			[
+				"ve",
+				"Set Syntax: verilog"
+			],
+			[
+				"bard",
+				"Set Syntax: bardPlots"
+			],
+			[
+				"txt",
+				"Set Syntax: Plain Text"
+			],
+			[
+				"pyt",
+				"Set Syntax: Python"
+			],
+			[
+				"",
+				"Convert Case: Title Case"
+			],
+			[
+				"ba",
+				"Set Syntax: bardPlots"
+			],
+			[
+				"ver",
+				"Set Syntax: verilog"
+			],
+			[
+				"bar",
+				"Set Syntax: bardPlots"
+			],
+			[
+				"jso",
+				"Set Syntax: JSON Generic Array"
+			],
+			[
+				"css",
+				"Set Syntax: CSS"
+			],
+			[
+				"lo",
+				"Convert Case: Lower Case"
+			],
+			[
+				"veri",
+				"Set Syntax: verilog"
+			],
+			[
+				"mi",
+				"Set Syntax: MIPS"
+			],
+			[
+				"Snippet: ",
+				"Snippet: key"
+			],
+			[
+				"Package Control: ",
+				"Package Control: List Packages"
+			],
+			[
+				"PackageRe",
+				"PackageResourceViewer: Open Resource"
+			],
+			[
+				"Package Control: i",
+				"Package Control: Install Package"
+			],
+			[
+				"Packag",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 520.0
+	},
+	"console":
+	{
+		"height": 181.0,
+		"history":
+		[
+			"ls"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/C/Dropbox/TOF/Threads-of-Fate"
+	],
+	"file_history":
+	[
+		"/C/Dropbox/TOF/Threads-of-Fate/tof.sublime-project",
+		"/C/Dropbox/TOF/Threads-of-Fate/tof.sublime-workspace",
+		"/C/Dropbox/TOF/Threads-of-Fate/money talk/equipment.tex",
+		"/C/Dropbox/TOF/Threads-of-Fate/money talk/wear.tex",
+		"/C/Dropbox/TOF/Threads-of-Fate/supernatural.tex",
+		"/C/Dropbox/TOF/Threads-of-Fate/leisure and travel/travel.tex",
+		"/C/Dropbox/TOF/Threads-of-Fate/money talk/vehicles.tex",
+		"/C/Dropbox/TOF/Threads-of-Fate/content/attributes.json",
+		"/C/Dropbox/TOF/Threads-of-Fate/_topics.txt",
+		"/C/Dropbox/TOF/Threads-of-Fate/Threads of Fate.tex",
+		"/C/Dropbox/TOF/Threads-of-Fate/_TBD.txt",
+		"/C/Dropbox/TOF/Чары на предметы",
+		"/C/Dropbox/TOF/source/leisure and travel.tex",
+		"/C/Dropbox/TOF/source/money talk.tex",
+		"/C/Dropbox/TOF/source/money talk/energy.tex",
+		"/C/Dropbox/TOF/source/money talk/supplies.tex",
+		"/C/Dropbox/TOF/source/_Ideas.txt",
+		"/C/Dropbox/TOF/source/scripts/leisure.py",
+		"/C/Dropbox/TOF/source/_topics.txt",
+		"/C/Dropbox/TOF/source/money talk/equipment.tex",
+		"/C/Dropbox/TOF/source/money talk/vehicles.tex",
+		"/C/Dropbox/TOF/source/scripts/drugs.py",
+		"/C/Dropbox/TOF/source/money talk/medical.tex",
+		"/C/Dropbox/TOF/source/content/attributes.json",
+		"/C/Dropbox/TOF/source/money talk/wear.tex",
+		"/C/Dropbox/TOF/source/content/powers.json",
+		"/C/Dropbox/TOF/source/scripts/output/transport.tex",
+		"/C/Dropbox/TOF/source/content/leisure.json",
+		"/C/Dropbox/TOF/source/scripts/leisure(no table).py",
+		"/C/Dropbox/TOF/source/scripts/meds.py",
+		"/C/Dropbox/TOF/source/hero creation.tex",
+		"/C/Dropbox/TOF/source/hero creation/development.tex",
+		"/C/Dropbox/TOF/source/leisure and travel/travel.tex",
+		"/C/Dropbox/TOF/source/scripts/output/futureWeapons.tex",
+		"/C/Dropbox/TOF/source/hero creation/secondary characteristics.tex",
+		"/C/Dropbox/TOF/source/hero creation/goals.tex",
+		"/C/Dropbox/TOF/source/scripts/output/attributes.tex",
+		"/C/Dropbox/TOF/source/trouble check blank.tex",
+		"/C/Dropbox/TOF/source/battles/superiority.tex",
+		"/C/Dropbox/TOF/source/base mechanics/checks.tex",
+		"/C/Dropbox/TOF/source/hero creation/creature sizes.tex",
+		"/C/Dropbox/TOF/source/battles.tex",
+		"/C/Dropbox/TOF/source/battles/wounds.tex",
+		"/C/Dropbox/TOF/source/base mechanics/troubles.tex",
+		"/C/Dropbox/TOF/source/leisure and travel/locations.tex",
+		"/C/Dropbox/TOF/source/content/meds.json",
+		"/C/Dropbox/TOF/source/content/armor.json",
+		"/C/Dropbox/TOF/source/scripts/protection.py",
+		"/C/Dropbox/TOF/source/money talk/protection.tex",
+		"/C/Dropbox/TOF/source/money talk/weapons/weapon perks.tex",
+		"/C/Dropbox/TOF/source/content/tricks.json",
+		"/C/Dropbox/TOF/source/hero creation/tricks.tex",
+		"/C/Dropbox/TOF/source/mo",
+		"/C/Dropbox/TOF/source/scripts/output/tricks.tex",
+		"/C/Dropbox/TOF/source/scripts/weapons.py",
+		"/C/Dropbox/TOF/source/scripts/output/meds.tex",
+		"/C/Dropbox/TOF/source/scripts/output/meleeWeapons.tex",
+		"/C/Dropbox/TOF/source/scripts/poisons.py",
+		"/C/Dropbox/TOF/source/scripts/powerTools.py",
+		"/C/Dropbox/TOF/source/scripts/genLib.py",
+		"/C/Dropbox/TOF/source/content/powerTools.json",
+		"/C/Dropbox/TOF/source/money talk/powerTools.tex",
+		"/C/Dropbox/TOF/source/scripts/monsters.py",
+		"/C/Dropbox/TOF/source/Threads of Fate.tex",
+		"/C/Dropbox/TOF/source/money talk/wealth.tex",
+		"/C/Dropbox/TOF/source/scripts/output/powerTools.tex",
+		"/C/Dropbox/TOF/source/content/transport.json",
+		"/C/Dropbox/TOF/source/scripts/test.py",
+		"/C/Dropbox/TOF/source/scripts/transport.py",
+		"/C/Dropbox/TOF/source/money talk/mounts.tex",
+		"/C/Dropbox/TOF/source/supernatural.tex",
+		"/C/Dropbox/TOF/source/hero creation/battle characteristics.tex",
+		"/C/Dropbox/TOF/source/content/expertSkills.json",
+		"/C/Dropbox/TOF/source/power term test.txt",
+		"/C/Dropbox/TOF/source/scripts/output/expertSkills.tex",
+		"/C/Dropbox/TOF/source/scripts/output/powers.tex",
+		"/C/Dropbox/TOF/source/scripts/shields.py",
+		"/C/Dropbox/TOF/source/scripts/expertSkills.py",
+		"/C/Dropbox/TOF/source/scripts/elderWeapons.py",
+		"/C/Dropbox/TOF/source/scripts/futureWeapons.py",
+		"/C/Dropbox/TOF/source/scripts/meleeWeapons.py",
+		"/C/Dropbox/TOF/source/scripts/modernWeapons.py",
+		"/C/Dropbox/TOF/source/scripts/supplimentalWeapons.py",
+		"/C/Dropbox/TOF/source/scripts/armor.py",
+		"/C/Dropbox/TOF/source/scripts/disadvantages.py",
+		"/C/Dropbox/TOF/source/scripts/basicSkills.py",
+		"/C/Dropbox/TOF/source/scripts/attributes.py",
+		"/C/Dropbox/TOF/source/scripts/explosives.py",
+		"/C/Dropbox/TOF/source/scripts/genFromJson.py",
+		"/C/Dropbox/TOF/source/content/monsters.json",
+		"/C/Dropbox/TOF/source/scripts/powerForms.py",
+		"/C/Dropbox/TOF/source/scripts/powers.py",
+		"/C/Dropbox/TOF/source/scripts/roles.py",
+		"/C/Dropbox/TOF/source/scripts/skills.py",
+		"/C/Dropbox/TOF/source/scripts/tricks.py",
+		"/C/Dropbox/TOF/source/content/explosives.json",
+		"/C/Dropbox/TOF/source/content/roles.json",
+		"/C/Dropbox/TOF/source/content/disadvantages.json",
+		"/C/Dropbox/TOF/source/content/basicSkills.json",
+		"/C/Dropbox/TOF/source/content/elderWeapons.json",
+		"/C/Dropbox/TOF/source/content/futureWeapons.json",
+		"/C/Dropbox/TOF/source/content/meleeWeapons.json",
+		"/C/Dropbox/TOF/source/content/modernWeapons.json",
+		"/C/Dropbox/TOF/source/content/supplimentalWeapons.json",
+		"/C/Dropbox/TOF/source/content/shields.json",
+		"/C/Dropbox/TOF/source/money talk/weapons.tex",
+		"/C/Dropbox/TOF/source/money talk/weapons/explosions.tex",
+		"/C/Dropbox/TOF/source/money talk/weapons/explosives.tex",
+		"/C/Dropbox/TOF/source/leisure and travel/entertainment.tex",
+		"/C/Dropbox/TOF/source/supernatural/blank ability.tex",
+		"/C/Dropbox/TOF/source/supernatural/abilities.tex",
+		"/C/Dropbox/TOF/source/scripts/output/powerForms.tex",
+		"/C/Dropbox/TOF/source/monsters.tex",
+		"/C/Dropbox/TOF/source/scripts/output/roles.tex",
+		"/C/Dropbox/TOF/source/hero creation/roles.tex",
+		"/C/Dropbox/TOF/source/",
+		"/C/Dropbox/TOF/source/content/powerForms.json",
+		"/C/Dropbox/TOF/source/scripts/_powerForms.py",
+		"/C/Dropbox/TOF/source/scripts/bonds.py",
+		"/C/Dropbox/TOF/source/money talk/weapons/ammunition.tex",
+		"/C/Dropbox/TOF/source/money talk/weapons/melee weapons.tex",
+		"/C/Dropbox/TOF/source/Threads of Fate.log",
+		"/C/Dropbox/TOF/source/battles/battle scenes/maneuvers.tex",
+		"/C/Dropbox/TOF/source/scripts/output/elderWeapons.tex",
+		"/C/Dropbox/TOF/source/money talk/weapons/old ranged weapons.tex",
+		"/C/Dropbox/TOF/source/money talk/weapons/future ranged weapons.tex",
+		"/C/Dropbox/TOF/source/money talk/weapons/modern ranged weapons.tex",
+		"/C/Dropbox/TOF/source/money talk/weapons/supplimental weapons.tex"
+	],
+	"find":
+	{
+		"height": 45.0
+	},
+	"find_in_files":
+	{
+		"height": 244.0,
+		"where_history":
+		[
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"гоблин",
+			"слишком",
+			"могу",
+			"топливо",
+			"совиный",
+			"док",
+			"trouble",
+			"клас",
+			" \\te",
+			"\\te",
+			"\\\\hline",
+			"\\subsubsection",
+			"Немедленный эффект",
+			"genProps",
+			"sortKey",
+			"tryInt",
+			"paraghaph",
+			"genStat",
+			"genShort",
+			"genProps",
+			"бонус Защиты",
+			"лимузин",
+			"название",
+			"Описании",
+			"250",
+			"\"Класс Защиты\":\"\",",
+			"чарод",
+			"sortKey",
+			"\"moves\"",
+			"\"powers\"",
+			"\"tricks\"",
+			"\"skills\"",
+			"\"attacks\"",
+			"\"defence\"",
+			"\"theads\"",
+			"\"eng\"",
+			"\"hp\"",
+			"\"wil\"",
+			"\"ref\"",
+			"\"spd\"",
+			"\"cha\"",
+			"\"wis\"",
+			"\"int\"",
+			"\"con\"",
+			"\"dex\"",
+			"\"str\"",
+			"\"descr\"",
+			"\"name\"",
+			"'moves'",
+			"'powers'",
+			"'tricks'",
+			"'skills'",
+			"'attacks'",
+			"'defence'",
+			"'theads'",
+			"'eng'",
+			"'hp'",
+			"'wil'",
+			"'ref'",
+			"'spd'",
+			"'cha'",
+			"'wis'",
+			"'int'",
+			"'con'",
+			"'dex'",
+			"'str'",
+			"'descr'",
+			"'name'",
+			"\"",
+			"  ",
+			"\",",
+			"'cost'",
+			"'risk'",
+			"'troubles'",
+			"'effects'",
+			"'descr'",
+			"'name'",
+			"\"",
+			"\"cost\"",
+			"\"risk\"",
+			"\"troubles\"",
+			"\"effects\"",
+			"\"descr\"",
+			"\"name\"",
+			"'price'",
+			"'notes'",
+			"'dmgType'",
+			"'blastRadius'",
+			"'blastPower'",
+			"'stReq'",
+			"'name'",
+			"'isFantasy'",
+			"\"price\"",
+			"\"notes\"",
+			"\"dmgType\"",
+			"\"blastRadius\"",
+			"\"blastPower\"",
+			"\"stReq\"",
+			"\"isFantasy\"",
+			"\"name\"",
+			"\"",
+			"'enhance'",
+			"'exactForm'",
+			"'form'",
+			"'aimResistance'",
+			"'duration'",
+			"'castTime'",
+			"'sizeMatters'",
+			"'susCost'",
+			"'cost'",
+			"'descr'",
+			"'name'",
+			"\"",
+			"\"enhance\"",
+			"\"form\"",
+			"\"aimResistance\"",
+			"\"duration\"",
+			"\"castTime\"",
+			"\"sizeMatters\"",
+			"\"susCost\"",
+			"\"cost\"",
+			"\"descr\"",
+			"\"name\"",
+			"\",",
+			"#   ",
+			"'pos'",
+			"'neg'",
+			"\"neg\""
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"\n\\subsubsection",
+			"Первичный эффект",
+			"paragraph",
+			"\"Класс Защиты\":\"\\\\tbd\",",
+			"\"Ходы\"",
+			"\"Могущества\"",
+			"\"Трюки\"",
+			"\"Навыки\"",
+			"\"атаки\"",
+			"\"защита\"",
+			"\"Нити\"",
+			"\"Энергия\"",
+			"\"ЕЗ\"",
+			"\"Воля\"",
+			"\"Реакция\"",
+			"\"Скорость\"",
+			"\"Обаяние\"",
+			"\"Мудрость\"",
+			"\"Интеллект\"",
+			"\"Вспыльчивость\"",
+			"\"Ловкость\"",
+			"\"Сила\"",
+			"\"описание\"",
+			"\"название\"",
+			"'Ходы'",
+			"'Могущества'",
+			"'Навыки'",
+			"'атаки'",
+			"'защита'",
+			"'Нити'",
+			"'Энергия'",
+			"'ЕЗ'",
+			"'Воля'",
+			"'Реакция'",
+			"'Скорость'",
+			"'Обаяние'",
+			"'Мудрость'",
+			"'Интеллект'",
+			"'Вспыльчивость'",
+			"'Ловкость'",
+			"'Сила'",
+			"'описание'",
+			"'название'",
+			"'",
+			"",
+			"\"",
+			"'СП'",
+			"'риск'",
+			"'проблемы'",
+			"'эффекты'",
+			"'описание'",
+			"'название'",
+			"'",
+			"\"СП\"",
+			"\"риск\"",
+			"\"проблемы\"",
+			"\"эффекты\"",
+			"\"описание\"",
+			"\"название\"",
+			"'СП'",
+			"'дополнительные Эффекты'",
+			"'Тип ПВ'",
+			"'Радиус Взрыва'",
+			"'Сила Взрыва'",
+			"'требуемая Сила'",
+			"'название'",
+			"'фантастическое'",
+			"\"СП\"",
+			"\"дополнительные Эффекты\"",
+			"\"Тип ПВ\"",
+			"\"Радиус Взрыва\"",
+			"\"Сила Взрыва\"",
+			"\"требуемая Сила\"",
+			"\"фантастическое\"",
+			"\"название\"",
+			"'",
+			"'Усиление'",
+			"'Уточнение'",
+			"'Форма'",
+			"'сопротивление Наведению'",
+			"'продолжительность'",
+			"'время сотворения'",
+			"'РИЗ'",
+			"'поддержание'",
+			"'стоимость'",
+			"'описание'",
+			"'название'",
+			"'",
+			"\"Усиление\"",
+			"\"Форма\"",
+			"\"сопротивление Наведению\"",
+			"\"продолжительность\"",
+			"\"время сотворения\"",
+			"\"РИЗ\"",
+			"\"поддержание\"",
+			"\"стоимость\"",
+			"\"описание\"",
+			"\"название\"",
+			"\"",
+			"",
+			"'Орел'",
+			"'Решка'",
+			"\"Решка\"",
+			"\"Орел\"",
+			"\"Грань\"",
+			"'Грань'",
+			"'описание'",
+			"\"описание\"",
+			"\"название\"",
+			"'название'",
+			"\"результат Броска\"",
+			"'результат Броска'",
+			"'описание'",
+			"'название'",
+			"\\n }",
+			"\\n {",
+			"\\n }",
+			"\\n  \"",
+			"{",
+			"\"описание\"",
+			"\"название\"",
+			"\"описание\"",
+			"\"название\"",
+			"'когда использовать'",
+			"'описание'",
+			"'часто используемые Характеристики'",
+			"'название'",
+			"\"когда использовать\""
+		],
+		"reverse": false,
+		"scrollbar_highlights": true,
+		"show_context": true,
+		"use_buffer2": true,
+		"use_gitignore": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 45.0
+	},
+	"input":
+	{
+		"height": 84.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 336.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.hex_viewer_inspector":
+	{
+		"height": 336.0
+	},
+	"output.latextools":
+	{
+		"height": 234.0
+	},
+	"output.package_dev":
+	{
+		"height": 148.0
+	},
+	"pinned_build_system": "Packages/LaTeXTools/LaTeX.sublime-build",
+	"project": "tof.sublime-project",
+	"replace":
+	{
+		"height": 86.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"C:\\Documents and Settings\\Barashev_A\\Рабочий стол\\fpga pins"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"C:\\Dropbox\\китайский язык\\chineese.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 295.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
