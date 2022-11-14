@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"en",
+				"entityList"
+			],
+			[
 				"text",
 				"textbf"
 			],
@@ -14,10 +18,6 @@
 			[
 				"Выслив",
 				"Вспыльчивость"
-			],
-			[
-				"en",
-				"enhList"
 			],
 			[
 				"r",
@@ -608,6 +608,10 @@
 		"selected_items":
 		[
 			[
+				"git",
+				"Git: Status"
+			],
+			[
 				"Package Control: re",
 				"Package Control: Remove Package"
 			],
@@ -757,10 +761,36 @@
 	},
 	"expanded_folders":
 	[
-		"/C/Dropbox/TOF/Threads-of-Fate"
+		"/C/Dropbox/TOF/Threads-of-Fate",
+		"/C/Dropbox/TOF/Threads-of-Fate/content",
+		"/C/Dropbox/TOF/Threads-of-Fate/scripts"
 	],
 	"file_history":
 	[
+		"/C/Dropbox/TOF/Threads-of-Fate/Threads of Fate.tex",
+		"/C/Dropbox/TOF/Threads-of-Fate/scripts/genFromJson.py",
+		"/C/Dropbox/TOF/Threads-of-Fate/content/armor.yaml",
+		"/C/Dropbox/TOF/Threads-of-Fate/content/attributes.yaml",
+		"/C/Dropbox/TOF/Threads-of-Fate/content/basicSkills.yaml",
+		"/C/Dropbox/TOF/Threads-of-Fate/content/disadvantages.yaml",
+		"/C/Dropbox/TOF/Threads-of-Fate/content/elderWeapons.yaml",
+		"/C/Dropbox/TOF/Threads-of-Fate/content/explosives.yaml",
+		"/C/Dropbox/TOF/Threads-of-Fate/content/expertSkills.yaml",
+		"/C/Dropbox/TOF/Threads-of-Fate/content/futureWeapons.yaml",
+		"/C/Dropbox/TOF/Threads-of-Fate/content/shields.yaml",
+		"/C/Dropbox/TOF/Threads-of-Fate/content/supplimentalWeapons.yaml",
+		"/C/Dropbox/TOF/Threads-of-Fate/content/transport.yaml",
+		"/C/Dropbox/TOF/Threads-of-Fate/content/tricks.yaml",
+		"/C/Dropbox/TOF/Threads-of-Fate/content/roles.yaml",
+		"/C/Dropbox/TOF/Threads-of-Fate/content/powerTools.yaml",
+		"/C/Dropbox/TOF/Threads-of-Fate/content/powers.yaml",
+		"/C/Dropbox/TOF/Threads-of-Fate/content/monsters.yaml",
+		"/C/Dropbox/TOF/Threads-of-Fate/content/modernWeapons.yaml",
+		"/C/Dropbox/TOF/Threads-of-Fate/content/meleeWeapons.yaml",
+		"/C/Dropbox/TOF/Threads-of-Fate/content/meds.yaml",
+		"/C/Dropbox/TOF/Threads-of-Fate/content/leisure.yaml",
+		"/C/Users/keeps/AppData/Roaming/Sublime Text 3/Packages/User/LaTeXTools.sublime-settings",
+		"/C/Dropbox/TOF/Threads-of-Fate/.gitignore",
 		"/C/Dropbox/TOF/Threads-of-Fate/tof.sublime-project",
 		"/C/Dropbox/TOF/Threads-of-Fate/tof.sublime-workspace",
 		"/C/Dropbox/TOF/Threads-of-Fate/money talk/equipment.tex",
@@ -770,7 +800,6 @@
 		"/C/Dropbox/TOF/Threads-of-Fate/money talk/vehicles.tex",
 		"/C/Dropbox/TOF/Threads-of-Fate/content/attributes.json",
 		"/C/Dropbox/TOF/Threads-of-Fate/_topics.txt",
-		"/C/Dropbox/TOF/Threads-of-Fate/Threads of Fate.tex",
 		"/C/Dropbox/TOF/Threads-of-Fate/_TBD.txt",
 		"/C/Dropbox/TOF/Чары на предметы",
 		"/C/Dropbox/TOF/source/leisure and travel.tex",
@@ -865,30 +894,7 @@
 		"/C/Dropbox/TOF/source/content/meleeWeapons.json",
 		"/C/Dropbox/TOF/source/content/modernWeapons.json",
 		"/C/Dropbox/TOF/source/content/supplimentalWeapons.json",
-		"/C/Dropbox/TOF/source/content/shields.json",
-		"/C/Dropbox/TOF/source/money talk/weapons.tex",
-		"/C/Dropbox/TOF/source/money talk/weapons/explosions.tex",
-		"/C/Dropbox/TOF/source/money talk/weapons/explosives.tex",
-		"/C/Dropbox/TOF/source/leisure and travel/entertainment.tex",
-		"/C/Dropbox/TOF/source/supernatural/blank ability.tex",
-		"/C/Dropbox/TOF/source/supernatural/abilities.tex",
-		"/C/Dropbox/TOF/source/scripts/output/powerForms.tex",
-		"/C/Dropbox/TOF/source/monsters.tex",
-		"/C/Dropbox/TOF/source/scripts/output/roles.tex",
-		"/C/Dropbox/TOF/source/hero creation/roles.tex",
-		"/C/Dropbox/TOF/source/",
-		"/C/Dropbox/TOF/source/content/powerForms.json",
-		"/C/Dropbox/TOF/source/scripts/_powerForms.py",
-		"/C/Dropbox/TOF/source/scripts/bonds.py",
-		"/C/Dropbox/TOF/source/money talk/weapons/ammunition.tex",
-		"/C/Dropbox/TOF/source/money talk/weapons/melee weapons.tex",
-		"/C/Dropbox/TOF/source/Threads of Fate.log",
-		"/C/Dropbox/TOF/source/battles/battle scenes/maneuvers.tex",
-		"/C/Dropbox/TOF/source/scripts/output/elderWeapons.tex",
-		"/C/Dropbox/TOF/source/money talk/weapons/old ranged weapons.tex",
-		"/C/Dropbox/TOF/source/money talk/weapons/future ranged weapons.tex",
-		"/C/Dropbox/TOF/source/money talk/weapons/modern ranged weapons.tex",
-		"/C/Dropbox/TOF/source/money talk/weapons/supplimental weapons.tex"
+		"/C/Dropbox/TOF/source/content/shields.json"
 	],
 	"find":
 	{
@@ -907,6 +913,13 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"\\n-",
+			"\\n  -",
+			"\\n-",
+			"\\n  -",
+			"\\n-",
+			"text",
+			";C:",
 			"гоблин",
 			"слишком",
 			"могу",
@@ -1027,21 +1040,20 @@
 			"\"castTime\"",
 			"\"sizeMatters\"",
 			"\"susCost\"",
-			"\"cost\"",
-			"\"descr\"",
-			"\"name\"",
-			"\",",
-			"#   ",
-			"'pos'",
-			"'neg'",
-			"\"neg\""
+			"\"cost\""
 		],
 		"highlight": true,
 		"in_selection": false,
 		"preserve_case": false,
-		"regex": false,
+		"regex": true,
 		"replace_history":
 		[
+			"\\n\\n-",
+			"\\n\\n  -",
+			"\\n\\n-",
+			"\\n\\n  -",
+			"\\n\\n-",
+			";\\nC:",
 			"\n\\subsubsection",
 			"Первичный эффект",
 			"paragraph",
@@ -1163,13 +1175,7 @@
 			"{",
 			"\"описание\"",
 			"\"название\"",
-			"\"описание\"",
-			"\"название\"",
-			"'когда использовать'",
-			"'описание'",
-			"'часто используемые Характеристики'",
-			"'название'",
-			"\"когда использовать\""
+			"\"описание\""
 		],
 		"reverse": false,
 		"scrollbar_highlights": true,
@@ -1226,6 +1232,10 @@
 	{
 		"height": 0.0
 	},
+	"output.git":
+	{
+		"height": 234.0
+	},
 	"output.hex_viewer_inspector":
 	{
 		"height": 336.0
@@ -1242,7 +1252,7 @@
 	"project": "tof.sublime-project",
 	"replace":
 	{
-		"height": 86.0
+		"height": 106.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -1288,7 +1298,7 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 295.0,
+	"side_bar_width": 409.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{
