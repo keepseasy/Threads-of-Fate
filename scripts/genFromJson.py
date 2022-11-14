@@ -1,9 +1,10 @@
 import sys
-import json
+import yaml
+from yaml.loader import SafeLoader
 
 #get all names
 baseName=sys.argv[1]
-jsonName='content/'+baseName+'.json'
+jsonName='content/'+baseName+'.yaml'
 texName='scripts/output/'+baseName+'.tex'
 
 #import generation algorythm
@@ -17,11 +18,12 @@ sortKey = _temp.sortKey
 #extract and sort data
 def getDict(jsonName):
  with open(jsonName, 'r', encoding="utf-8") as jf:
-  entityList = json.load(jf)
+  entityList = yaml.load(jf, Loader=SafeLoader)
   entityList.sort(key=sortKey)
   return entityList
 
 #main: read data and write generated string to .tex file
-f=open(texName, "w", encoding="utf-8")
-f.write(genEntity(getDict(jsonName)))
-f.close()
+getDict(jsonName)
+#f=open(texName, "w", encoding="utf-8")
+#f.write(genEntity(getDict(jsonName)))
+#f.close()
