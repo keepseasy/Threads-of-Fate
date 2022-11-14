@@ -1,0 +1,19 @@
+on: workflow_dispatch
+
+jobs:
+  build-resume:
+    runs-on: ubuntu-latest
+    name: Create document
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v1
+    - name: Convert to pdf
+      id: convert-to-pdf
+      uses: closoco/pdflatex-action@v1.0.0
+      with:
+        texFile: ./Threads\ of\ Fate.tex
+    - name: Store pdf
+      uses: actions/upload-artifact@v2
+      with:
+        name: Threads\ of\ Fate.pdf
+        path: Threads\ of\ Fate.pdf
