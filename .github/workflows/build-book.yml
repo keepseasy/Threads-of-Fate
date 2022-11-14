@@ -12,8 +12,8 @@ jobs:
       uses: closoco/pdflatex-action@v1.0.0
       with:
         texFile: ./Threads\ of\ Fate.tex
-    - name: Store pdf
-      uses: actions/upload-artifact@v2
-      with:
-        name: Threads\ of\ Fate.pdf
-        path: Threads\ of\ Fate.pdf
+#    - name: Store pdf
+#      uses: actions/upload-artifact@v2
+#      with:
+#        name: Threads\ of\ Fate.pdf
+#        path: Threads\ of\ Fate.pdf
