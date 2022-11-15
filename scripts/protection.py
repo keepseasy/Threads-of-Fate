@@ -46,6 +46,7 @@ def genLine(entity,monster=False):
 
 def genEntity(entityList):
  outStr=''
+ outStr+='\\begin{center}'
  outStr+='\\begin{tabular}{|c||c|c|c|c||c|c|c|}'
  outStr+='\\hline'
  outStr+='Название & БЗщ & КЗ & оМЛв & ПС & тВн & СП & Вес\\\\ \\hline'

@@ -1,19 +1,48 @@
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+    inputs: 
+      logLevel:
+        description: 'Log level'
+        required: false
+        default: 'warning'
+        type: choice
+        options:
+        - info
+        - warning
+        - debug
+      tags:
+        description: 'Test scenario tags'
+        required: false
+        type: boolean
+      environment:
+        description: 'Environment to run tests against'
+        type: environment
+        required: false
 
 jobs:
   build-resume:
     runs-on: ubuntu-latest
-    name: Create document
+
     steps:
-    - name: Checkout
-      uses: actions/checkout@v1
+    - uses: actions/checkout@v3
+
+    - uses: actions/setup-python@v4
+      with:
+        python-version: "3.10"
+        cache: 'pip'
+
+    - run: python -m pip install --upgrade pip
+    - run: pip install -r scripts/requirements.txt
+
     - name: Convert to pdf
       id: convert-to-pdf
       uses: closoco/pdflatex-action@v1.0.0
       with:
-        texFile: ./Threads of Fate.tex
+        texFile: "./Threads\\ of\\ Fate.tex"
 #    - name: Store pdf
 #      uses: actions/upload-artifact@v2
 #      with:
 #        name: Threads\ of\ Fate.pdf
 #        path: Threads\ of\ Fate.pdf
+
+#pdflatex --enable-pipes --shell-escape -output-directory=output ./Threads\ of\ Fate.tex

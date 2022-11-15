@@ -9,7 +9,7 @@ def genEntity(entityList):
 
   checkKey('название',entity)
   outStr+='\\subsection{'+entity.get('название')+'}'
-  outStr+='\\newline\\textbf{Базовый предмет: }'
+  outStr+='\\textbf{Базовый предмет: }'
   checkKey('Базовый предмет',entity)
   outStr+=entity.get('Базовый предмет')
 

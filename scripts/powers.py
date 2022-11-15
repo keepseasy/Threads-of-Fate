@@ -47,12 +47,12 @@ def genEntity(entityList):
    outStr+='\\newline \\textbf{Сопротивление Наведению: }'+entity.get('сопротивление Наведению')+'}'
 #------------------------------------------------------------------
   if checkKey('продолжительность',entity,keep=True):
-   outStr+='\\newline \\textbf{Длительность: }'+entity.get('продолжительность')+'}'
+   outStr+='\\newline \\textbf{Длительность: }'+entity.get('продолжительность')
   if checkKey('время сотворения',entity,keep=True):
-   outStr+='\\newline \\textbf{Время сотворения: }'+entity.get('время сотворения')+'}'
+   outStr+='\\newline \\textbf{Время сотворения: }'+entity.get('время сотворения')
 #------------------------------------------------------------------
   checkKey('описание',entity)
-  outStr+='\\paragraph{Описание: }'+entity.get('описание')+'}'
+  outStr+='\\paragraph{Описание: }'+entity.get('описание')
   if checkKey('Усиление',entity):
    enhList=entity.get('Усиление')
    outStr+='\\paragraph{Усиление:}\\begin{itemize}'

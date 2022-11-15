@@ -10,7 +10,7 @@ def genEntity(entityList):
   outStr+='}'
 
   checkKey('риск',entity)
-  outStr+='\\newline\\textbf{Риск:}'+entity.get('риск')
+  outStr+='\\textbf{Риск:}'+entity.get('риск')
 
   checkKey('СП',entity)
   outStr+='\\newline\\textbf{СП:}'+entity.get('СП')

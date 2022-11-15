@@ -78,6 +78,7 @@ def genLine(entity):
 
 def genEntity(entityList):
  outStr=''
+ outStr+='\\begin{center}'
  outStr+='\\begin{longtable}{|p{2.5cm}||c|c|c|c| c|c||c|c|c|c|c|c|}'
  outStr+='\\hline'
  outStr+='Название & Размер & Зщ & КЗ & Прч & ЕЗ & оМЛв & П & Ск & ГВ & Р & СП\\\\ \\hline'

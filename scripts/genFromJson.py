@@ -23,7 +23,9 @@ def getDict(jsonName):
   return entityList
 
 #main: read data and write generated string to .tex file
-getDict(jsonName)
-#f=open(texName, "w", encoding="utf-8")
-#f.write(genEntity(getDict(jsonName)))
-#f.close()
+import os
+if not os.path.exists('scripts/output/'):
+    os.makedirs('scripts/output/')
+f=open(texName, "w", encoding="utf-8")
+f.write(genEntity(getDict(jsonName)))
+f.close()

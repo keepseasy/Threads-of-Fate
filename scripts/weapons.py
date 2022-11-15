@@ -100,6 +100,7 @@ def genLine(entity,monster=False):
 
 def genEntity(entityList):
  outStr=''
+ outStr+='\\begin{center}'
  outStr+='\\begin{longtable}{|p{3cm}|p{2.5cm}||c|c|c|c|c||c|c|c|}'
  outStr+='\\hline '
  outStr+='Название & Свойства & ТМС & Дистанция & '

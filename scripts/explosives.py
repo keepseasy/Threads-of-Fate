@@ -5,6 +5,7 @@ from genLib import sortKey
 
 def genEntity(entityList):
  outStr=''
+ outStr+='\\begin{center}'
  outStr+='\\begin{tabular}{ |p{2.5cm}|p{7cm}||c|c|c||c|c| }'
  outStr+='\\hline'
  outStr+='Название & Дополнительные эффекты & СВ & РВ & ТПв & тСл & СП\\\\ \\hline'
