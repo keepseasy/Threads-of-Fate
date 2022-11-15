@@ -37,11 +37,11 @@ jobs:
       id: convert-to-pdf
       uses: closoco/pdflatex-action@v1.0.0
       with:
-        texFile: "./Threads\\ of\\ Fate.tex"
+        texFile: "./Threads-of-Fate.tex"
 #    - name: Store pdf
 #      uses: actions/upload-artifact@v2
 #      with:
-#        name: Threads\ of\ Fate.pdf
-#        path: Threads\ of\ Fate.pdf
+#        name: Threads-of-Fate.pdf
+#        path: Threads-of-Fate.pdf
 
 #pdflatex --enable-pipes --shell-escape -output-directory=output ./Threads\ of\ Fate.tex

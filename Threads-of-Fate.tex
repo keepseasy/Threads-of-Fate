@@ -1,0 +1,50 @@
+% !TEX options=--shell-escape
+\documentclass[a4paper]{book}
+\usepackage[utf8]{inputenc}
+\usepackage[T1,T2A]{fontenc}
+\usepackage[russian]{babel}
+\usepackage[unicode, pdftex]{hyperref}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+
+\usepackage{xcolor}
+%\usepackage{multicol}
+%\usepackage{multirow}
+\usepackage{makecell}
+\usepackage[poster]{tcolorbox}
+\usepackage{longtable}
+\usepackage{listofitems}
+\usepackage{graphicx}
+\usepackage{amssymb}
+
+\tolerance=1
+\emergencystretch=\maxdimen
+\hyphenpenalty=10000
+\hbadness=10000
+
+%\twocolumn 
+\usepackage{catchfilebetweentags}
+
+\input{trouble-check-blank}
+\newcommand{\tbd}{\textcolor{orange}{\textbf{\textit{TBD}}}}
+\newcommand{\err}{\textcolor{red}{\textbf{\textit{ERR}}}}
+\newcommand{\genAndGet}[1]{\input{|python3 scripts/genFromJson.py #1}\input{scripts/output/#1}}
+
+\begin{document}
+\tableofcontents
+\input{introduction}
+\input{base-mechanics}
+\input{hero-creation}
+\input{money-talk}
+\input{battles}
+\input{social}
+\input{leisure-and-travel}
+\input{supernatural}
+\input{monsters}
+\input{tips-to-master}
+
+\end{document}
+\endinput
+%This is   a simple document\footnote{with a footnote}.
+%discoveries in \underline{science} 
+%\hypertarget{d6}{Определение инвариантного пространства}
+%\hyperlink{d6}{смотреть здесь!}
