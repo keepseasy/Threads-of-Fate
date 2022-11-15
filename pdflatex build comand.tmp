@@ -1,1 +1,0 @@
-pdflatex --enable-pipes --shell-escape -output-directory=output ./Threads\ of\ Fate.tex
