@@ -13,8 +13,11 @@ jobs:
 
     steps:
 
-    - uses: closoco/pdflatex-action@v1.0.0
-    - run: sudo apt -y update; sudo apt -y install texlive-latex-base texlive-lang-cyrillic
+#    - uses: closoco/pdflatex-action@v1.0.0
+    - run: sudo apt -y update
+    - run: sudo apt -y install texlive-latex-base texlive-fonts-recommended texlive-latex-extra
+#    - run: sudo apt -y install texlive-latex-base texlive-fonts-recommended texlive-fonts-extra texlive-latex-extra
+    - run: sudo apt -y install texlive-lang-cyrillic
 
     - uses: actions/setup-python@v4
       with:
@@ -28,5 +31,6 @@ jobs:
 
 #andrey@andrey-pc:~$ find / -name "t2aenc.def"
 #/usr/share/texlive/texmf-dist/tex/latex/cyrillic/t2aenc.def
-
+#double run to get proper table of contents
+    - run: mkdir output; pdflatex --enable-pipes --shell-escape -output-directory=output ./Threads-of-Fate.tex
     - run: mkdir output; pdflatex --enable-pipes --shell-escape -output-directory=output ./Threads-of-Fate.tex
