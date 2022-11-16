@@ -8,7 +8,7 @@ on: workflow_dispatch
 #        type: boolean
 
 jobs:
-  build-resume:
+  build-book:
     runs-on: ubuntu-latest
 
     steps:
@@ -31,3 +31,9 @@ jobs:
     - run: mkdir output
     - run: pdflatex --enable-pipes --shell-escape -output-directory=output ./Threads-of-Fate.tex
     - run: pdflatex --enable-pipes --shell-escape -output-directory=output ./Threads-of-Fate.tex
+#save result
+    - name: Store pdf
+      uses: actions/upload-artifact@v2
+      with:
+        name: Threads-of-Fate.pdf
+        path: output/Threads-of-Fate.pdf
