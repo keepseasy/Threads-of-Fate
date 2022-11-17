@@ -50,37 +50,38 @@ jobs:
 #    - run: pdflatex --enable-pipes --shell-escape -output-directory=output ./Threads-of-Fate.tex
 #    - run: pdflatex --enable-pipes --shell-escape -output-directory=output ./Threads-of-Fate.tex
 
-# generate release tag
-    - name: 'Get Previous tag'
-      id: previoustag
-      uses: "WyriHaximus/github-action-get-previous-tag@v1"
-      with:
-        fallback: 1.0.0
-    - name: 'Get next version'
-      id: semvers
-      uses: "WyriHaximus/github-action-next-semvers@v1"
-      with:
-        version: ${{ steps.previoustag.outputs.tag }}
-    - name: 'read sign'
-      run: echo ${{ inputs.sign }}
-    - name: 'increment major'
-      if: ${{ inputs.sign == 'major' }}
-      run: echo "VERSION=${{ steps.semvers.outputs.major }}" >> $GITHUB_ENV
-    - name: 'increment minor'
-      if: ${{ inputs.sign == 'minor' }}
-      run: echo "VERSION=${{ steps.semvers.outputs.minor }}" >> $GITHUB_ENV
-    - name: 'increment patch'
-      if: ${{ inputs.sign == 'patch' }}
-      run: echo "VERSION=${{ steps.semvers.outputs.patch }}" >> $GITHUB_ENV
-
-    - name: 'read env'
-      run: echo ${{ env.VERSION }}
+## generate release tag
+#    - name: 'Get Previous tag'
+#      id: previoustag
+#      uses: "WyriHaximus/github-action-get-previous-tag@v1"
+#      with:
+#        fallback: 1.0.0
+#    - name: 'Get next version'
+#      id: semvers
+#      uses: "WyriHaximus/github-action-next-semvers@v1"
+#      with:
+#        version: ${{ steps.previoustag.outputs.tag }}
+#    - name: 'read sign'
+#      run: echo ${{ inputs.sign }}
+#    - name: 'increment major'
+#      if: ${{ inputs.sign == 'major' }}
+#      run: echo "VERSION=${{ steps.semvers.outputs.major }}" >> $GITHUB_ENV
+#    - name: 'increment minor'
+#      if: ${{ inputs.sign == 'minor' }}
+#      run: echo "VERSION=${{ steps.semvers.outputs.minor }}" >> $GITHUB_ENV
+#    - name: 'increment patch'
+#      if: ${{ inputs.sign == 'patch' }}
+#      run: echo "VERSION=${{ steps.semvers.outputs.patch }}" >> $GITHUB_ENV
+#
+#    - name: 'read env'
+#      run: echo ${{ env.VERSION }}
 #get release data
     - name: "Print result"
       run: |
         curl -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/keepseasy/Threads-of-Fate/releases/latest |
         grep '"tag_name":' |
         sed -E 's/.*"([^"]+)".*/\1/' >> tmp.txt
+        echo ${{ inputs.sign == 'patch' }}
         cut -d. -f1 tmp.txt
         cut -d. -f2 tmp.txt
         cut -d. -f3 tmp.txt
