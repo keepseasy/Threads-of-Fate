@@ -75,6 +75,9 @@ jobs:
 
     - name: 'read env'
       run: echo ${{ env.VERSION }}
+      
+    - name: 'read other env'
+      run: echo "${GITHUB_REF#refs/*/}"
 ##make release
 #    - name: Release book
 #      id: create_release
