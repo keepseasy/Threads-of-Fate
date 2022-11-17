@@ -75,9 +75,18 @@ jobs:
 
     - name: 'read env'
       run: echo ${{ env.VERSION }}
-      
-    - name: 'read other env'
-      run: echo ${{ GITHUB_REF#refs/*/ }}
+#get release data
+    - name: "call action"
+      id: last_release
+      uses: InsonusK/get-latest-release@v1.0.1
+      with:
+        myToken: ${{ secrets.GITHUB_TOKEN }}
+        exclude_types: "release"
+        view_top: 1
+    - name: "Print result"
+      run: |
+        echo "id: ${{ steps.last_release.outputs.id }}"
+        echo "tag_name: ${{ steps.last_release.outputs.tag_name }}"
 ##make release
 #    - name: Release book
 #      id: create_release
