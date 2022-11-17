@@ -71,7 +71,7 @@ jobs:
       run: env.VERSION=steps.semvers.outputs.minor
     - name: 'increment patch'
       if: ${{ inputs.sign == 'patch' }}
-      run: ${{ env.VERSION=$steps.semvers.outputs.patch }}
+      run: ${{ env.VERSION=steps.semvers.outputs.patch }}
 
     - name: 'read env'
       run: echo ${{ env.VERSION }}
