@@ -78,9 +78,9 @@ jobs:
 #get release data
     - name: "Print result"
       run: |
-        curl --silent "https://api.github.com/keepseasy/Threads-of-Fate/releases/latest" | # Get latest release from GitHub api
-        grep '"tag_name":' |                                            # Get tag line
-        sed -E 's/.*"([^"]+)".*/\1/' | echo
+        curl --silent "https://api.github.com/keepseasy/Threads-of-Fate/releases/latest" |
+        grep '"tag_name":'
+#        sed -E 's/.*"([^"]+)".*/\1/' | echo
 ##make release
 #    - name: Release book
 #      id: create_release
