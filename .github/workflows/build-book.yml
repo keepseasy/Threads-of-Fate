@@ -78,7 +78,7 @@ jobs:
 #get release data
     - name: "Print result"
       run: |
-        curl -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/OWNER/REPO/releases/latest
+        curl -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/keepseasy/Threads-of-Fate/releases/latest
 ##make release
 #    - name: Release book
 #      id: create_release
