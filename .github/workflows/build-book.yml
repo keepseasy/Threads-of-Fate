@@ -81,9 +81,9 @@ jobs:
         curl -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/keepseasy/Threads-of-Fate/releases/latest |
         grep '"tag_name":' |
         sed -E 's/.*"([^"]+)".*/\1/' >> tmp.txt
-        [[ ${{ inputs.sign == 'major' }} ]] && maj=1 || maj=0
-        [[ ${{ inputs.sign == 'minor' }} ]] && min=1 || min=0
-        [[ ${{ inputs.sign == 'patch' }} ]] && ptc=1 || ptc=0
+        [ "${{ inputs.sign == 'major' }}" = "true" ] && maj=1 || maj=0
+        [ "${{ inputs.sign == 'minor' }}" = "true" ] && min=1 || min=0
+        [ "${{ inputs.sign == 'patch' }}" = "true" ] && ptc=1 || ptc=0
         echo $maj $min $ptc
         cut -d. -f1 tmp.txt
         cut -d. -f2 tmp.txt
