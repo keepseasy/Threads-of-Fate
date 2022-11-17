@@ -50,24 +50,24 @@ jobs:
 
 
     - name: 'Get Previous tag'
-        id: previoustag
-        uses: "WyriHaximus/github-action-get-previous-tag@v1"
-        with:
-          fallback: 1.0.0
+      id: previoustag
+      uses: "WyriHaximus/github-action-get-previous-tag@v1"
+      with:
+        fallback: 1.0.0
     - name: 'Get next version'
-        id: semvers
-        uses: "WyriHaximus/github-action-next-semvers@v1"
-        with:
-          version: ${{ steps.previoustag.outputs.tag }}
+      id: semvers
+      uses: "WyriHaximus/github-action-next-semvers@v1"
+      with:
+        version: ${{ steps.previoustag.outputs.tag }}
     - name: 'increment major'
-       if: inputs.sign == 'major'
-       run: echo it is major ${{ steps.semvers.outputs.major }}
+      if: inputs.sign == 'major'
+      run: echo it is major ${{ steps.semvers.outputs.major }}
     - name: 'increment minor'
-       if: inputs.sign == 'major'
-       run: echo it is minor ${{ steps.semvers.outputs.minor }}
+      if: inputs.sign == 'major'
+      run: echo it is minor ${{ steps.semvers.outputs.minor }}
     - name: 'increment patch'
-       if: inputs.sign == 'major'
-       run: echo it is patch ${{ steps.semvers.outputs.patch }}
+      if: inputs.sign == 'major'
+      run: echo it is patch ${{ steps.semvers.outputs.patch }}
 
 #    - name: Release book
 #        id: create_release
