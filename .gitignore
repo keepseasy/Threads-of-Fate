@@ -1,6 +1,7 @@
 __pycache__
 scripts/output
 Threads-of-Fate.pdf
+_*
 *.tmp
 
 ## Core latex/pdflatex auxiliary files:
