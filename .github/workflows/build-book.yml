@@ -28,6 +28,8 @@ on:
 jobs:
   build-book:
     runs-on: ubuntu-latest
+    env:
+      VERSION: ""
 
     steps:
     - uses: actions/checkout@v3
@@ -48,7 +50,7 @@ jobs:
 #    - run: pdflatex --enable-pipes --shell-escape -output-directory=output ./Threads-of-Fate.tex
 #    - run: pdflatex --enable-pipes --shell-escape -output-directory=output ./Threads-of-Fate.tex
 
-
+# generate release tag
     - name: 'Get Previous tag'
       id: previoustag
       uses: "WyriHaximus/github-action-get-previous-tag@v1"
@@ -63,13 +65,16 @@ jobs:
       run: echo ${{ inputs.sign }}
     - name: 'increment major'
       if: ${{ inputs.sign == 'major' }}
-      run: echo it is major ${{ steps.semvers.outputs.major }}
+      run: env.VERSION=steps.semvers.outputs.major
     - name: 'increment minor'
       if: ${{ inputs.sign == 'minor' }}
-      run: echo it is minor ${{ steps.semvers.outputs.minor }}
+      run: env.VERSION=steps.semvers.outputs.minor
     - name: 'increment patch'
       if: ${{ inputs.sign == 'patch' }}
-      run: echo it is patch ${{ steps.semvers.outputs.patch }}
+      run: env.VERSION=steps.semvers.outputs.patch
+
+    - name: 'read env'
+      run: echo ${{ env.VERSION }}
 
 #    - name: Release book
 #        id: create_release
