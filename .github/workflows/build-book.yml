@@ -33,49 +33,24 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-##get latex tools
-#    - run: sudo apt -y update
-#    - run: sudo apt -y install texlive-latex-base texlive-fonts-recommended texlive-latex-extra
-#    - run: sudo apt -y install texlive-fonts-extra
-#    - run: sudo apt -y install texlive-lang-cyrillic
-##get python and needed libs
-#    - uses: actions/setup-python@v4
-#      with:
-#        python-version: "3.10"
-#        cache: 'pip'
-#    - run: python -m pip install --upgrade pip
-#    - run: pip install -r scripts/requirements.txt
-##double run to get proper table of contents
-#    - run: mkdir output
-#    - run: pdflatex --enable-pipes --shell-escape -output-directory=output ./Threads-of-Fate.tex
-#    - run: pdflatex --enable-pipes --shell-escape -output-directory=output ./Threads-of-Fate.tex
+#get latex tools
+    - run: sudo apt -y update
+    - run: sudo apt -y install texlive-latex-base texlive-fonts-recommended texlive-latex-extra
+    - run: sudo apt -y install texlive-fonts-extra
+    - run: sudo apt -y install texlive-lang-cyrillic
+#get python and needed libs
+    - uses: actions/setup-python@v4
+      with:
+        python-version: "3.10"
+        cache: 'pip'
+    - run: python -m pip install --upgrade pip
+    - run: pip install -r scripts/requirements.txt
+#double run to get proper table of contents
+    - run: mkdir output
+    - run: pdflatex --enable-pipes --shell-escape -output-directory=output ./Threads-of-Fate.tex
+    - run: pdflatex --enable-pipes --shell-escape -output-directory=output ./Threads-of-Fate.tex
 
-## generate release tag
-#    - name: 'Get Previous tag'
-#      id: previoustag
-#      uses: "WyriHaximus/github-action-get-previous-tag@v1"
-#      with:
-#        fallback: 1.0.0
-#    - name: 'Get next version'
-#      id: semvers
-#      uses: "WyriHaximus/github-action-next-semvers@v1"
-#      with:
-#        version: ${{ steps.previoustag.outputs.tag }}
-#    - name: 'read sign'
-#      run: echo ${{ inputs.sign }}
-#    - name: 'increment major'
-#      if: ${{ inputs.sign == 'major' }}
-#      run: echo "VERSION=${{ steps.semvers.outputs.major }}" >> $GITHUB_ENV
-#    - name: 'increment minor'
-#      if: ${{ inputs.sign == 'minor' }}
-#      run: echo "VERSION=${{ steps.semvers.outputs.minor }}" >> $GITHUB_ENV
-#    - name: 'increment patch'
-#      if: ${{ inputs.sign == 'patch' }}
-#      run: echo "VERSION=${{ steps.semvers.outputs.patch }}" >> $GITHUB_ENV
-#
-#    - name: 'read env'
-#      run: echo ${{ env.VERSION }}
-#get release data
+#genereate new version tag
     - name: "Get next version"
       run: |
         curl --silent -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/keepseasy/Threads-of-Fate/releases/latest |
@@ -85,28 +60,26 @@ jobs:
         [ "${{ inputs.sign == 'minor' }}" = "true" ] && min=1 || min=0
         [ "${{ inputs.sign == 'patch' }}" = "true" ] && ptc=1 || ptc=0
         echo "VERSION=$((`cut -d. -f1 tmp.txt`+$maj)).$((`cut -d. -f2 tmp.txt`+$min)).$((`cut -d. -f3 tmp.txt`+$ptc))" >> $GITHUB_ENV
-    - name: "check ver"
-      run: echo "${{ env.VERSION }}"
-##make release
-#    - name: Release book
-#      id: create_release
-#      uses: actions/create-release@v1
-#      env:
-#        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-#      with:
-#        tag_name: ${{ env.VERSION }}
-#        release_name: Release ${{ env.VERSION }}
-#        body: ${{inputs.body}}
-#        draft: ${{inputs.draft}}
-#        prerelease: false
-#
-#    - name: Upload Release Asset
-#      id: upload-release-asset 
-#      uses: actions/upload-release-asset@v1
-#      env:
-#        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#      with:
-#        upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-#        asset_path: ./output/Threads-of-Fate.pdf
-#        asset_name: Threads-of-Fate-v${{ env.VERSION }}.pdf
-#        asset_content_type: application/pdf
+#make release
+    - name: Release book
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+      with:
+        tag_name: ${{ env.VERSION }}
+        release_name: Release ${{ env.VERSION }}
+        body: ${{inputs.body}}
+        draft: ${{inputs.draft}}
+        prerelease: false
+
+    - name: Upload Release Asset
+      id: upload-release-asset 
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+        asset_path: ./output/Threads-of-Fate.pdf
+        asset_name: Threads-of-Fate-v${{ env.VERSION }}.pdf
+        asset_content_type: application/pdf
