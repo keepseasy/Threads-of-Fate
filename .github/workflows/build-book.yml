@@ -62,13 +62,13 @@ jobs:
     - name: 'read sign'
       run: echo ${{ inputs.sign }}
     - name: 'increment major'
-      if: inputs.sign == 'major'
+      if: ${{ inputs.sign }} == 'major'
       run: echo it is major ${{ steps.semvers.outputs.major }}
     - name: 'increment minor'
-      if: inputs.sign == 'major'
+      if: ${{ inputs.sign }} == 'major'
       run: echo it is minor ${{ steps.semvers.outputs.minor }}
     - name: 'increment patch'
-      if: inputs.sign == 'major'
+      if: ${{ inputs.sign }} == 'major'
       run: echo it is patch ${{ steps.semvers.outputs.patch }}
 
 #    - name: Release book
