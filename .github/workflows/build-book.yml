@@ -80,7 +80,7 @@ jobs:
       run: |
         curl --silent "https://api.github.com/keepseasy/Threads-of-Fate/releases/latest" | # Get latest release from GitHub api
         grep '"tag_name":' |                                            # Get tag line
-        sed -E 's/.*"([^"]+)".*/\1/'
+        sed -E 's/.*"([^"]+)".*/\1/' | echo
 ##make release
 #    - name: Release book
 #      id: create_release
