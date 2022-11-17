@@ -65,13 +65,13 @@ jobs:
       run: echo ${{ inputs.sign }}
     - name: 'increment major'
       if: ${{ inputs.sign == 'major' }}
-      run: env.VERSION=steps.semvers.outputs.major
+      run: echo "VERSION=${{ steps.semvers.outputs.major }}" >> $GITHUB_ENV
     - name: 'increment minor'
       if: ${{ inputs.sign == 'minor' }}
-      run: env.VERSION=steps.semvers.outputs.minor
+      run: echo "VERSION=${{ steps.semvers.outputs.minor }}" >> $GITHUB_ENV
     - name: 'increment patch'
       if: ${{ inputs.sign == 'patch' }}
-      run: ${{ env.VERSION=steps.semvers.outputs.patch }}
+      run: echo "VERSION=${{ steps.semvers.outputs.patch }}" >> $GITHUB_ENV
 
     - name: 'read env'
       run: echo ${{ env.VERSION }}
