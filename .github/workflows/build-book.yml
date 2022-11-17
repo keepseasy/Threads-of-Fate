@@ -76,13 +76,10 @@ jobs:
     - name: 'read env'
       run: echo ${{ env.VERSION }}
 #get release data
-    - name: "call action"
-      id: last_release
-      uses: InsonusK/get-latest-release@v1.0.1
+    - id: last-release
+      uses: thebritican/fetch-latest-release@v1
       with:
-        myToken: ${{ github.token }}
-        exclude_types: "release"
-        view_top: 1
+        github_token: ${{ github.token }}
     - name: "Print result"
       run: |
         echo "id: ${{ steps.last_release.outputs.id }}"
