@@ -80,7 +80,10 @@ jobs:
       run: |
         curl -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/keepseasy/Threads-of-Fate/releases/latest |
         grep '"tag_name":' |
-        sed -E 's/.*"([^"]+)".*/\1/'
+        sed -E 's/.*"([^"]+)".*/\1/' >> tmp.txt
+        cut -d. -f1 tmp.txt
+        cut -d. -f2 tmp.txt
+        cut -d. -f3 tmp.txt
 ##make release
 #    - name: Release book
 #      id: create_release
