@@ -76,18 +76,11 @@ jobs:
     - name: 'read env'
       run: echo ${{ env.VERSION }}
 #get release data
-    - id: last-release
-      uses: thebritican/fetch-latest-release@v2.0.0
-      with:
-        github_token: ${{ github.token }}
     - name: "Print result"
       run: |
-        echo "id: ${{ steps.last_release.outputs.id }}"
-        echo "name: ${{ steps.last_release.outputs.name }}"
-        echo "tag_name: ${{ steps.last_release.outputs.tag_name }}"
-        echo "created_at: ${{ steps.last_release.outputs.created_atd }}"
-        echo "draft: ${{ steps.last_release.outputs.draft }}"
-        echo "prerelease: ${{ steps.last_release.outputs.prerelease }}"
+        curl --silent "https://api.github.com/repos/$1/releases/latest" | # Get latest release from GitHub api
+        grep '"tag_name":' |                                            # Get tag line
+        sed -E 's/.*"([^"]+)".*/\1/'
 ##make release
 #    - name: Release book
 #      id: create_release
