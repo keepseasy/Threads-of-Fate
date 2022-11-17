@@ -33,22 +33,22 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-##get latex tools
-#    - run: sudo apt -y update
-#    - run: sudo apt -y install texlive-latex-base texlive-fonts-recommended texlive-latex-extra
-##    - run: sudo apt -y install texlive-fonts-extra
-#    - run: sudo apt -y install texlive-lang-cyrillic
-##get python and needed libs
-#    - uses: actions/setup-python@v4
-#      with:
-#        python-version: "3.10"
-#        cache: 'pip'
-#    - run: python -m pip install --upgrade pip
-#    - run: pip install -r scripts/requirements.txt
-##double run to get proper table of contents
-#    - run: mkdir output
-#    - run: pdflatex --enable-pipes --shell-escape -output-directory=output ./Threads-of-Fate.tex
-#    - run: pdflatex --enable-pipes --shell-escape -output-directory=output ./Threads-of-Fate.tex
+#get latex tools
+    - run: sudo apt -y update
+    - run: sudo apt -y install texlive-latex-base texlive-fonts-recommended texlive-latex-extra
+    - run: sudo apt -y install texlive-fonts-extra
+    - run: sudo apt -y install texlive-lang-cyrillic
+#get python and needed libs
+    - uses: actions/setup-python@v4
+      with:
+        python-version: "3.10"
+        cache: 'pip'
+    - run: python -m pip install --upgrade pip
+    - run: pip install -r scripts/requirements.txt
+#double run to get proper table of contents
+    - run: mkdir output
+    - run: pdflatex --enable-pipes --shell-escape -output-directory=output ./Threads-of-Fate.tex
+    - run: pdflatex --enable-pipes --shell-escape -output-directory=output ./Threads-of-Fate.tex
 
 # generate release tag
     - name: 'Get Previous tag'
@@ -73,28 +73,26 @@ jobs:
       if: ${{ inputs.sign == 'patch' }}
       run: echo "VERSION=${{ steps.semvers.outputs.patch }}" >> $GITHUB_ENV
 
-    - name: 'read env'
-      run: echo ${{ env.VERSION }}
+#make release
+    - name: Release book
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+        with:
+          tag_name: ${{ env.VERSION }}
+          release_name: Release ${{ env.VERSION }}
+          body: ${{inputs.body}}
+          draft: ${{inputs.draft}}
+          prerelease: false
 
-#    - name: Release book
-#        id: create_release
-#        uses: actions/create-release@v1
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-#        with:
-#          tag_name: (?)(?)(?) ${{ github.run_number }}
-#          release_name: Release (?)(?)(?) ${{ github.run_number }}
-#          body: ${{inputs.body}}
-#          draft: ${{inputs.draft}}
-#          prerelease: false
-
-#      - name: Upload Release Asset
-#        id: upload-release-asset 
-#        uses: actions/upload-release-asset@v1
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#        with:
-#          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-#          asset_path: ./output/Threads-of-Fate.pdf
-#          asset_name: Threads-of-Fate-v${{ github.run_number }}.pdf
-#          asset_content_type: application/pdf
+      - name: Upload Release Asset
+        id: upload-release-asset 
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+          asset_path: ./output/Threads-of-Fate.pdf
+          asset_name: Threads-of-Fate-v${{ github.run_number }}.pdf
+          asset_content_type: application/pdf
