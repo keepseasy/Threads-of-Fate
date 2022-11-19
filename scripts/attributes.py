@@ -15,7 +15,7 @@ def genEntity(entityList):
   checkKey('штраф Хода без Нитей',entity)
 
   outStr+='\\subsection{'+entity.get('название')
-  if 'legacy' in entity:
+  if 'Наследие' in entity:
    outStr+='[Наследие]'
   if 'innatePower' in entity:
    outStr+='[Могущество]'
