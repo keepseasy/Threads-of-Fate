@@ -23,15 +23,18 @@ def genEntity(entityList):
   checkKey('описание',entity)
   outStr+=entity.get('описание')
 
-  outStr+='\\paragraph{Трюки}\\begin{itemize}'
-  outStr+=genProps('Трюки',entity)
-  outStr+='\\end{itemize}'
-  outStr+='\\paragraph{Могущества}\\begin{itemize}'
-  outStr+=genProps('Могущества',entity,costly=True)
-  outStr+='\\end{itemize}'
-  outStr+='\\paragraph{Ходы}\\begin{itemize}'
-  outStr+=genProps('Ходы',entity,costly=True)
-  outStr+='\\end{itemize}'
+  if checkKey('Трюки',entity,keep=True):
+   outStr+='\\paragraph{Трюки}\\begin{itemize}'
+   outStr+=genProps('Трюки',entity)
+   outStr+='\\end{itemize}'
+  if checkKey('Могущества',entity,keep=True):
+   outStr+='\\paragraph{Могущества}\\begin{itemize}'
+   outStr+=genProps('Могущества',entity,costly=True)
+   outStr+='\\end{itemize}'
+  if checkKey('Ходы',entity,keep=True):
+   outStr+='\\paragraph{Ходы}\\begin{itemize}'
+   outStr+=genProps('Ходы',entity,costly=True)
+   outStr+='\\end{itemize}'
  return outStr
 
 # {"название":"(Название)",

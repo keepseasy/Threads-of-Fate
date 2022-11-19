@@ -31,12 +31,15 @@ def genEntity(entityList):
   checkKey('Энергия',entity)
   checkKey('Нити',entity)
 
+  checkKey('Размер',entity)
+  checkKey('защита',entity)
+
   checkKey('название',entity)
   outStr+='\\subsection{'+entity.get('название')
   outStr+='}'
 
   outStr+='\\begin{center}'
-  outStr+='\\begin{longtable}{l l l l l l l l}'
+  outStr+='\\begin{longtable}{l l l l l l l l l l}'
 
   outStr+='\\textbf{Сл:}'
   outStr+=' & '+genStat(entity.get('Сила'))
@@ -46,6 +49,8 @@ def genEntity(entityList):
   outStr+=' & '+tryInt(entity.get('Скорость'))
   outStr+=' & \\textbf{ЕЗ:}'
   outStr+=' & '+tryInt(entity.get('ЕЗ'))
+  outStr+=' & \\textbf{Размер:}'
+  outStr+=' & '+entity.get('Размер')
   outStr+='\\\\'
 
   outStr+='\\textbf{Лв:}'
@@ -56,6 +61,8 @@ def genEntity(entityList):
   outStr+=' & '+tryInt(entity.get('Реакция'))
   outStr+=' & \\textbf{Энергия:}'
   outStr+=' & '+tryInt(entity.get('Энергия'))
+  outStr+=' & \\textbf{Защита:}'
+  outStr+=' & '+tryInt(entity.get('защита'))
   outStr+='\\\\'
 
   outStr+='\\textbf{Вн:}'
@@ -68,9 +75,6 @@ def genEntity(entityList):
   outStr+=' & '+tryInt(entity.get('Нити'))
   outStr+='\\end{longtable}'
 
-  checkKey('защита',entity)
-  outStr+='Защита: '
-  outStr+=tryInt(entity.get('защита'))
   outStr+='\\paragraph{Атаки}'
   if checkKey('атаки',entity):
    attacks=entity.get('атаки')
@@ -89,18 +93,22 @@ def genEntity(entityList):
   checkKey('описание',entity)
   outStr+='\\paragraph{}'+entity.get('описание')
 
-  outStr+='\\paragraph{Навыки: }'
-  outStr+=genProps('Навыки',entity,short=True)
+  if checkKey('Навыки',entity,keep=True):
+   outStr+='\\paragraph{Навыки: }'
+   outStr+=genProps('Навыки',entity,short=True)
 
-  outStr+='\\paragraph{Трюки}\\begin{itemize}'
-  outStr+=genProps('Трюки',entity)
-  outStr+='\\end{itemize}'
-  outStr+='\\paragraph{Могущества}\\begin{itemize}'
-  outStr+=genProps('Могущества',entity,costly=True)
-  outStr+='\\end{itemize}'
-  outStr+='\\paragraph{Ходы}\\begin{itemize}'
-  outStr+=genProps('Ходы',entity,costly=True)
-  outStr+='\\end{itemize}'
+  if checkKey('Трюки',entity,keep=True):
+   outStr+='\\paragraph{Трюки}\\begin{itemize}'
+   outStr+=genProps('Трюки',entity)
+   outStr+='\\end{itemize}'
+  if checkKey('Могущества',entity,keep=True):
+   outStr+='\\paragraph{Могущества}\\begin{itemize}'
+   outStr+=genProps('Могущества',entity,costly=True)
+   outStr+='\\end{itemize}'
+  if checkKey('Ходы',entity,keep=True):
+   outStr+='\\paragraph{Ходы}\\begin{itemize}'
+   outStr+=genProps('Ходы',entity,costly=True)
+   outStr+='\\end{itemize}'
 
  return outStr
 
