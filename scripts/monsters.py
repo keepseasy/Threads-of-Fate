@@ -73,6 +73,8 @@ def genEntity(entityList):
   outStr+=' & '+tryInt(entity.get('Воля'))
   outStr+=' & \\textbf{Нити:}'
   outStr+=' & '+tryInt(entity.get('Нити'))
+  outStr+=' & '
+  outStr+=' & '
   outStr+='\\end{longtable}'
 
   outStr+='\\paragraph{Атаки}'
