@@ -1,6 +1,7 @@
 import sys
 import yaml
 from yaml.loader import SafeLoader
+from genLib import checkKey
 
 #get all names
 baseName=sys.argv[1]
@@ -15,12 +16,18 @@ genEntity = _temp.genEntity
 _temp = __import__(baseName, globals(), locals(), ['sortKey'], 0)
 sortKey = _temp.sortKey
 
+def removeInactive(entityList):
+ for entity in entityList:
+  if checkKey('Не используется',entity,keep=True):
+   entityList.remove(entity)
+ return entityList
+
 #extract and sort data
 def getDict(jsonName):
  with open(jsonName, 'r', encoding="utf-8") as jf:
   entityList = yaml.load(jf, Loader=SafeLoader)
   entityList.sort(key=sortKey)
-  return entityList
+  return removeInactive(entityList)
 
 #main: read data and write generated string to .tex file
 import os
