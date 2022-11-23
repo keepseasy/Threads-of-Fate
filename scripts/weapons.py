@@ -1,13 +1,13 @@
-#import math
 from genLib import checkKey
 from genLib import tryInt
 from genLib import tryFloat
 from genLib import getOptional
 from genLib import sortKey
+def pureGen():
+ return False
 
 def genLine(entity,monster=False):
  outStr=''
-
  checkKey('название',entity)
  outStr+=entity.get('название')
  if not monster and checkKey('особые свойства',entity,keep=True):
@@ -15,7 +15,6 @@ def genLine(entity,monster=False):
  if checkKey('фантастическое',entity):
   outStr+='\\textsuperscript{ф}'
  outStr+=' & '
-
  outStr+=getOptional('свойства',entity)
  outStr+=' & '
 
@@ -84,7 +83,6 @@ def genLine(entity,monster=False):
 
 
  if monster:
-  print(getOptional('особые свойства',entity))
   outStr+=getOptional('особые свойства',entity)
  else:
   outStr+=getOptional('требуемая Сила',entity)

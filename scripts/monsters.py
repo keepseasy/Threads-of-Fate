@@ -4,6 +4,8 @@ from genLib import tryInt
 from genLib import sortKey
 from genLib import genProps
 from weapons import genLine
+def pureGen():
+ return False
 
 def genStat(val):
  if val.isdigit():
@@ -75,22 +77,25 @@ def genEntity(entityList):
   outStr+=' & '+tryInt(entity.get('Нити'))
   outStr+=' & '
   outStr+=' & '
+  outStr+='\\\\'
   outStr+='\\end{longtable}'
+  outStr+='\\end{center}'
 
   outStr+='\\paragraph{Атаки}'
   if checkKey('атаки',entity):
    attacks=entity.get('атаки')
+   outStr+='\\begin{center}'
    outStr+='\\begin{longtable}{|p{3cm}|p{2.5cm}|c|c|c|c|c|p{4cm}|}'
-   outStr+='\\hline'
+   outStr+='\\hline '
    outStr+='Название & Свойства & КМС & Дистанция & '
-   outStr+='БПв & ТПв & КУ & Особые свойства\\\\ \\hline'
+   outStr+='БПв & ТПв & КУ & Особые свойства\\\\ \\hline '
    for attack in attacks:
     outStr+=genLine(attack,monster=True)
    outStr+='\\end{longtable}'
+   outStr+='\\end{center}'
   else:
    outStr+='\\tbd'
 
-  outStr+='\\end{center}'
 
   checkKey('описание',entity)
   outStr+='\\paragraph{}'+entity.get('описание')

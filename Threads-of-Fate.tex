@@ -14,8 +14,10 @@
     citecolor=black,
     filecolor=black,
     linkcolor=black,
-    urlcolor=black
+    urlcolor=black,
 }
+
+\usepackage{xifthen}
 
 \tolerance=1
 \emergencystretch=\maxdimen
@@ -25,9 +27,12 @@
 \input{trouble-check-blank}
 \newcommand{\tbd}{\textcolor{orange}{\textbf{\textit{TBD}}}}
 \newcommand{\err}{\textcolor{red}{\textbf{\textit{ERR}}}}
-\newcommand{\genAndGet}[1]{\input{|python3 scripts/genFromYaml.py #1}\input{scripts/output/#1}}
-
+\newcommand{\genAndGet}[2]{
+\input{|python3 scripts/genFromYaml.py #1 #2}
+\input{scripts/output/#2}
+}
 \begin{document}
+
 \tableofcontents
 \input{introduction}
 \input{base-mechanics}

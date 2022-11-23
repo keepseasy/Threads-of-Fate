@@ -4,13 +4,23 @@ from yaml.loader import SafeLoader
 from genLib import checkKey
 
 #get all names
-baseName=sys.argv[1]
-jsonName='content/'+baseName+'.yaml'
-texName='scripts/output/'+baseName+'.tex'
+baseName=''
+if len(sys.argv) > 1:
+ baseName=sys.argv[1]
+dataName=baseName
+
+if len(sys.argv) > 2:
+ dataName=sys.argv[2]
+texName='scripts/output/'+dataName+'.tex'
+jsonName='content/'+dataName+'.yaml'
 
 #import generation algorythm
 _temp = __import__(baseName, globals(), locals(), ['genEntity'], 0)
 genEntity = _temp.genEntity
+
+#import pure generation check
+_temp = __import__(baseName, globals(), locals(), ['genEntity'], 0)
+pureGen = _temp.pureGen
 
 #import sorting key
 _temp = __import__(baseName, globals(), locals(), ['sortKey'], 0)
@@ -34,5 +44,8 @@ import os
 if not os.path.exists('scripts/output/'):
     os.makedirs('scripts/output/')
 f=open(texName, "w", encoding="utf-8")
-f.write(genEntity(getDict(jsonName)))
+if pureGen():
+ f.write(genEntity(None))
+else:
+ f.write(genEntity(getDict(jsonName)))
 f.close()

@@ -2,6 +2,8 @@ from genLib import checkKey
 from genLib import tryInt
 from genLib import tryFloat
 from genLib import getOptional
+def pureGen():
+ return False
 import re
 def sortKey(dict):
  if not ('Скорость' in dict):

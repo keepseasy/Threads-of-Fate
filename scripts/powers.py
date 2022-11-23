@@ -1,6 +1,8 @@
 from genLib import checkKey
 from genLib import sortKey
 from powerForms import getForms
+def pureGen():
+ return False
 
 def genEntity(entityList):
  outStr=''

@@ -1,5 +1,7 @@
 from genLib import checkKey
 from genLib import sortKey
+def pureGen():
+ return True
 class formTemplate:
  props={}
  def __init__(self, name, genInfo):
@@ -94,7 +96,7 @@ def genRegionInfo(self):
 
  prop='Дистанция'
  self.props[prop]=True
- outStr+='\\newline\\textbf{'+prop+'} Области определяет максимальное удаление от героя, на котором накладываются эффекты области во время ее активации.'
+ outStr+='\\textbf{'+prop+'} Области определяет максимальное удаление от героя, на котором накладываются эффекты области во время ее активации.'
 
  prop='Сопротивление'
  self.props[prop]=True

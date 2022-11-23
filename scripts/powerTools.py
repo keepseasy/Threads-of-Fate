@@ -2,6 +2,8 @@ from genLib import checkKey
 from genLib import getOptional
 from genLib import sortKey
 from genLib import genProps
+def pureGen():
+ return False
 
 def genEntity(entityList):
  outStr=''

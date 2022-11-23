@@ -1,5 +1,7 @@
 from genLib import checkKey
 from genLib import sortKey
+def pureGen():
+ return False
 
 def genEntity(entityList):
  outStr=''

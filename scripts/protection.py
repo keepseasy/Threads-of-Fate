@@ -1,8 +1,9 @@
-#import math
 from genLib import checkKey
 from genLib import tryInt
 from genLib import tryFloat
 from genLib import getOptional
+def pureGen():
+ return False
 def sortKey(dict):
  if ('бонус Защиты' in dict):
   return dict.get('бонус Защиты')
