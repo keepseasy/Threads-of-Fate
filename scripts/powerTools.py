@@ -29,18 +29,22 @@ def genEntity(entityList):
    outStr+='\\paragraph{Трюки}\\begin{itemize}'
    outStr+=genProps('Трюки',entity)
    outStr+='\\end{itemize}'
-  if checkKey('Могущества',entity,keep=True):
-   outStr+='\\paragraph{Могущества}\\begin{itemize}'
-   outStr+=genProps('Могущества',entity,costly=True)
+  if checkKey('Функции',entity,keep=True):
+   outStr+='\\paragraph{Функции}\\begin{itemize}'
+   outStr+=genProps('Функции',entity,costly=True)
    outStr+='\\end{itemize}'
   if checkKey('Ходы',entity,keep=True):
    outStr+='\\paragraph{Ходы}\\begin{itemize}'
    outStr+=genProps('Ходы',entity,costly=True)
    outStr+='\\end{itemize}'
+  if checkKey('Изъяны',entity,keep=True):
+   outStr+='\\paragraph{Изъяны}\\begin{itemize}'
+   outStr+=genProps('Изъяны',entity,costly=True)
+   outStr+='\\end{itemize}'
  return outStr
 
 # {"название":"(Название)",
-#  "Базовый предмет":"(предмет или оружие, из которого сделан предмет Могущества)",
+#  "Базовый предмет":"(предмет или оружие, из которого сделан предмет Функции)",
 #  "Запас Энергии":"(Описание)",
 #  "СП":"(Описание)",
 #  "описание":"(Описание)",
@@ -48,12 +52,16 @@ def genEntity(entityList):
 #   {"(Название Трюка)":"(Описание Трюка)"},
 #   {"(Название Трюка)":"(Описание Трюка)"}
 #  ],
-#  "Могущества":[
-#    {"(Название Могущества)":"(Описание Могущества)","cost":"(Стоимость Могущества)"},
-#    {"(Название Могущества)":"(Описание Могущества)","cost":"(Стоимость Могущества)"}
+#  "Функции":[
+#    {"(Название Функции)":"(Описание Функции)","cost":"(Стоимость Функции)"},
+#    {"(Название Функции)":"(Описание Функции)","cost":"(Стоимость Функции)"}
 #  ],
 #  "Ходы":[
 #    {"(Название Хода)":"(Описание Хода)","cost":"(Стоимость Хода)"},
 #    {"(Название Хода)":"(Описание Хода)","cost":"(Стоимость Хода)"}
+#  ]
+#  "Изъяны":[
+#    {"(Название Изъяна)":"(Описание Изъяна)"},
+#    {"(Название Изъяна)":"(Описание Изъяна)"}
 #  ]
 # },
