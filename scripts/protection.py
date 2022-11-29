@@ -50,7 +50,7 @@ def genEntity(entityList):
  outStr+='\\begin{center}'
  outStr+='\\begin{tabular}{|c||c|c|c|c||c|c|c|}'
  outStr+='\\hline'
- outStr+='Название & БЗщ & КЗ & оМЛв & ПС & тВн & СП & Вес\\\\ \\hline'
+ outStr+='Название & БЗщ & КЗ & оМЛв & тВн & ПС & СП & Вес\\\\ \\hline'
  outStr+='\\hline'
 
  for entity in entityList:
