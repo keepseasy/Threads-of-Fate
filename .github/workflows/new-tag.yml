@@ -1,0 +1,29 @@
+on:
+  workflow_dispatch:
+    inputs:
+      sign:
+        type: choice
+        description: Significance of changes
+        options:
+        - major
+        - minor
+        - patch
+
+jobs:
+  build-book:
+    runs-on: ubuntu-latest
+
+    steps:
+#    - uses: actions/checkout@v3
+
+#genereate new version tag
+    - name: "Get next version"
+      run: |
+        curl --silent -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/keepseasy/Threads-of-Fate/releases/latest |
+        grep '"tag_name":' |
+        sed -E 's/.*"([^"]+)".*/\1/' >> tmp.txt
+        [ "${{ inputs.sign == 'major' }}" = "true" ] && maj=1 || maj=0
+        [ "${{ inputs.sign == 'minor' }}" = "true" ] && min=1 || min=0
+        [ "${{ inputs.sign == 'patch' }}" = "true" ] && ptc=1 || ptc=0
+        echo "VERSION=$((`cut -d. -f1 tmp.txt`+$maj))
+        .$((`cut -d. -f2 tmp.txt`+$min)).$((`cut -d. -f3 tmp.txt`+$ptc))"
