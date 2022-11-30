@@ -35,3 +35,5 @@ jobs:
          exit 1
         fi
         echo $newtag >> $GITHUB_ENV
+    - name: "Check generated"
+      run: echo "${{ env.VERSION }}"
