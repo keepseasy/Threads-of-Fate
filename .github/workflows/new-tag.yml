@@ -25,9 +25,9 @@ jobs:
         newtag=""
         if [[ "${{ inputs.sign == 'major' }}" = "true" ]]; then
          newtag="VERSION=$((`cut -d. -f1 tmp.txt`+1)).0.0"
-        elif [[ "${{ inputs.sign == 'minor' }}" = "true" ]]
+        elif [[ "${{ inputs.sign == 'minor' }}" = "true" ]]; then
          newtag="VERSION=`cut -d. -f1 tmp.txt`.$((`cut -d. -f2 tmp.txt`+1)).0"
-        elif [[ "${{ inputs.sign == 'patch' }}" = "true" ]]
+        elif [[ "${{ inputs.sign == 'patch' }}" = "true" ]]; then
          newtag="VERSION=`cut -d. -f1 tmp.txt`.`cut -d. -f2 tmp.txt`.$((`cut -d. -f3 tmp.txt`+1))"
         else
          exit 1
