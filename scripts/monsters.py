@@ -20,25 +20,6 @@ def genStat(val,skip=False):
 def genEntity(entityList):
  outStr=''
  for entity in entityList:
-  checkKey('Сила',entity)
-  checkKey('Ловкость',entity)
-  checkKey('Выносливость',entity)
-  checkKey('Интеллект',entity)
-  checkKey('Мудрость',entity)
-  checkKey('Обаяние',entity)
-
-  checkKey('Скорость',entity)
-  checkKey('Реакция',entity)
-  checkKey('Воля',entity)
-
-  checkKey('ЕЗ',entity)
-  checkKey('Энергия',entity)
-  checkKey('Нити',entity)
-
-  checkKey('Размер',entity)
-  checkKey('защита',entity)
-  template=checkKey('Шаблон',entity,keep=True)
-
   noSkipRef=checkKey('название',entity)
   entityName=entity.get('название')
   outStr+='\\subsection{'+entityName
@@ -51,36 +32,55 @@ def genEntity(entityList):
   outStr+='\\begin{center}'
   outStr+='\\begin{longtable}{l l l l l l l l l l}'
 
+  template=checkKey('Шаблон',entity,keep=True)
+  checkKey('Сила',entity)
   outStr+='\\textbf{Сл:}'
   outStr+=' & '+genStat(entity.get('Сила'),template)
+  checkKey('Интеллект',entity)
   outStr+=' & \\textbf{Ин:}'
   outStr+=' & '+genStat(entity.get('Интеллект'),template)
+  checkKey('Скорость',entity)
   outStr+=' & \\textbf{Скорость:}'
   outStr+=' & '+entity.get('Скорость')
+  checkKey('ЕЗ',entity)
   outStr+=' & \\textbf{ЕЗ:}'
   outStr+=' & '+entity.get('ЕЗ')
-  outStr+=' & \\textbf{Размер:}'
-  outStr+=' & '+entity.get('Размер')
+  if template:
+   outStr+=' & '
+   outStr+=' & '
+  else:
+   checkKey('Размер',entity)
+   outStr+=' & \\textbf{Размер:}'
+   outStr+=' & '+entity.get('Размер')
   outStr+='\\\\'
 
+  checkKey('Ловкость',entity)
   outStr+='\\textbf{Лв:}'
   outStr+=' & '+genStat(entity.get('Ловкость'),template)
+  checkKey('Мудрость',entity)
   outStr+=' & \\textbf{Мд:}'
   outStr+=' & '+genStat(entity.get('Мудрость'),template)
+  checkKey('Реакция',entity)
   outStr+=' & \\textbf{Реакция:}'
   outStr+=' & '+entity.get('Реакция')
+  checkKey('Энергия',entity)
   outStr+=' & \\textbf{Энергия:}'
   outStr+=' & '+entity.get('Энергия')
+  checkKey('защита',entity)
   outStr+=' & \\textbf{Защита:}'
   outStr+=' & '+entity.get('защита')
   outStr+='\\\\'
 
+  checkKey('Выносливость',entity)
   outStr+='\\textbf{Вн:}'
   outStr+=' & '+genStat(entity.get('Выносливость'),template)
+  checkKey('Обаяние',entity)
   outStr+=' & \\textbf{Об:}'
   outStr+=' & '+template else genStat(entity.get('Обаяние'),template)
+  checkKey('Воля',entity)
   outStr+=' & \\textbf{Воля:}'
   outStr+=' & '+entity.get('Воля')
+  checkKey('Нити',entity)
   outStr+=' & \\textbf{Нити:}'
   outStr+=' & '+entity.get('Нити')
   outStr+=' & '
