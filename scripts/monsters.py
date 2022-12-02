@@ -7,20 +7,22 @@ from weapons import genLine
 def pureGen():
  return False
 
-def genStat(val):
+def genStat(val,skip=False):
+ if skip:
+  return val
  if val.isdigit():
   mod=int(val)
   mod=math.floor((int(val)-10)/2)
   return val+'('+str(mod)+')'
- else:
-  return '\\err'
+
+ return '\\err'
 
 def genEntity(entityList):
  outStr=''
  for entity in entityList:
   checkKey('Сила',entity)
   checkKey('Ловкость',entity)
-  checkKey('Вспыльчивость',entity)
+  checkKey('Выносливость',entity)
   checkKey('Интеллект',entity)
   checkKey('Мудрость',entity)
   checkKey('Обаяние',entity)
@@ -35,6 +37,7 @@ def genEntity(entityList):
 
   checkKey('Размер',entity)
   checkKey('защита',entity)
+  template=checkKey('Шаблон',entity,keep=True)
 
   noSkipRef=checkKey('название',entity)
   entityName=entity.get('название')
@@ -49,37 +52,37 @@ def genEntity(entityList):
   outStr+='\\begin{longtable}{l l l l l l l l l l}'
 
   outStr+='\\textbf{Сл:}'
-  outStr+=' & '+genStat(entity.get('Сила'))
+  outStr+=' & '+genStat(entity.get('Сила'),template)
   outStr+=' & \\textbf{Ин:}'
-  outStr+=' & '+genStat(entity.get('Интеллект'))
+  outStr+=' & '+genStat(entity.get('Интеллект'),template)
   outStr+=' & \\textbf{Скорость:}'
-  outStr+=' & '+tryInt(entity.get('Скорость'))
+  outStr+=' & '+entity.get('Скорость')
   outStr+=' & \\textbf{ЕЗ:}'
-  outStr+=' & '+tryInt(entity.get('ЕЗ'))
+  outStr+=' & '+entity.get('ЕЗ')
   outStr+=' & \\textbf{Размер:}'
   outStr+=' & '+entity.get('Размер')
   outStr+='\\\\'
 
   outStr+='\\textbf{Лв:}'
-  outStr+=' & '+genStat(entity.get('Ловкость'))
+  outStr+=' & '+genStat(entity.get('Ловкость'),template)
   outStr+=' & \\textbf{Мд:}'
-  outStr+=' & '+genStat(entity.get('Мудрость'))
+  outStr+=' & '+genStat(entity.get('Мудрость'),template)
   outStr+=' & \\textbf{Реакция:}'
-  outStr+=' & '+tryInt(entity.get('Реакция'))
+  outStr+=' & '+entity.get('Реакция')
   outStr+=' & \\textbf{Энергия:}'
-  outStr+=' & '+tryInt(entity.get('Энергия'))
+  outStr+=' & '+entity.get('Энергия')
   outStr+=' & \\textbf{Защита:}'
-  outStr+=' & '+tryInt(entity.get('защита'))
+  outStr+=' & '+entity.get('защита')
   outStr+='\\\\'
 
   outStr+='\\textbf{Вн:}'
-  outStr+=' & '+genStat(entity.get('Вспыльчивость'))
+  outStr+=' & '+genStat(entity.get('Выносливость'),template)
   outStr+=' & \\textbf{Об:}'
-  outStr+=' & '+genStat(entity.get('Обаяние'))
+  outStr+=' & '+template else genStat(entity.get('Обаяние'),template)
   outStr+=' & \\textbf{Воля:}'
-  outStr+=' & '+tryInt(entity.get('Воля'))
+  outStr+=' & '+entity.get('Воля')
   outStr+=' & \\textbf{Нити:}'
-  outStr+=' & '+tryInt(entity.get('Нити'))
+  outStr+=' & '+entity.get('Нити')
   outStr+=' & '
   outStr+=' & '
   outStr+='\\\\'
@@ -100,7 +103,6 @@ def genEntity(entityList):
    outStr+='\\end{center}'
   else:
    outStr+='\\tbd'
-
 
   checkKey('описание',entity)
   outStr+='\\paragraph{}'+entity.get('описание')
@@ -128,7 +130,7 @@ def genEntity(entityList):
 #  "описание":"(Описание Существа)",
 #  "Сила":"",
 #  "Ловкость":"",
-#  "Вспыльчивость":"",
+#  "Выносливость":"",
 #  "Интеллект":"",
 #  "Мудрость":"",
 #  "Обаяние":"",
