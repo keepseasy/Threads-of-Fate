@@ -11,15 +11,16 @@ def genEntity(entityList):
 
   checkKey('название',entity)
   outStr+='\\subsection{'+entity.get('название')+'}'
-  outStr+='\\textbf{Базовый предмет: }'
-  checkKey('Базовый предмет',entity)
-  outStr+=entity.get('Базовый предмет')
 
   outStr+='\\newline\\textbf{Запас Энергии: }'
   outStr+=getOptional('Запас Энергии',entity)
 
   outStr+='\\newline\\textbf{СП: }'
   outStr+=getOptional('СП',entity)
+
+  if checkKey('Базовый предмет',entity,keep=True):
+   outStr+='\\textbf{Базовый предмет: }'
+   outStr+=entity.get('Базовый предмет')
 
   outStr+='\\paragraph{Описание: }'
   checkKey('описание',entity)
