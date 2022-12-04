@@ -3,19 +3,17 @@ from genLib import checkKey
 from genLib import tryInt
 from genLib import sortKey
 from genLib import genProps
+from genLib import genSize
 from weapons import genLine
 def pureGen():
  return False
 
-def genStat(val,skip=False):
- if skip:
-  return val
- if val.isdigit():
-  mod=int(val)
-  mod=math.floor((int(val)-10)/2)
-  return val+'('+str(mod)+')'
-
- return '\\err'
+def genPimaryMod(val):
+ mod=math.floor((val-10)/2)
+ outStr='('
+ if mod>=0:
+  outStr+='+'
+ return outStr+str(mod)+')'
 
 def genEntity(entityList):
  outStr=''
@@ -32,64 +30,95 @@ def genEntity(entityList):
   outStr+='\\begin{center}'
   outStr+='\\begin{longtable}{l l l l l l l l l l}'
 
+  STR=int(entity.get('Сила')) if checkKey('Сила',entity,keep=True) else 0
+  DEX=int(entity.get('Ловкость')) if checkKey('Ловкость',entity,keep=True) else 0
+  CON=int(entity.get('Выносливость')) if checkKey('Выносливость',entity,keep=True) else 0
+  INT=int(entity.get('Интеллект')) if checkKey('Интеллект',entity,keep=True) else 0
+  WIS=int(entity.get('Мудрость')) if checkKey('Мудрость',entity,keep=True) else 0
+  CHA=int(entity.get('Обаяние')) if checkKey('Обаяние',entity,keep=True) else 0
+
+  SIZE=int(entity.get('Размер')) if checkKey('Размер',entity,keep=True) else 0
+  HP=int(entity.get('ЕЗ')) if checkKey('ЕЗ',entity,keep=True) else 0
+  SPD=int(entity.get('Скорость')) if checkKey('Скорость',entity,keep=True) else 0
+  REF=int(entity.get('Реакция')) if checkKey('Реакция',entity,keep=True) else 0
+  ENG=int(entity.get('Энергия')) if checkKey('Энергия',entity,keep=True) else 0
+  WIL=int(entity.get('Воля')) if checkKey('Воля',entity,keep=True) else 0
+
+  DEF=int(entity.get('Бонус защиты')) if checkKey('Бонус защиты',entity,keep=True) else 0
+  LIM=int(entity.get('Ограничение ловкости')) if checkKey('Ограничение ловкости',entity,keep=True) else 1000
+
+  TREADS=entity.get('Нити') if checkKey('Нити',entity,keep=True) else "-"
+
   template=checkKey('Шаблон',entity,keep=True)
-  checkKey('Сила',entity)
+  if not template:
+   HP+=(SIZE+3)*CON
+   SPD+=math.floor((DEX+CON)/4)+SIZE
+   if checkKey('Четвероногое',entity,keep=True):
+    SPD*=2
+   REF+=math.floor((DEX+WIS)/4)
+   ENG+=math.floor((CON+CHA)/4)
+   WIL+=math.floor((INT+WIS)/4)
+   DEX_BONUS=math.floor((DEX-10)/2)
+   if LIM>DEX_BONUS:
+    LIM=DEX_BONUS
+   DEF+=10+LIM-SIZE
+
   outStr+='\\textbf{Сл:}'
-  outStr+=' & '+genStat(entity.get('Сила'),template)
-  checkKey('Интеллект',entity)
+  outStr+=' & '+str(STR)
+  if not template:
+   outStr+=genPimaryMod(STR)
   outStr+=' & \\textbf{Ин:}'
-  outStr+=' & '+genStat(entity.get('Интеллект'),template)
-  checkKey('Скорость',entity)
+  outStr+=' & '+str(INT)
+  if not template:
+   outStr+=genPimaryMod(INT)
   outStr+=' & \\textbf{Скорость:}'
-  outStr+=' & '+entity.get('Скорость')
-  checkKey('ЕЗ',entity)
+  outStr+=' & '+str(SPD)
   outStr+=' & \\textbf{ЕЗ:}'
-  outStr+=' & '+entity.get('ЕЗ')
+  outStr+=' & '+str(HP)
   if template:
    outStr+=' & '
    outStr+=' & '
   else:
-   checkKey('Размер',entity)
    outStr+=' & \\textbf{Размер:}'
-   outStr+=' & '+entity.get('Размер')
+   outStr+=' & '+genSize(SIZE)
   outStr+='\\\\'
 
-  checkKey('Ловкость',entity)
   outStr+='\\textbf{Лв:}'
-  outStr+=' & '+genStat(entity.get('Ловкость'),template)
-  checkKey('Мудрость',entity)
+  outStr+=' & '+str(DEX)
+  if not template:
+   outStr+=genPimaryMod(DEX)
   outStr+=' & \\textbf{Мд:}'
-  outStr+=' & '+genStat(entity.get('Мудрость'),template)
-  checkKey('Реакция',entity)
+  outStr+=' & '+str(WIS)
+  if not template:
+   outStr+=genPimaryMod(WIS)
   outStr+=' & \\textbf{Реакция:}'
-  outStr+=' & '+entity.get('Реакция')
-  checkKey('Энергия',entity)
+  outStr+=' & '+str(REF)
   outStr+=' & \\textbf{Энергия:}'
-  outStr+=' & '+entity.get('Энергия')
+  outStr+=' & '+str(ENG)
   checkKey('защита',entity)
   outStr+=' & \\textbf{Защита:}'
-  outStr+=' & '+entity.get('защита')
+  outStr+=' & '+str(DEF)
   outStr+='\\\\'
 
-  checkKey('Выносливость',entity)
   outStr+='\\textbf{Вн:}'
-  outStr+=' & '+genStat(entity.get('Выносливость'),template)
-  checkKey('Обаяние',entity)
+  outStr+=' & '+str(CON)
+  if not template:
+   outStr+=genPimaryMod(CON)
   outStr+=' & \\textbf{Об:}'
-  outStr+=' & '+template else genStat(entity.get('Обаяние'),template)
-  checkKey('Воля',entity)
+  outStr+=' & '+str(CHA)
+  if not template:
+   outStr+=genPimaryMod(CHA)
   outStr+=' & \\textbf{Воля:}'
-  outStr+=' & '+entity.get('Воля')
-  checkKey('Нити',entity)
+  outStr+=' & '+str(WIL)
   outStr+=' & \\textbf{Нити:}'
-  outStr+=' & '+entity.get('Нити')
+  outStr+=' & '+TREADS
   outStr+=' & '
   outStr+=' & '
   outStr+='\\\\'
   outStr+='\\end{longtable}'
   outStr+='\\end{center}'
 
-  outStr+='\\paragraph{Атаки}'
+  outStr+='\\newline\\textbf{Атаки}'
   if checkKey('атаки',entity):
    attacks=entity.get('атаки')
    outStr+='\\begin{center}'

@@ -68,3 +68,13 @@ def genProps(name,entity,costly=False,short=False):
     propStr=genShort(prop) if short else genLong(prop,costly)
     strList.append(propStr)
   return joiner.join(strList)
+
+def genSize(val):
+ match val:
+  case -2: return 'Крошечный'
+  case -1: return 'Маленький'
+  case 0: return 'Средний'
+  case 1: return 'Большой'
+  case 2: return 'Огромный'
+  case 3: return 'Громадный'
+  case _: return '\\tbd'
