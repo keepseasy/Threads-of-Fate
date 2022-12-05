@@ -12,8 +12,9 @@ def genEntity(entityList):
   checkKey('название',entity)
   outStr+='\\subsection{'+entity.get('название')+'}'
 
-  outStr+='\\newline\\textbf{Запас Энергии: }'
-  outStr+=getOptional('Запас Энергии',entity)
+  if checkKey('Запас Энергии',entity,keep=True):
+   outStr+='\\newline\\textbf{Запас Энергии: }'
+   outStr+=entity.get('Запас Энергии')
 
   outStr+='\\newline\\textbf{СП: }'
   outStr+=getOptional('СП',entity)
@@ -22,47 +23,45 @@ def genEntity(entityList):
    outStr+='\\textbf{Базовый предмет: }'
    outStr+=entity.get('Базовый предмет')
 
-  outStr+='\\paragraph{Описание: }'
+  outStr+='\\newline\\textbf{Описание: }'
   checkKey('описание',entity)
   outStr+=entity.get('описание')
 
   if checkKey('Трюки',entity,keep=True):
-   outStr+='\\paragraph{Трюки}\\begin{itemize}'
+   outStr+='\\newline\\textbf{Трюки}\\begin{itemize}'
    outStr+=genProps('Трюки',entity)
    outStr+='\\end{itemize}'
   if checkKey('Функции',entity,keep=True):
-   outStr+='\\paragraph{Функции}\\begin{itemize}'
+   outStr+='\\newline\\textbf{Функции}\\begin{itemize}'
    outStr+=genProps('Функции',entity,costly=True)
    outStr+='\\end{itemize}'
   if checkKey('Ходы',entity,keep=True):
-   outStr+='\\paragraph{Ходы}\\begin{itemize}'
+   outStr+='\\newline\\textbf{Ходы}\\begin{itemize}'
    outStr+=genProps('Ходы',entity,costly=True)
    outStr+='\\end{itemize}'
   if checkKey('Изъяны',entity,keep=True):
-   outStr+='\\paragraph{Изъяны}\\begin{itemize}'
+   outStr+='\\newline\\textbf{Изъяны}\\begin{itemize}'
    outStr+=genProps('Изъяны',entity,costly=True)
    outStr+='\\end{itemize}'
  return outStr
 
-# {"название":"(Название)",
-#  "Базовый предмет":"(предмет или оружие, из которого сделан предмет Функции)",
-#  "Запас Энергии":"(Описание)",
-#  "СП":"(Описание)",
-#  "описание":"(Описание)",
-#  "Трюки":[
-#   {"(Название Трюка)":"(Описание Трюка)"},
-#   {"(Название Трюка)":"(Описание Трюка)"}
-#  ],
-#  "Функции":[
-#    {"(Название Функции)":"(Описание Функции)","cost":"(Стоимость Функции)"},
-#    {"(Название Функции)":"(Описание Функции)","cost":"(Стоимость Функции)"}
-#  ],
-#  "Ходы":[
-#    {"(Название Хода)":"(Описание Хода)","cost":"(Стоимость Хода)"},
-#    {"(Название Хода)":"(Описание Хода)","cost":"(Стоимость Хода)"}
-#  ]
-#  "Изъяны":[
-#    {"(Название Изъяна)":"(Описание Изъяна)"},
-#    {"(Название Изъяна)":"(Описание Изъяна)"}
-#  ]
-# },
+#- название: "(Название)"
+#  Базовый предмет: "(предмет или оружие, из которого сделан предмет Могущества)"
+#  Запас Энергии: "(размер)"
+#  СП: "(Стоимость)"
+#  описание: "(Описание)"
+#  Трюки:
+#  - "(Название Трюка)": "(Описание Трюка)"
+#  - "(Название Трюка)": "(Описание Трюка)"
+#
+#  Функции:
+#  - "(Название Функции)": "(Описание Функции)"
+#    Цена: "(Стоимость Функции)"
+#  - "(Название Функции)": "(Описание Функции)"
+#    Цена: "(Стоимость Функции)"
+#
+#  Ходы:
+#  - "(Название Хода)": "(Описание Хода)"
+#    Цена: "(Стоимость Хода)"
+#  - "(Название Хода)": "(Описание Хода)"
+#    Цена: "(Стоимость Хода)"

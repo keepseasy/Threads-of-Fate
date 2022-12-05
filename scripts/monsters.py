@@ -27,7 +27,6 @@ def genEntity(entityList):
   else:
    outStr+='\\err не задано название Существа, ссылка не создана!'
 
-  outStr+='\\begin{center}'
   outStr+='\\begin{longtable}{l l l l l l l l l l}'
 
   STR=int(entity.get('Сила')) if checkKey('Сила',entity,keep=True) else 0
@@ -116,12 +115,10 @@ def genEntity(entityList):
   outStr+=' & '
   outStr+='\\\\'
   outStr+='\\end{longtable}'
-  outStr+='\\end{center}'
 
   outStr+='\\newline\\textbf{Атаки}'
   if checkKey('атаки',entity):
    attacks=entity.get('атаки')
-   outStr+='\\begin{center}'
    outStr+='\\begin{longtable}{|p{3cm}|p{2.5cm}|c|c|c|c|c|p{4cm}|}'
    outStr+='\\hline '
    outStr+='Название & Свойства & КМС & Дистанция & '
@@ -129,27 +126,26 @@ def genEntity(entityList):
    for attack in attacks:
     outStr+=genLine(attack,monster=True)
    outStr+='\\end{longtable}'
-   outStr+='\\end{center}'
   else:
    outStr+='\\tbd'
 
   checkKey('описание',entity)
-  outStr+='\\paragraph{}'+entity.get('описание')
+  outStr+='\\newline'+entity.get('описание')
 
   if checkKey('Навыки',entity,keep=True):
-   outStr+='\\paragraph{Навыки: }'
+   outStr+='\\newline\\textbf{Навыки: }'
    outStr+=genProps('Навыки',entity,short=True)
 
   if checkKey('Трюки',entity,keep=True):
-   outStr+='\\paragraph{Трюки}\\begin{itemize}'
+   outStr+='\\newline\\textbf{Трюки}\\begin{itemize}'
    outStr+=genProps('Трюки',entity)
    outStr+='\\end{itemize}'
   if checkKey('Могущества',entity,keep=True):
-   outStr+='\\paragraph{Могущества}\\begin{itemize}'
+   outStr+='\\newline\\textbf{Могущества}\\begin{itemize}'
    outStr+=genProps('Могущества',entity,costly=True)
    outStr+='\\end{itemize}'
   if checkKey('Ходы',entity,keep=True):
-   outStr+='\\paragraph{Ходы}\\begin{itemize}'
+   outStr+='\\newline\\textbf{Ходы}\\begin{itemize}'
    outStr+=genProps('Ходы',entity,costly=True)
    outStr+='\\end{itemize}'
 
