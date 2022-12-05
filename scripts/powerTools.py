@@ -20,7 +20,7 @@ def genEntity(entityList):
   outStr+=getOptional('СП',entity)
 
   if checkKey('Базовый предмет',entity,keep=True):
-   outStr+='\\textbf{Базовый предмет: }'
+   outStr+='\\newline\\textbf{Базовый предмет: }'
    outStr+=entity.get('Базовый предмет')
 
   outStr+='\\newline\\textbf{Описание: }'
@@ -31,6 +31,10 @@ def genEntity(entityList):
    outStr+='\\newline\\textbf{Трюки}\\begin{itemize}'
    outStr+=genProps('Трюки',entity)
    outStr+='\\end{itemize}'
+  if checkKey('Изъяны',entity,keep=True):
+   outStr+='\\newline\\textbf{Изъяны}\\begin{itemize}'
+   outStr+=genProps('Изъяны',entity,costly=True)
+   outStr+='\\end{itemize}'
   if checkKey('Функции',entity,keep=True):
    outStr+='\\newline\\textbf{Функции}\\begin{itemize}'
    outStr+=genProps('Функции',entity,costly=True)
@@ -38,10 +42,6 @@ def genEntity(entityList):
   if checkKey('Ходы',entity,keep=True):
    outStr+='\\newline\\textbf{Ходы}\\begin{itemize}'
    outStr+=genProps('Ходы',entity,costly=True)
-   outStr+='\\end{itemize}'
-  if checkKey('Изъяны',entity,keep=True):
-   outStr+='\\newline\\textbf{Изъяны}\\begin{itemize}'
-   outStr+=genProps('Изъяны',entity,costly=True)
    outStr+='\\end{itemize}'
  return outStr
 
