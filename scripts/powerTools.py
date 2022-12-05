@@ -13,10 +13,11 @@ def genEntity(entityList):
   outStr+='\\subsection{'+entity.get('название')+'}'
 
   if checkKey('Запас Энергии',entity,keep=True):
-   outStr+='\\newline\\textbf{Запас Энергии: }'
+   outStr+='\\textbf{Запас Энергии: }'
    outStr+=entity.get('Запас Энергии')
+   outStr+='\\newline'
 
-  outStr+='\\newline\\textbf{СП: }'
+  outStr+='\\textbf{СП: }'
   outStr+=getOptional('СП',entity)
 
   if checkKey('Базовый предмет',entity,keep=True):
@@ -33,7 +34,7 @@ def genEntity(entityList):
    outStr+='\\end{itemize}'
   if checkKey('Изъяны',entity,keep=True):
    outStr+='\\newline\\textbf{Изъяны}\\begin{itemize}'
-   outStr+=genProps('Изъяны',entity,costly=True)
+   outStr+=genProps('Изъяны',entity)
    outStr+='\\end{itemize}'
   if checkKey('Функции',entity,keep=True):
    outStr+='\\newline\\textbf{Функции}\\begin{itemize}'
