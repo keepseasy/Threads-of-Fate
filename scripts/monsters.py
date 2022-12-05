@@ -116,7 +116,7 @@ def genEntity(entityList):
   outStr+='\\\\'
   outStr+='\\end{longtable}'
 
-  outStr+='\\newline\\textbf{Атаки}'
+  outStr+='\\textbf{Атаки}'
   if checkKey('атаки',entity):
    attacks=entity.get('атаки')
    outStr+='\\begin{longtable}{|p{3cm}|p{2.5cm}|c|c|c|c|c|p{4cm}|}'
@@ -127,10 +127,10 @@ def genEntity(entityList):
     outStr+=genLine(attack,monster=True)
    outStr+='\\end{longtable}'
   else:
-   outStr+='\\tbd'
+   outStr+='\\tbd\\newline'
 
   checkKey('описание',entity)
-  outStr+='\\newline'+entity.get('описание')
+  outStr+=entity.get('описание')
 
   outStr+='\\newline'
   if checkKey('Навыки',entity,keep=True):
