@@ -142,9 +142,9 @@ def genEntity(entityList):
    outStr+='\\textbf{Трюки}\\begin{itemize}'
    outStr+=genProps('Трюки',entity)
    outStr+='\\end{itemize}'
-  if checkKey('Могущества',entity,keep=True):
-   outStr+='\\textbf{Могущества}\\begin{itemize}'
-   outStr+=genProps('Могущества',entity,costly=True)
+  if checkKey('Воздействия',entity,keep=True):
+   outStr+='\\textbf{Воздействия}\\begin{itemize}'
+   outStr+=genProps('Воздействия',entity,costly=True)
    outStr+='\\end{itemize}'
   if checkKey('Ходы',entity,keep=True):
    outStr+='\\textbf{Ходы}\\begin{itemize}'
@@ -214,11 +214,11 @@ def genEntity(entityList):
 #  - "(Название Недостатка)":"(Описание Недостатка)"
 #  - "(Название Недостатка)":"(Описание Недостатка)"
 #
-#  Могущества:
-#  - "(Название Могущества)": "(Описание Могущества)"
-#    Цена: "(Стоимость Могущества)"
-#  - "(Название Могущества)": "(Описание Могущества)"
-#    Цена: "(Стоимость Могущества)"
+#  Воздействия:
+#  - "(Название Воздействия)": "(Описание Воздействия)"
+#    Цена: "(Стоимость Воздействия)"
+#  - "(Название Воздействия)": "(Описание Воздействия)"
+#    Цена: "(Стоимость Воздействия)"
 #
 #  Ходы:
 #  - "(Название Хода)": "(Описание Хода)"
