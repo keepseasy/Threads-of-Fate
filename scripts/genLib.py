@@ -50,7 +50,7 @@ def genLong(prop,costly):
  outStr='\\item\\textbf{'+name
  if costly:
   checkKey('Цена',prop)
-  outStr+='('+tryInt(prop.get('Цена'))
+  outStr+='('+prop.get('Цена')
   outStr+=')'
  outStr+=': }'+descr
  return outStr
