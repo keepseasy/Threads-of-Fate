@@ -15,7 +15,14 @@ def genLine(entity,monster=False):
  if checkKey('фантастическое',entity):
   outStr+='\\textsuperscript{ф}'
  outStr+=' & '
- outStr+=getOptional('свойства',entity)
+ if checkKey('свойства',entity,keep=True):
+#  outStr+=getOptional('свойства',entity)
+  features=entity.get('свойства')
+#  print(features)
+  features.sort()
+  for feature in entity.get('свойства'):
+   outStr+=feature+', '
+  outStr=outStr[:-2]
  outStr+=' & '
 
  isRanged=checkKey('тип боеприпасов',entity)
