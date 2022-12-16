@@ -1,14 +1,14 @@
 from genLib import checkKey
 from genLib import tryInt
-from genLib import tryFloat
+#from genLib import tryFloat
 from genLib import getOptional
 def pureGen():
  return False
 def sortKey(dict):
  if ('бонус Защиты' in dict):
-  return dict.get('бонус Защиты')
+  return int(dict.get('бонус Защиты'))
  else:
-  return ''
+  return '-1'
 
 def genLine(entity,monster=False):
  outStr=''
@@ -22,7 +22,7 @@ def genLine(entity,monster=False):
  outStr+=' & '
 
  checkKey('бонус Защиты',entity)
- outStr+=entity.get('бонус Защиты')
+ outStr+='+'+entity.get('бонус Защиты')
  outStr+=' & '
 
  outStr+=getOptional('Класс Защиты',entity)
