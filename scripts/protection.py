@@ -25,9 +25,6 @@ def genLine(entity,monster=False):
  outStr+='+'+entity.get('бонус Защиты')
  outStr+=' & '
 
- outStr+=getOptional('Класс Защиты',entity)
- outStr+=' & '
-
  outStr+=getOptional('ограничение Модификатора Ловкости',entity)
  outStr+=' & '
 
@@ -48,9 +45,9 @@ def genLine(entity,monster=False):
 def genEntity(entityList):
  outStr=''
  outStr+='\\begin{center}'
- outStr+='\\begin{tabular}{|c||c|c|c|c||c|c|c|}'
+ outStr+='\\begin{tabular}{|c||c|c|c||c|c|c|}'
  outStr+='\\hline'
- outStr+='Название & БЗщ & КЗ & оМЛв & тВн & ПС & СП & Вес\\\\ \\hline'
+ outStr+='Название & БЗщ & оМЛв & тВн & ПС & СП & Вес\\\\ \\hline'
  outStr+='\\hline'
 
  for entity in entityList:
@@ -73,7 +70,6 @@ def genEntity(entityList):
 #   "описание":"",
 #   "особые свойства":"",
 #   "бонус Защиты":"",
-#   "Класс Защиты":"",
 #   "ограничение Модификатора Ловкости":"",
 #   "требуемая Выносливость":"",
 #   "Помеха на Скрытность":"1",
