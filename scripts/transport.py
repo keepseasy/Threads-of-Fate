@@ -23,6 +23,17 @@ def sortKey(dict):
 
  return int(numStr)
 
+def genEnv(val)
+ if type(val) != str:
+  return '\\err'
+ if val == 'Водный':
+  return 'В'
+ if val == 'Летающий':
+  return 'Л'
+ if val == 'Космический':
+  return 'К'
+ return '\\err'
+
 def genLine(entity):
  outStr=''
 
@@ -42,9 +53,6 @@ def genLine(entity):
  outStr+=entity.get('Защита')
  outStr+=' & '
 
- outStr+=getOptional('Класс Защиты',entity)
- outStr+=' & '
-
  outStr+=getOptional('Прочность',entity)
  outStr+=' & '
 
@@ -57,14 +65,19 @@ def genLine(entity):
 
  checkKey('Проходимость',entity)
  outStr+=entity.get('Проходимость')
- if checkKey('летающий',entity,keep=True):
-  outStr+='Л'
+ env=''
+ if checkKey('Тип передвижения',entity,keep=True):
+  env=genEnv(entity.get('Тип передвижения'))
+  outStr+=env
  outStr+=' & '
 
- checkKey('Скорость',entity)
- outStr+=entity.get('Скорость')
- if checkKey('Не разгоняется',entity,keep=True):
-  outStr+='М'
+ if env == 'К':
+  outStr+='-'
+ else:
+  checkKey('Скорость',entity)
+  outStr+=entity.get('Скорость')
+  if checkKey('Не разгоняется',entity,keep=True):
+   outStr+='М'
  outStr+=' & '
 
  checkKey('Грузоподъемность-вес',entity)
@@ -81,9 +94,9 @@ def genLine(entity):
 def genEntity(entityList):
  outStr=''
  outStr+='\\begin{center}'
- outStr+='\\begin{longtable}{|p{2.5cm}||c|c|c|c| c|c||c|c|c|c|c|c|}'
+ outStr+='\\begin{longtable}{|p{2.5cm}||c|c|c|c|c||c|c|c|c|c|c|}'
  outStr+='\\hline'
- outStr+='Название & Размер & Зщ & КЗ & Прч & ЕЗ & оМЛв & П & Ск & ГВ & Р & СП\\\\ \\hline'
+ outStr+='Название & Размер & Зщ & & Прч & ЕЗ & оМЛв & П & Ск & ГВ & Р & СП\\\\ \\hline'
  outStr+='\\hline'
 
  for entity in entityList:
@@ -109,7 +122,6 @@ def genEntity(entityList):
 
 #   "Размер":"",
 #   "Защита":"",
-#   "Класс Защиты":"",
 #   "Прочность":"",
 #   "ЕЗ":"",
 #   "ограничение Модификатора Ловкости":"",
