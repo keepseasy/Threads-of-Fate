@@ -23,7 +23,7 @@ def sortKey(dict):
 
  return int(numStr)
 
-def genEnv(val)
+def genEnv(val):
  if type(val) != str:
   return '\\err'
  if val == 'Водный':

@@ -6,7 +6,7 @@ from genLib import sortKey
 def pureGen():
  return False
 
-def genEnv(val)
+def genEnv(val):
  if type(val) != str:
   return '\\err'
  if val == 'Водный':
@@ -18,6 +18,7 @@ def genEnv(val)
  return '\\err'
 
 def genEntity(entityList):
+ outStr=''
  for entity in entityList:
   checkKey('название',entity)
   outStr+='\\paragraph{'+entity.get('название')
@@ -37,9 +38,9 @@ def genEntity(entityList):
    outStr+=entity.get('Скорость')
    if checkKey('Не разгоняется',entity,keep=True):
     outStr+='М'
-  outStr+='.'
+  outStr+='. '
 
-  outStr+='Проходимость'
+  outStr+='Проходимость '
   checkKey('Проходимость',entity)
   outStr+=entity.get('Проходимость')
   outStr+=env
@@ -47,7 +48,6 @@ def genEntity(entityList):
 
   checkKey('описание',entity)
   outStr+='\\newline'+entity.get('описание')
-
 
  return outStr
 

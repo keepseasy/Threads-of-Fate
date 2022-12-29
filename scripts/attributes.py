@@ -19,9 +19,7 @@ def genEntity(entityList):
   outStr+='\\subsection{'+entity.get('название')
   if 'Наследие' in entity:
    outStr+='[Наследие]'
-  if 'innatePower' in entity:
-   outStr+='[Могущество]'
- 
+
   outStr+='}'
   outStr+='\\paragraph{Экспертные навыки: } '+entity.get('Экспертные Навыки')
   outStr+='\\newline '+entity.get('описание')
