@@ -96,7 +96,7 @@ def genEntity(entityList):
  outStr+='\\begin{center}'
  outStr+='\\begin{longtable}{|p{2.5cm}||c|c|c|c|c||c|c|c|c|c|c|}'
  outStr+='\\hline'
- outStr+='Название & Размер & Зщ & & Прч & ЕЗ & оМЛв & П & Ск & ГВ & Р & СП\\\\ \\hline'
+ outStr+='Название & Размер & Зщ & Прч & ЕЗ & оМЛв & П & Ск & ГВ & Р & СП\\\\ \\hline'
  outStr+='\\hline'
 
  for entity in entityList:

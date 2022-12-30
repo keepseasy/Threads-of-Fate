@@ -90,8 +90,8 @@ def genRegionInfo(self):
  outStr+='\\begin{itemize}'
  outStr+='\\item[--] \\textbf{Круг} вокруг героя. \\textbf{Дистанция} определяет радиус круга.'
  outStr+='\\item[--] \\textbf{Периметр} очерченный героем. Это должна быть замкнутая линия без самопересечений. \\textbf{Дистанция} определяет 2 максимально удаленные друг от друга точки периметра.'
- outStr+='\\item[--] \\textbf{Конус} \\tbd'
- outStr+='\\item[--] \\tbd'
+# outStr+='\\item[--] \\textbf{Конус} \\tbd'
+# outStr+='\\item[--] \\tbd'
  outStr+='\\end{itemize}'
 
  prop='Дистанция'
