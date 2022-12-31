@@ -46,7 +46,7 @@ def genEntity(entityList):
 #------------------------------------------------------------------
 # aiming resist
   if checkKey('сопротивление Наведению',entity,keep=True):
-   outStr+='\\newline \\textbf{Сопротивление Наведению: }'+entity.get('сопротивление Наведению')+'}'
+   outStr+='\\newline \\textbf{Сопротивление Наведению: }'+entity.get('сопротивление Наведению')
 #------------------------------------------------------------------
   if checkKey('продолжительность',entity,keep=True):
    outStr+='\\newline \\textbf{Длительность: }'+entity.get('продолжительность')
