@@ -6,11 +6,19 @@ from genLib import sortKey
 def pureGen():
  return False
 
-def genLine(entity,monster=False):
+def genRefMark(entity,eType)
  outStr=''
- checkKey('название',entity)
- outStr+=entity.get('название')
- if not monster and checkKey('особые свойства',entity,keep=True):
+ noSkipRef=checkKey('название',entity)
+ entityName=entity.get('название')
+ outStr+=entityName
+ if noSkipRef:
+  outStr+='\\hypertarget{'+eType+str(hash(entityName))+'}{}'
+ else:
+  outStr+='\\err не задано название Оружия, ссылка не создана!'
+ return outStr
+def genLine(entity):
+ outStr=genRefMark(entity,'weapon')
+ if checkKey('особые свойства',entity,keep=True):
   outStr+='*'
  if checkKey('фантастическое',entity):
   outStr+='\\textsuperscript{ф}'
@@ -88,17 +96,13 @@ def genLine(entity,monster=False):
 
  outStr+=' & '
 
+ outStr+=getOptional('требуемая Сила',entity)
+ outStr+=' & '
 
- if monster:
-  outStr+=getOptional('особые свойства',entity)
- else:
-  outStr+=getOptional('требуемая Сила',entity)
-  outStr+=' & '
+ outStr+=getOptional('СП',entity)
+ outStr+=' & '
 
-  outStr+=getOptional('СП',entity)
-  outStr+=' & '
-
-  outStr+=getOptional('вес',entity)
+ outStr+=getOptional('вес',entity)
  outStr+='\\\\ \\hline '
 
  return outStr

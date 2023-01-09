@@ -30,19 +30,23 @@ def genEntity(entityList):
   outStr+='\\newline'
   if checkKey('Трюки',entity,keep=True):
    outStr+='\\textbf{Трюки}\\begin{itemize}'
-   outStr+=genProps('Трюки',entity)
+   props=entity.get('Трюки')
+   outStr+=genProps(props)
    outStr+='\\end{itemize}'
-  if checkKey('Изъяны',entity,keep=True):
+  if checkKey(props,keep=True):
    outStr+='\\textbf{Изъяны}\\begin{itemize}'
+   props=entity.get('Изъяны')
    outStr+=genProps('Изъяны',entity)
    outStr+='\\end{itemize}'
-  if checkKey('Функции',entity,keep=True):
+  if checkKey(props,keep=True):
    outStr+='\\textbf{Функции}\\begin{itemize}'
-   outStr+=genProps('Функции',entity,costly=True)
+   props=entity.get('Функции')
+   outStr+=genProps(props,costly=True)
    outStr+='\\end{itemize}'
   if checkKey('Ходы',entity,keep=True):
    outStr+='\\textbf{Ходы}\\begin{itemize}'
-   outStr+=genProps('Ходы',entity,costly=True)
+   props=entity.get('Ходы')
+   outStr+=genProps(props,costly=True)
    outStr+='\\end{itemize}'
  return outStr
 

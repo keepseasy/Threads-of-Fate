@@ -1,7 +1,7 @@
 from genLib import checkKey
 from genLib import getOptional
 from genLib import sortKey
-from genLib import genProps
+#from genLib import genProps
 from genLib import tryInt
 def pureGen():
  return False

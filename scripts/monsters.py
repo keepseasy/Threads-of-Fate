@@ -1,10 +1,11 @@
-import math
+import math, glob, os
 from genLib import checkKey
 from genLib import tryInt
 from genLib import sortKey
 from genLib import genProps
 from genLib import genSize
-from weapons import genLine
+from monsters-weapons import genLine
+from genFromYaml import getList
 def pureGen():
  return False
 
@@ -15,102 +16,185 @@ def genPimaryMod(val):
   outStr+='+'
  return outStr+str(mod)+')'
 
+def genRefMark(entity,eType)
+ outStr=''
+ noSkipRef=checkKey('название',entity)
+ entityName=entity.get('название')
+ outStr+='\\subsection{'
+ outStr+=entityName
+ outStr+='}'
+ if noSkipRef:
+  outStr+='\\hypertarget{'+eType+str(hash(entityName))+'}{}'
+ else:
+  outStr+='\\err не задано название Существа, ссылка не создана!'
+ return outStr
+
+def genRef(entity,eType)
+ outStr=''
+ noSkipRef=checkKey('название',entity)
+ entityName=entity.get('название')
+ outStr+=entityName
+ if noSkipRef:
+  outStr+='\\hyperlink{'+eType+str(hash(entityName))+'}{'+entityName+'}'
+ else:
+  outStr+='\\err не задано название Оружия, ссылка не создана!'
+ return outStr
+
+class heroStats:
+  STR=None
+  DEX=None
+  CON=None
+  INT=None
+  WIS=None
+  CHA=None
+  PHE=None
+  SIZE=None
+  HP=None
+  SPD=None
+  REF=None
+  ENG=None
+  WIL=None
+  DEF=None
+  LIM=None
+  TREADS=None
+  WEP=None
+  UNA=None
+  ACC=None
+  def fillGaps(self):
+   self.STR=0 if self.STR is None else self.STR
+   self.DEX=0 if self.DEX is None else self.DEX
+   self.CON=0 if self.CON is None else self.CON
+   self.INT=0 if self.INT is None else self.INT
+   self.WIS=0 if self.WIS is None else self.WIS
+   self.CHA=0 if self.CHA is None else self.CHA
+
+   self.SIZE=0 if self.SIZE is None else self.SIZE
+   self.HP=0 if self.HP is None else self.HP
+   self.SPD=0 if self.SPD is None else self.SPD
+   self.REF=0 if self.REF is None else self.REF
+   self.ENG=0 if self.ENG is None else self.ENG
+   self.WIL=0 if self.WIL is None else self.WIL
+
+   self.DEF=0 if self.DEF is None else self.DEF
+   self.TREADS='-' if self.TREADS is None else self.TREADS
+   self.WEP=0 if self.WEP is None else self.WEP
+   self.UNA=0 if self.UNA is None else self.UNA
+   self.ACC=0 if self.ACC is None else self.ACC
+
+  def setPhe(self,entity):
+   if not checkKey('Феноменальная характеристика',entity,keep=True):
+    return
+   match entity.get('Феноменальная характеристика'):
+    case 'Сила' : self.PHE=self.STR
+    case 'Ловкость' : self.PHE=self.DEX
+    case 'Выносливость' : self.PHE=self.CON
+    case 'Интеллект' : self.PHE=self.INT
+    case 'Мудрость' : self.PHE=self.WIS
+    case 'Обаяние' : self.PHE=self.CHA
+
+  def __init__(self,entity):
+   self.STR=int(entity.get('Сила')) if checkKey('Сила',entity,keep=True) else None
+   self.DEX=int(entity.get('Ловкость')) if checkKey('Ловкость',entity,keep=True) else None
+   self.CON=int(entity.get('Выносливость')) if checkKey('Выносливость',entity,keep=True) else None
+   self.INT=int(entity.get('Интеллект')) if checkKey('Интеллект',entity,keep=True) else None
+   self.WIS=int(entity.get('Мудрость')) if checkKey('Мудрость',entity,keep=True) else None
+   self.CHA=int(entity.get('Обаяние')) if checkKey('Обаяние',entity,keep=True) else None
+   setPhe(entity)
+
+   self.SIZE=int(entity.get('Размер')) if checkKey('Размер',entity,keep=True) else None
+   self.HP=int(entity.get('ЕЗ')) if checkKey('ЕЗ',entity,keep=True) else None
+   self.SPD=int(entity.get('Скорость')) if checkKey('Скорость',entity,keep=True) else None
+   self.REF=int(entity.get('Реакция')) if checkKey('Реакция',entity,keep=True) else None
+   self.ENG=int(entity.get('Энергия')) if checkKey('Энергия',entity,keep=True) else None
+   self.WIL=int(entity.get('Воля')) if checkKey('Воля',entity,keep=True) else None
+
+   self.DEF=int(entity.get('Бонус защиты')) if checkKey('Бонус защиты',entity,keep=True) else None
+   self.LIM=int(entity.get('Ограничение ловкости')) if checkKey('Ограничение ловкости',entity,keep=True) else None
+   self.TREADS=entity.get('Нити') if checkKey('Нити',entity,keep=True) else None
+   self.WEP=entity.get('Владение оружием') if checkKey('Владение оружием',entity,keep=True) else None
+   self.UNA=entity.get('Рукопашный бой') if checkKey('Рукопашный бой',entity,keep=True) else None
+   self.ACC=entity.get('Стрельба') if checkKey('Стрельба',entity,keep=True) else None
+
 def genEntity(entityList):
  outStr=''
+ originWeapons=getWeapons()
+ originPowers=getPowers()
+ originPerks=getPerks()
+
  for entity in entityList:
-  noSkipRef=checkKey('название',entity)
-  entityName=entity.get('название')
-  outStr+='\\subsection{'+entityName
-  outStr+='}'
-  if noSkipRef:
-   outStr+='\\hypertarget{monster'+str(hash(entityName))+'}{}'
-  else:
-   outStr+='\\err не задано название Существа, ссылка не создана!'
+  outStr+=genRefMark(entity,'monster')
+
+  checkKey('описание',entity)
+  outStr+=entity.get('описание')
 
   outStr+='\\begin{longtable}{l l l l l l l l l l}'
-
-  STR=int(entity.get('Сила')) if checkKey('Сила',entity,keep=True) else 0
-  DEX=int(entity.get('Ловкость')) if checkKey('Ловкость',entity,keep=True) else 0
-  CON=int(entity.get('Выносливость')) if checkKey('Выносливость',entity,keep=True) else 0
-  INT=int(entity.get('Интеллект')) if checkKey('Интеллект',entity,keep=True) else 0
-  WIS=int(entity.get('Мудрость')) if checkKey('Мудрость',entity,keep=True) else 0
-  CHA=int(entity.get('Обаяние')) if checkKey('Обаяние',entity,keep=True) else 0
-
-  SIZE=int(entity.get('Размер')) if checkKey('Размер',entity,keep=True) else 0
-  HP=int(entity.get('ЕЗ')) if checkKey('ЕЗ',entity,keep=True) else 0
-  SPD=int(entity.get('Скорость')) if checkKey('Скорость',entity,keep=True) else 0
-  REF=int(entity.get('Реакция')) if checkKey('Реакция',entity,keep=True) else 0
-  ENG=int(entity.get('Энергия')) if checkKey('Энергия',entity,keep=True) else 0
-  WIL=int(entity.get('Воля')) if checkKey('Воля',entity,keep=True) else 0
-
-  DEF=int(entity.get('Бонус защиты')) if checkKey('Бонус защиты',entity,keep=True) else 0
-  LIM=int(entity.get('Ограничение ловкости')) if checkKey('Ограничение ловкости',entity,keep=True) else 1000
-
-  TREADS=entity.get('Нити') if checkKey('Нити',entity,keep=True) else "-"
-
+  hero=heroStats(entity)
+  hero.fillGaps()
   template=checkKey('Шаблон',entity,keep=True)
   if not template:
-   HP+=(SIZE+3)*CON
-   SPD+=math.floor((DEX+CON)/4)+SIZE
+   hero.HP+=(hero.SIZE+3)*hero.CON
+   hero.SPD+=math.floor((hero.DEX+hero.CON)/4)+hero.SIZE
    if checkKey('Четвероногое',entity,keep=True):
-    SPD*=2
-   REF+=math.floor((DEX+WIS)/4)
-   ENG+=math.floor((CON+CHA)/4)
-   WIL+=math.floor((INT+WIS)/4)
-   DEX_BONUS=math.floor((DEX-10)/2)
-   if LIM>DEX_BONUS:
-    LIM=DEX_BONUS
-   DEF+=10+LIM-SIZE
+    hero.SPD*=2
+   hero.REF+=math.floor((hero.DEX+hero.WIS)/4)
+   hero.ENG+=math.floor((hero.CON+hero.CHA)/4)
+   hero.WIL+=math.floor((hero.INT+hero.WIS)/4)
+   DEX_BONUS=math.floor((hero.DEX-10)/2)
+   if hero.LIM is None:
+    hero.LIM=DEX_BONUS
+   elif hero.LIM>DEX_BONUS:
+    hero.LIM=DEX_BONUS
+   hero.DEF+=10+hero.LIM-hero.SIZE
 
   outStr+='\\textbf{Сл:}'
-  outStr+=' & '+str(STR)
+  outStr+=' & '+str(hero.STR)
   if not template:
-   outStr+=genPimaryMod(STR)
+   outStr+=genPimaryMod(hero.STR)
   outStr+=' & \\textbf{Ин:}'
-  outStr+=' & '+str(INT)
+  outStr+=' & '+str(hero.INT)
   if not template:
-   outStr+=genPimaryMod(INT)
+   outStr+=genPimaryMod(hero.INT)
   outStr+=' & \\textbf{Скорость:}'
-  outStr+=' & '+str(SPD)
+  outStr+=' & '+str(hero.SPD)
   outStr+=' & \\textbf{ЕЗ:}'
-  outStr+=' & '+str(HP)
+  outStr+=' & '+str(hero.HP)
   if template:
    outStr+=' & '
    outStr+=' & '
   else:
    outStr+=' & \\textbf{Размер:}'
-   outStr+=' & '+genSize(SIZE)
+   outStr+=' & '+genSize(hero.SIZE)
   outStr+='\\\\'
 
   outStr+='\\textbf{Лв:}'
-  outStr+=' & '+str(DEX)
+  outStr+=' & '+str(hero.DEX)
   if not template:
-   outStr+=genPimaryMod(DEX)
+   outStr+=genPimaryMod(hero.DEX)
   outStr+=' & \\textbf{Мд:}'
-  outStr+=' & '+str(WIS)
+  outStr+=' & '+str(hero.WIS)
   if not template:
-   outStr+=genPimaryMod(WIS)
+   outStr+=genPimaryMod(hero.WIS)
   outStr+=' & \\textbf{Реакция:}'
-  outStr+=' & '+str(REF)
+  outStr+=' & '+str(hero.REF)
   outStr+=' & \\textbf{Энергия:}'
-  outStr+=' & '+str(ENG)
+  outStr+=' & '+str(hero.ENG)
   checkKey('защита',entity)
   outStr+=' & \\textbf{Защита:}'
-  outStr+=' & '+str(DEF)
+  outStr+=' & '+str(hero.DEF)
   outStr+='\\\\'
 
   outStr+='\\textbf{Вн:}'
-  outStr+=' & '+str(CON)
+  outStr+=' & '+str(hero.CON)
   if not template:
-   outStr+=genPimaryMod(CON)
+   outStr+=genPimaryMod(hero.CON)
   outStr+=' & \\textbf{Об:}'
-  outStr+=' & '+str(CHA)
+  outStr+=' & '+str(hero.CHA)
   if not template:
-   outStr+=genPimaryMod(CHA)
+   outStr+=genPimaryMod(hero.CHA)
   outStr+=' & \\textbf{Воля:}'
-  outStr+=' & '+str(WIL)
+  outStr+=' & '+str(hero.WIL)
   outStr+=' & \\textbf{Нити:}'
-  outStr+=' & '+TREADS
+  outStr+=' & '+hero.TREADS
   outStr+=' & '
   outStr+=' & '
   outStr+='\\\\'
@@ -119,43 +203,125 @@ def genEntity(entityList):
   outStr+='\\textbf{Атаки}'
   if checkKey('атаки',entity):
    attacks=entity.get('атаки')
-   outStr+='\\begin{longtable}{|p{3cm}|p{2.5cm}|c|c|c|c|c|p{4cm}|}'
+   outStr+='\\begin{longtable}{|p{3.5cm}|p{3cm}|c|c|c|c|c|}'
    outStr+='\\hline '
    outStr+='Название & Свойства & КМС & Дистанция & '
-   outStr+='БПв & ТПв & КУ & Особые свойства\\\\ \\hline '
+   outStr+='БПв & ТПв & КУ\\\\ \\hline '
    for attack in attacks:
-    outStr+=genLine(attack,monster=True)
+    origin=getOrigin(entity,originWeapons)
+    outStr+=genLine(attack,origin,hero)
    outStr+='\\end{longtable}'
   else:
-   outStr+='\\tbd\\newline'
+   outStr+='\\tbd'
 
-  checkKey('описание',entity)
-  outStr+=entity.get('описание')
-
+  battleSkills=hero.ACC+hero.WEP+hero.UNA
+  if battleSkills>0:
+   outStr+='\\newline'
+   outStr+='\\textbf{Боевые Навыки: }'
+   tmpStr=''
+   tmpStr+='Владение оружием('+hero.WEP+'), ' if hero.WEP>0 else ''
+   tmpStr+='Рукопашный бой('+hero.UNA+'), ' if hero.UNA>0 else ''
+   tmpStr+='Стрельба('+hero.ACC+'), ' if hero.ACC>0 else ''
+   outStr+=tmpStr[:-2]
   outStr+='\\newline'
   if checkKey('Навыки',entity,keep=True):
    outStr+='\\textbf{Навыки: }'
-   outStr+=genProps('Навыки',entity,short=True)
+   props=entity.get('Навыки')
+   outStr+=genProps(props,short=True)
    outStr+='\\newline'
 
+  if checkKey('Феномены',entity,keep=True):
+   outStr+='\\textbf{Феномены: }'
+   #сформировать словарь феноменов основываясь на списке
+   props=entity.get('Феномены')
+   outStr+=genProps(props,costly=True)
+   outStr+='\\newline'
+  if checkKey('Недостатки',entity,keep=True):
+   outStr+='\\textbf{Недостатки}\\begin{itemize}'
+   props=entity.get('Недостатки')
+   outStr+=genProps(props)
+   outStr+='\\end{itemize}'
   if checkKey('Трюки',entity,keep=True):
    outStr+='\\textbf{Трюки}\\begin{itemize}'
-   outStr+=genProps('Трюки',entity)
-   outStr+='\\end{itemize}'
-  if checkKey('Феномены',entity,keep=True):
-   outStr+='\\textbf{Феномены}\\begin{itemize}'
-   outStr+=genProps('Феномены',entity,costly=True)
+   #сформировать словарь трюков основываясь на списке и описании
+   #если трюк есть в списке общих, достать оттуда, иначе взять описание из карточки существа
+   props=entity.get('Трюки')
+   outStr+=genProps(props)
    outStr+='\\end{itemize}'
   if checkKey('Ходы',entity,keep=True):
    outStr+='\\textbf{Ходы}\\begin{itemize}'
-   outStr+=genProps('Ходы',entity,costly=True)
+   props=entity.get('Ходы')
+   outStr+=genProps(props,costly=True)
    outStr+='\\end{itemize}'
-  if checkKey('Недостатки',entity,keep=True):
-   outStr+='\\textbf{Недостатки}\\begin{itemize}'
-   outStr+=genProps('Недостатки',entity)
-   outStr+='\\end{itemize}'
+  outStr+='\\newpage'
 
  return outStr
+
+def getOriginWeapon(entity,originWeapons)
+ if not checkKey('название',entity,keep=True):
+  return None
+ originName=entity.get('базовый шаблон') if checkKey('базовый шаблон',entity,keep=True) else entity.get('название')
+ list.dict[]
+ origin=[x for x in originWeapons if x.get(originName) is not None]
+ return origin[0] if origin is list else origin
+
+
+
+def getPowers:
+ powers=[]
+ dataNames=['powers','powers-monsters']
+ for dataName in dataNames
+  yamlName='content/'+dataName+'.yaml'
+  powers+=getList(yamlName)
+ return powers
+
+def getPerks:
+ dataName='tricks-monster'
+ yamlName='content/'+dataName+'.yaml'
+ return getList(yamlName)
+
+def getWeapons:
+ weapons=[]
+ for dataName in glob.glob("content/weapons-*.yaml"):
+  yamlName='content/'+dataName+'.yaml'
+  weapons+=getList(yamlName)
+
+ powers=[x for x in getPowers() if x.get('Форма')=='Снаряд']
+ for power in powers
+  weapon={}
+  if checkKey('название',power):
+   weapon['назавние'].append(power.get('название'))
+  weapon['тип боеприпасов'].append('Ф')
+  if checkKey('Скорострельность',power):
+   weapon['скорострельность'].append(power.get('Скорострельность'))
+  else
+   weapon['скорострельность'].append('1')
+  if checkKey('Дистанция',power):
+   tmp=power.get('Тип Повреждений')
+   tmp=tmp.split('/')
+   weapon['Ближняя Дистанция'].append(tmp[0])
+   weapon['Дальняя Дистанция'].append(tmp[1])
+  else:
+   weapon['Ближняя Дистанция'].append('20')
+   weapon['Дальняя Дистанция'].append('40')
+  if checkKey('Бонус Повреждений',power):
+   tmp=power.get('Бонус Повреждений')
+   tmp=tmp.split('/')
+   weapon['основной БПв'].append(tmp[0])
+   weapon['дополнительнй БПв'].append(tmp[1])
+  if checkKey('Тип Повреждений',power):
+   tmp=power.get('Тип Повреждений')
+   tmp=tmp.split(', ')
+   finalstr=''
+   for t in tmp:
+    finalstr+=t[0]
+   weapon['тип Пв'].append(finalstr)
+  if checkKey('КУ',power):
+   weapon['КУ'].append(power.get('КУ'))
+  else
+   weapon['КУ'].append('20')
+ return weapons
+
 
 #- название: ""
 #  Шаблон: "Да"
@@ -166,6 +332,7 @@ def genEntity(entityList):
 #  Интеллект: ''
 #  Мудрость: ''
 #  Обаяние: ''
+#  Феноменальная характеристика: ''
 #  Размер: '(численное представление: 0-Средний)'
 #  Четвероногое: "Да"
 #  Скорость: '(модификатор относительно базового значения)'
@@ -179,6 +346,7 @@ def genEntity(entityList):
 #
 #  атаки:
 #  - название: ''
+#    прототип: ''
 #    свойства: ''
 #    тип боеприпасов: ''
 #    магазин: ''
@@ -202,26 +370,30 @@ def genEntity(entityList):
 #    тип Пв: ''
 #    КУ: ''
 #
+#  Стрельба: (Значение Навыка)
+#  Безоружный бой: (Значение Навыка)
+#  Владение оружием: (Значение Навыка)
+#
 #  Навыки:
-#  - "(Название Навыка)": "(Значение Навыка)"
-#  - "(Название Навыка)": "(Значение Навыка)"
+#  - (Название Навыка): (Значение Навыка)
+#  - (Название Навыка): (Значение Навыка)
 #
 #  Трюки:
-#  - "(Название Трюка)": "(Описание Трюка)"
-#  - "(Название Трюка)": "(Описание Трюка)"
+#  - (Название Трюка): '(Описание Трюка)'
+#  - (Название Трюка): '(Описание Трюка)'
 #
 #  Недостатки:
-#  - "(Название Недостатка)":"(Описание Недостатка)"
-#  - "(Название Недостатка)":"(Описание Недостатка)"
+#  - (Название Недостатка):'(Описание Недостатка)'
+#  - (Название Недостатка):'(Описание Недостатка)'
 #
 #  Феномены:
-#  - "(Название Феномена)": "(Описание Феномена)"
-#    Цена: "(Стоимость Феномена)"
-#  - "(Название Феномена)": "(Описание Феномена)"
-#    Цена: "(Стоимость Феномена)"
+#  - (Название Феномена): '(Описание Феномена)'
+#    Цена: '(Стоимость Феномена)'
+#  - (Название Феномена): '(Описание Феномена)'
+#    Цена: '(Стоимость Феномена)'
 #
 #  Ходы:
-#  - "(Название Хода)": "(Описание Хода)"
-#    Цена: "(Стоимость Хода)"
-#  - "(Название Хода)": "(Описание Хода)"
-#    Цена: "(Стоимость Хода)"
+#  - (Название Хода): '(Описание Хода)'
+#    Цена: '(Стоимость Хода)'
+#  - (Название Хода): '(Описание Хода)'
+#    Цена: '(Стоимость Хода)'

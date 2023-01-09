@@ -12,7 +12,7 @@ dataName=baseName
 if len(sys.argv) > 2:
  dataName=sys.argv[2]
 texName='scripts/output/'+dataName+'.tex'
-jsonName='content/'+dataName+'.yaml'
+yamlName='content/'+dataName+'.yaml'
 
 #import generation algorythm
 _temp = __import__(baseName, globals(), locals(), ['genEntity'], 0)
@@ -33,8 +33,8 @@ def removeInactive(entityList):
  return entityList
 
 #extract and sort data
-def getDict(jsonName):
- with open(jsonName, 'r', encoding="utf-8") as jf:
+def getList(yamlName):
+ with open(yamlName, 'r', encoding="utf-8") as jf:
   entityList = yaml.load(jf, Loader=SafeLoader)
   entityList.sort(key=sortKey)
   return removeInactive(entityList)
@@ -47,5 +47,5 @@ f=open(texName, "w", encoding="utf-8")
 if pureGen():
  f.write(genEntity(None))
 else:
- f.write(genEntity(getDict(jsonName)))
+ f.write(genEntity(getList(yamlName)))
 f.close()

@@ -57,17 +57,15 @@ def genLong(prop,costly):
 
 def localSortKey(dict):
  return list(dict)[0]
-def genProps(name,entity,costly=False,short=False):
-  outStr=''
-  if name in entity:
-   props=entity.get(name)
-   props.sort(key=localSortKey)
-   strList=[]
-   joiner=', ' if short else ''
-   for prop in props:
-    propStr=genShort(prop) if short else genLong(prop,costly)
-    strList.append(propStr)
-  return joiner.join(strList)
+def genProps(props,costly=False,short=False):
+ outStr=''
+ props.sort(key=localSortKey)
+ strList=[]
+ joiner=', ' if short else ''
+ for prop in props:
+  propStr=genShort(prop) if short else genLong(prop,costly)
+  strList.append(propStr)
+ return joiner.join(strList)
 
 def genSize(val):
  match val:
@@ -77,4 +75,5 @@ def genSize(val):
   case 1: return 'Большой'
   case 2: return 'Огромный'
   case 3: return 'Громадный'
+  case 4: return 'Исполинский'
   case _: return '\\tbd'
