@@ -5,6 +5,7 @@ from genLib import sortKey
 #from genLib import genProps
 from genLib import genSize
 from monsters import heroStats
+from genLib import clear
 def pureGen():
  return False
 
@@ -57,19 +58,11 @@ class weaponStats:
   if self.crit is not int:
    self.crit=None
 
- def finalFeatures(features,origin)
-  delList=[]
-  for feature in features
-   if feature[0]=='-':
-    delList.append(feature[1:])
-    features.remove(feature)
-  for feature in origin
-   if feature not in features
-    features.append(feature)
-
  def merge(self,origin):
   self.hasSpecial|=origin.hasSpecial
-  self.features=finalFeatures(self.features,origin.features)
+  features=self.features+origin.features
+  self.features=clear(features)
+  self.features.sort()
   self.wType=origin.wType
 
   if self.clipSize is None:

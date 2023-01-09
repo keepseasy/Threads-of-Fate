@@ -208,7 +208,7 @@ def genEntity(entityList):
    outStr+='Название & Свойства & КМС & Дистанция & '
    outStr+='БПв & ТПв & КУ\\\\ \\hline '
    for attack in attacks:
-    origin=getOrigin(entity,originWeapons)
+    origin=getOriginWeapon(entity,originWeapons)
     outStr+=genLine(attack,origin,hero)
    outStr+='\\end{longtable}'
   else:
@@ -232,6 +232,9 @@ def genEntity(entityList):
 
   if checkKey('Феномены',entity,keep=True):
    outStr+='\\textbf{Феномены: }'
+
+   originPowers
+
    #сформировать словарь феноменов основываясь на списке
    props=entity.get('Феномены')
    outStr+=genProps(props,costly=True)
@@ -243,6 +246,8 @@ def genEntity(entityList):
    outStr+='\\end{itemize}'
   if checkKey('Трюки',entity,keep=True):
    outStr+='\\textbf{Трюки}\\begin{itemize}'
+
+   originPerks
    #сформировать словарь трюков основываясь на списке и описании
    #если трюк есть в списке общих, достать оттуда, иначе взять описание из карточки существа
    props=entity.get('Трюки')
@@ -265,7 +270,21 @@ def getOriginWeapon(entity,originWeapons)
  origin=[x for x in originWeapons if x.get(originName) is not None]
  return origin[0] if origin is list else origin
 
+def getOriginPower(entity,originPowers)
+ if not checkKey('название',entity,keep=True):
+  return None
+ originName=entity.get('базовый шаблон') if checkKey('базовый шаблон',entity,keep=True) else entity.get('название')
+ list.dict[]
+ origin=[x for x in originWeapons if x.get(originName) is not None]
+ return origin[0] if origin is list else origin
 
+def getPerks(entity,originPerks)
+ if not checkKey('название',entity,keep=True):
+  return None
+ originName=entity.get('базовый шаблон') if checkKey('базовый шаблон',entity,keep=True) else entity.get('название')
+ list.dict[]
+ origin=[x for x in originWeapons if x.get(originName) is not None]
+ return origin[0] if origin is list else origin
 
 def getPowers:
  powers=[]

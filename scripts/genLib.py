@@ -34,10 +34,7 @@ def tryInt(val):
  return '\\err'
 
 def sortKey(dict):
- if ('название' in dict):
-  return dict.get('название')
- else:
-  return ''
+ return dict.get('название','')
 
 def genShort(prop):
  name=list(prop)[0]
@@ -77,3 +74,35 @@ def genSize(val):
   case 3: return 'Громадный'
   case 4: return 'Исполинский'
   case _: return '\\tbd'
+
+ def clear(entityList,curSortKey)
+  if entityList[0] is not str
+   newList=[]
+   for feature in entityList:
+    if feature is not str:
+    skip=False
+    for newFeature in newList:
+     if newFeature['название']==feature['название']:
+      skip=True
+    if not skip:
+     newList+=feature
+   entityList=newList
+   for feature in entityList:
+    if feature is not str:
+     value=feature.get('название')
+     if value[0]=='-':
+      entityList = [d for d in entityList if d['название'] != value and d['название'] != value[1:]]
+   entityList.sort(key=curSortKey)
+   return entityList
+
+  newList=[]
+  for feature in entityList:
+   if feature not in newList:
+    newList+=feature
+  entityList=newList
+  for feature in entityList:
+   if feature[0]=='-':
+    entityList.remove(feature)
+    entityList.remove(feature[1:])
+  entityList.sort()
+  return entityList
