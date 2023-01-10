@@ -4,6 +4,8 @@ from genLib import tryInt
 from genLib import sortKey
 from genLib import genProps
 from genLib import genSize
+from genLib import bookmark
+from genLib import makeref
 from monsters-weapons import genLine
 from genFromYaml import getList
 def pureGen():
@@ -15,30 +17,6 @@ def genPimaryMod(val):
  if mod>=0:
   outStr+='+'
  return outStr+str(mod)+')'
-
-def genRefMark(entity,eType)
- outStr=''
- noSkipRef=checkKey('название',entity)
- entityName=entity.get('название')
- outStr+='\\subsection{'
- outStr+=entityName
- outStr+='}'
- if noSkipRef:
-  outStr+='\\hypertarget{'+eType+str(hash(entityName))+'}{}'
- else:
-  outStr+='\\err не задано название Существа, ссылка не создана!'
- return outStr
-
-def genRef(entity,eType)
- outStr=''
- noSkipRef=checkKey('название',entity)
- entityName=entity.get('название')
- outStr+=entityName
- if noSkipRef:
-  outStr+='\\hyperlink{'+eType+str(hash(entityName))+'}{'+entityName+'}'
- else:
-  outStr+='\\err не задано название Оружия, ссылка не создана!'
- return outStr
 
 class heroStats:
   STR=None
@@ -122,8 +100,10 @@ def genEntity(entityList):
  originPerks=getPerks()
 
  for entity in entityList:
-  outStr+=genRefMark(entity,'monster')
-
+  outStr=''
+  outStr+='\\subsection{'
+  outStr+=bookmark(entity.get('название','\\err не задано название'),'monster')
+  outStr+='}'
   checkKey('описание',entity)
   outStr+=entity.get('описание')
 

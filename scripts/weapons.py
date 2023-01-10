@@ -6,18 +6,11 @@ from genLib import sortKey
 def pureGen():
  return False
 
-def genRefMark(entity,eType)
- outStr=''
- noSkipRef=checkKey('название',entity)
- entityName=entity.get('название')
- outStr+=entityName
- if noSkipRef:
-  outStr+='\\hypertarget{'+eType+str(hash(entityName))+'}{}'
- else:
-  outStr+='\\err не задано название Оружия, ссылка не создана!'
- return outStr
 def genLine(entity):
- outStr=genRefMark(entity,'weapon')
+ outStr=''
+ outStr+='\\subsection{'
+ outStr+=bookmark(entity.get('название','\\err не задано название'),'weapon')
+ outStr+='}'
  if checkKey('особые свойства',entity,keep=True):
   outStr+='*'
  if checkKey('фантастическое',entity):

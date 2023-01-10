@@ -2,6 +2,7 @@ import sys
 import yaml
 from yaml.loader import SafeLoader
 from genLib import checkKey
+from genLib import clear
 
 #get all names
 baseName=''
@@ -41,6 +42,6 @@ finalList=None
 if not pureGen():
  finalList=getList(yamlName2)
  finalList+=getList(yamlName1)
- finalList=clear(entityList,sortKey)
+ finalList=clear(finalList,sortKey)
 f.write(genEntity(finalList))
 f.close()

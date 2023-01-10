@@ -75,34 +75,42 @@ def genSize(val):
   case 4: return 'Исполинский'
   case _: return '\\tbd'
 
- def clear(entityList,curSortKey)
-  if entityList[0] is not str
-   newList=[]
-   for feature in entityList:
-    if feature is not str:
+def clear(entityList,curSortKey):
+ if entityList[0] is not str:
+  newList=[]
+  for feature in entityList:
+   if feature is not str:
     skip=False
     for newFeature in newList:
      if newFeature['название']==feature['название']:
       skip=True
     if not skip:
-     newList+=feature
-   entityList=newList
-   for feature in entityList:
-    if feature is not str:
-     value=feature.get('название')
-     if value[0]=='-':
-      entityList = [d for d in entityList if d['название'] != value and d['название'] != value[1:]]
-   entityList.sort(key=curSortKey)
-   return entityList
-
-  newList=[]
-  for feature in entityList:
-   if feature not in newList:
-    newList+=feature
+     newList.append(feature)
   entityList=newList
   for feature in entityList:
-   if feature[0]=='-':
-    entityList.remove(feature)
-    entityList.remove(feature[1:])
-  entityList.sort()
+   if feature is not str:
+    value=feature.get('название')
+    if value[0]=='-':
+     entityList = [d for d in entityList if d['название'] != value and d['название'] != value[1:]]
+  entityList.sort(key=curSortKey)
   return entityList
+
+ newList=[]
+ for feature in entityList:
+  if feature not in newList:
+   newList+=feature
+ entityList=newList
+ for feature in entityList:
+  if feature[0]=='-':
+   entityList.remove(feature)
+   entityList.remove(feature[1:])
+ entityList.sort()
+ return entityList
+
+def bookmark(name,eType):
+ return '\\hypertarget{'+eType+str(hash(name))+'}{name}'
+
+def makelink(name,eType,displayName=None):
+ if displayName is None:
+  displayName=name
+ return '\\hyperlink{'+eType+str(hash(name))+'}{'+displayName+'}'

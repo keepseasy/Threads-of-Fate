@@ -4,6 +4,7 @@ from genLib import tryInt
 from genLib import sortKey
 #from genLib import genProps
 from genLib import genSize
+from genLib import makelink
 from monsters import heroStats
 from genLib import clear
 def pureGen():
@@ -98,17 +99,6 @@ class weaponStats:
 def genMod(val):
  return math.floor((val-10)/2)
 
-def genRef(weapon,eType)
- displayName=weapon.displayName
- if weapon.alias is None
-  name=weapon.displayName
- else
-  name=weapon.alias
-  displayName+='('+weapon.alias+')'
- if name is not None:
-  return '\\hyperlink{'+eType+str(hash(name))+'}{'+displayName+'}'
- return '\\err не задано название Оружия, ссылка не создана!'
-
 def calcBonus(weapon,hero)
  if weapon.wType is not None:
   bonus=hero.ACC
@@ -125,7 +115,16 @@ def genLine(entity,origin,hero):
  weapon=weaponStats(entity)
  if not origin is None
   weapon.merge(weaponStats(origin))
- outStr=genRef(weapon,'power') if weapon.wType=='Ф' else genRef(weapon,'weapon')
+ makelink(name,eType,displayName=None)
+ etype='power' if weapon.wType=='Ф' else 'weapon'
+
+ displayName=weapon.displayName
+ name=weapon.displayName
+ if weapon.alias is not None
+  name=weapon.alias
+  displayName+='('+weapon.alias+')'
+
+ outStr=makelink(name,etype,displayName)
  if weapon.hasSpecial:
   outStr+='*'
  outStr+=' & '
