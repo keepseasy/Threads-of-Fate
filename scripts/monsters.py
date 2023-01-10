@@ -6,7 +6,7 @@ from genLib import genProps
 from genLib import genSize
 from genLib import bookmark
 from genLib import makeref
-from monsters-weapons import genLine
+from monsters_weapons import genLine
 from genFromYaml import getList
 def pureGen():
  return False
@@ -212,11 +212,9 @@ def genEntity(entityList):
 
   if checkKey('Феномены',entity,keep=True):
    outStr+='\\textbf{Феномены: }'
-
-   originPowers
-
-   #сформировать словарь феноменов основываясь на списке
-   props=entity.get('Феномены')
+   powers=entity.get('Феномены')
+   for power in powers:
+    power=fillPower(power,originPowers)
    outStr+=genProps(props,costly=True)
    outStr+='\\newline'
   if checkKey('Недостатки',entity,keep=True):
@@ -226,11 +224,7 @@ def genEntity(entityList):
    outStr+='\\end{itemize}'
   if checkKey('Трюки',entity,keep=True):
    outStr+='\\textbf{Трюки}\\begin{itemize}'
-
-   originPerks
-   #сформировать словарь трюков основываясь на списке и описании
-   #если трюк есть в списке общих, достать оттуда, иначе взять описание из карточки существа
-   props=entity.get('Трюки')
+   props=fillPerks(entity.get('Трюки'),originPerks)
    outStr+=genProps(props)
    outStr+='\\end{itemize}'
   if checkKey('Ходы',entity,keep=True):
@@ -242,34 +236,36 @@ def genEntity(entityList):
 
  return outStr
 
-def getOriginWeapon(entity,originWeapons)
+def getOriginWeapon(entity,originWeapons):
  if not checkKey('название',entity,keep=True):
   return None
  originName=entity.get('базовый шаблон') if checkKey('базовый шаблон',entity,keep=True) else entity.get('название')
- list.dict[]
+# list.dict[]
  origin=[x for x in originWeapons if x.get(originName) is not None]
- return origin[0] if origin is list else origin
+ return origin
 
-def getOriginPower(entity,originPowers)
- if not checkKey('название',entity,keep=True):
-  return None
- originName=entity.get('базовый шаблон') if checkKey('базовый шаблон',entity,keep=True) else entity.get('название')
- list.dict[]
- origin=[x for x in originWeapons if x.get(originName) is not None]
- return origin[0] if origin is list else origin
+def fillPower(prop,originPowers):
+ origin=[x for x in originWeapons if x.get(prop) is not None]
+ filled={}
+ filled['назавние']=makelink(prop,'power')
+ стоимость\цена
+ filled['']=origin.get('','\\err не задана цена')
+ return filled
 
-def getPerks(entity,originPerks)
+def fillPerk(props,originPerks):
+   #сформировать словарь трюков основываясь на списке и описании
+   #если трюк есть в списке общих, достать оттуда, иначе взять описание из карточки существа
  if not checkKey('название',entity,keep=True):
   return None
- originName=entity.get('базовый шаблон') if checkKey('базовый шаблон',entity,keep=True) else entity.get('название')
- list.dict[]
+ originName=entity.get('название')
+# list.dict[]
  origin=[x for x in originWeapons if x.get(originName) is not None]
- return origin[0] if origin is list else origin
+ return origin
 
 def getPowers:
  powers=[]
  dataNames=['powers','powers-monsters']
- for dataName in dataNames
+ for dataName in dataNames:
   yamlName='content/'+dataName+'.yaml'
   powers+=getList(yamlName)
  return powers

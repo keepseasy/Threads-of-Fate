@@ -8,7 +8,7 @@ def genEntity(entityList):
  outStr=''
  for entity in entityList:
   checkKey('название',entity)
-  outStr+='\\subsection{'+entity.get('название')+'}'
+  outStr+='\\subsection{'+bookmark(entity.get('название'),'power')+'}'
 
   outStr+='\\textbf{Стоимость'
   sus=checkKey('поддержание',entity)

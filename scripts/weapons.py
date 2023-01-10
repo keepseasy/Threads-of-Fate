@@ -3,14 +3,13 @@ from genLib import tryInt
 from genLib import tryFloat
 from genLib import getOptional
 from genLib import sortKey
+from genLib import bookmark
 def pureGen():
  return False
 
 def genLine(entity):
  outStr=''
- outStr+='\\subsection{'
  outStr+=bookmark(entity.get('название','\\err не задано название'),'weapon')
- outStr+='}'
  if checkKey('особые свойства',entity,keep=True):
   outStr+='*'
  if checkKey('фантастическое',entity):

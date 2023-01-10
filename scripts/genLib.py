@@ -108,7 +108,7 @@ def clear(entityList,curSortKey):
  return entityList
 
 def bookmark(name,eType):
- return '\\hypertarget{'+eType+str(hash(name))+'}{name}'
+ return '\\hypertarget{'+eType+str(hash(name))+'}{'+name+'}'
 
 def makelink(name,eType,displayName=None):
  if displayName is None:
