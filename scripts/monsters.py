@@ -102,8 +102,9 @@ def genEntity(entityList):
  for entity in entityList:
   outStr=''
   outStr+='\\subsection{'
-  outStr+=bookmark(entity.get('название','\\err не задано название'),'monster')
+  outStr+=entity.get('название','\\err не задано название')
   outStr+='}'
+  outStr+=bookmark(entity.get('название','\\err не задано название'),'monster')
   checkKey('описание',entity)
   outStr+=entity.get('описание')
 
@@ -204,33 +205,43 @@ def genEntity(entityList):
    tmpStr+='Стрельба('+hero.ACC+'), ' if hero.ACC>0 else ''
    outStr+=tmpStr[:-2]
   outStr+='\\newline'
-  if checkKey('Навыки',entity,keep=True):
+
+  skills=entity.get('Навыки',None)
+  if skills is not None:
+   #добавить автоматическое исправление под шаблон
+
    outStr+='\\textbf{Навыки: }'
-   props=entity.get('Навыки')
    outStr+=genProps(props,short=True)
    outStr+='\\newline'
 
-  if checkKey('Феномены',entity,keep=True):
-   outStr+='\\textbf{Феномены: }'
-   powers=entity.get('Феномены')
+  powers=entity.get('Феномены',None)
+  if powers is not None:
+   #добавить автоматическое исправление под шаблон
    for power in powers:
     power=fillPower(power,originPowers)
+
+   outStr+='\\textbf{Феномены: }'
    outStr+=genProps(props,costly=True)
    outStr+='\\newline'
-  if checkKey('Недостатки',entity,keep=True):
+
+  flaws=entity.get('Недостатки',None)
+  if flaws is not None:
    outStr+='\\textbf{Недостатки}\\begin{itemize}'
-   props=entity.get('Недостатки')
-   outStr+=genProps(props)
+   outStr+=genProps(flaws)
    outStr+='\\end{itemize}'
-  if checkKey('Трюки',entity,keep=True):
+
+  tricks=entity.get('Трюки',None)
+  if tricks is not None
+   #добавить автоматическое исправление под шаблон
+   tricks=fillPerks(tricks,originPerks)
+
    outStr+='\\textbf{Трюки}\\begin{itemize}'
-   props=fillPerks(entity.get('Трюки'),originPerks)
    outStr+=genProps(props)
    outStr+='\\end{itemize}'
   if checkKey('Ходы',entity,keep=True):
    outStr+='\\textbf{Ходы}\\begin{itemize}'
-   props=entity.get('Ходы')
-   outStr+=genProps(props,costly=True)
+   moves=entity.get('Ходы')
+   outStr+=genProps(moves,costly=True)
    outStr+='\\end{itemize}'
   outStr+='\\newpage'
 
@@ -244,19 +255,25 @@ def getOriginWeapon(entity,originWeapons):
  origin=[x for x in originWeapons if x.get(originName) is not None]
  return origin
 
-def fillPower(prop,originPowers):
- origin=[x for x in originWeapons if x.get(prop) is not None]
- filled={}
- filled['назавние']=makelink(prop,'power')
- стоимость\цена
- filled['']=origin.get('','\\err не задана цена')
- return filled
+def prepSkills(skills,originPowers):
+ preped=[]
+ for skill in skills
+  name=list(skill)[0]
+  cost=skill.get(name)
+  preped.append({name:None,'стоимость':cost})
+ return preped
 
-def fillPerk(props,originPerks):
-   #сформировать словарь трюков основываясь на списке и описании
-   #если трюк есть в списке общих, достать оттуда, иначе взять описание из карточки существа
- if not checkKey('название',entity,keep=True):
-  return None
+def prepPowers(powers,originPowers):
+ preped=[]
+ for power in powers
+  name=list(power)[0]
+  origin=[x for x in originWeapons if x.get('название')==name]
+  preped.append({name:None,'стоимость':origin.get('стоимость')})
+ return preped
+ return 
+
+def prepPerks(prop,originPerks):
+ 
  originName=entity.get('название')
 # list.dict[]
  origin=[x for x in originWeapons if x.get(originName) is not None]

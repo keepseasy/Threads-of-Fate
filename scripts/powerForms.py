@@ -1,5 +1,4 @@
-from genLib import checkKey
-from genLib import sortKey
+from genLib import getName as sortKey
 def pureGen():
  return True
 class formTemplate:
@@ -14,7 +13,7 @@ class formTemplate:
   index=list(self.props)
   for item in index:
    mandatory=self.props.get(item)
-   if checkKey(item,entity) or mandatory:
+   if item in entity or mandatory:
     outStr+='\\newline\\textbf{'
     outStr+=item
     outStr+=': }'

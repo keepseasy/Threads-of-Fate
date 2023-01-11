@@ -1,23 +1,16 @@
-from genLib import checkKey
-from genLib import sortKey
-def pureGen():
- return False
+from genLib import getName as sortKey
+from genLib import pureGen
 
-def genEntity(entityList):
+def genEntity(entityDict):
  outStr=''
- for entity in entityList:
-  checkKey('название',entity)
-  outStr+='\\subsection{'+entity.get('название')
-
-  if checkKey('Могущество',entity,keep=True):
+ for key in entityDict:
+  entity=entityDict.get(key)
+  outStr+='\\subsection{'+key
+  if 'Могущество' in entity:
    outStr+='[Могущество]'
-
-  checkKey('описание',entity)
-  outStr+='}\\paragraph{}'+entity.get('описание')
-
+  outStr+='}\\paragraph{}'+entity.get('описание','\\err не задано описание')
  return outStr
 
-# {"название":"",
-#  "Могущество":"Да",
-#  "описание":""
-# },
+# [название]:
+#   Могущество: #опционально
+#   описание: ...

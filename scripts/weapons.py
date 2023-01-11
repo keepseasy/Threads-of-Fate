@@ -1,33 +1,26 @@
-from genLib import checkKey
 from genLib import tryInt
-from genLib import tryFloat
-from genLib import getOptional
-from genLib import sortKey
+from genLib import getName as sortKey
+from genLib import pureGen
 from genLib import bookmark
-def pureGen():
- return False
+from genLib import sortDict
 
-def genLine(entity):
+def genLine(key,entity):
  outStr=''
- outStr+=bookmark(entity.get('название','\\err не задано название'),'weapon')
- if checkKey('особые свойства',entity,keep=True):
+ outStr+=bookmark(key,'weapon')+key
+ if 'особые свойства' in entity:
   outStr+='*'
- if checkKey('фантастическое',entity):
+ if 'фантастическое' in entity:
   outStr+='\\textsuperscript{ф}'
  outStr+=' & '
- if checkKey('свойства',entity,keep=True):
-#  outStr+=getOptional('свойства',entity)
-  features=entity.get('свойства')
-#  print(features)
-  features.sort()
-  for feature in entity.get('свойства'):
-   outStr+=feature+', '
-  outStr=outStr[:-2]
+ if 'свойства' in entity:
+  features=sortDict(entity.get('свойства')).keys()
+  joiner=', '
+  outStr+=joiner.join(features)
  outStr+=' & '
 
- isRanged=checkKey('тип боеприпасов',entity)
+ tmp=entity.get('тип боеприпасов',False)
+ isRanged=bool(tmp)
  if isRanged:
-  tmp=entity.get('тип боеприпасов')
   outStr+=tmp
   outStr+='/'
   if tmp=='М':
@@ -35,47 +28,40 @@ def genLine(entity):
   elif tmp=='Э':
    outStr+='*'
   else:
-   checkKey('магазин',entity)
-   outStr+=tryInt(entity.get('магазин'))
+   outStr+=tryInt(entity.get('магазин','\\err'))
   outStr+='/'
-  checkKey('скорострельность',entity)
-  outStr+=tryInt(entity.get('скорострельность'))
+  outStr+=tryInt(entity.get('скорострельность','\\err'))
  else:
   outStr+='-'
  outStr+=' & '
 
  if isRanged:
-  checkKey('Ближняя Дистанция',entity)
-  checkKey('Дальняя Дистанция',entity)
-  outStr+=tryInt(entity.get('Ближняя Дистанция'))
+  outStr+=tryInt(entity.get('Ближняя Дистанция','\\err'))
   outStr+='/'
-  outStr+=tryInt(entity.get('Дальняя Дистанция'))
+  outStr+=tryInt(entity.get('Дальняя Дистанция','\\err'))
  else:
   outStr+='Ближ. бой'
  outStr+=' & '
 
- checkKey('основной БПв',entity)
- dmgStr=tryInt(entity.get('основной БПв'))
+ dmgStr=tryInt(entity.get('основной БПв','\\err'))
  if not dmgStr=='\\err' and not dmgStr=='\\tbd':
   if int(dmgStr)>0:
    outStr+='+'
  outStr+=dmgStr
- secondary=checkKey('дополнительнй БПв',entity)
+ secondary=bool(entity.get('дополнительнй БПв',False))
  if isRanged or secondary:
   outStr+='/'
-  dmgStr=tryInt(entity.get('дополнительнй БПв'))
+  dmgStr=tryInt(entity.get('дополнительнй БПв','\\err'))
   if not dmgStr=='\\err' and not dmgStr=='\\tbd':
    if int(dmgStr)>0:
     outStr+='+'
   outStr+=dmgStr
  outStr+=' & '
 
- checkKey('тип Пв',entity)
- outStr+=entity.get('тип Пв')
+ outStr+=entity.get('тип Пв','\\err')
  outStr+=' & '
 
- checkKey('КУ',entity)
- tmp=tryInt(entity.get('КУ'))
+ tmp=tryInt(entity.get('КУ','\\err'))
  if tmp=='\\err' or tmp=='\\tbd':
   outStr+=tmp
  elif int(tmp)==0 or int(tmp)>20:
@@ -88,18 +74,18 @@ def genLine(entity):
 
  outStr+=' & '
 
- outStr+=getOptional('требуемая Сила',entity)
+ outStr+=entity.get('требуемая Сила','-')
  outStr+=' & '
 
- outStr+=getOptional('СП',entity)
+ outStr+=entity.get('СП','-')
  outStr+=' & '
 
- outStr+=getOptional('вес',entity)
+ outStr+=entity.get('вес','-')
  outStr+='\\\\ \\hline '
 
  return outStr
 
-def genEntity(entityList):
+def genEntity(entityDict):
  outStr=''
  outStr+='\\begin{center}'
  outStr+='\\begin{longtable}{|p{3cm}|p{2.5cm}||c|c|c|c|c||c|c|c|}'
@@ -108,36 +94,38 @@ def genEntity(entityList):
  outStr+='БПв & ТПв & КУ & тСл & СП & Вес\\\\ \\hline '
  outStr+='\\hline '
 
- for entity in entityList:
-  outStr+=genLine(entity)
+ for key in entityDict:
+  entity=entityDict.get(key)
+  outStr+=genLine(key,entity)
 
  outStr+='\\end{longtable}'
  outStr+='\\end{center}'
 
- for entity in entityList:
-  outStr+='\\paragraph{'+entity.get('название')+'}'
-  checkKey('описание',entity)
-  outStr+=entity.get('описание')
-  if checkKey('особые свойства',entity,keep=True):
-   outStr+='\\newline\\textbf{Особые свойства(*): }'+entity.get('особые свойства')
+ for key in entityDict:
+  entity=entityDict.get(key)
+
+  outStr+='\\paragraph{'+key+'}'
+  outStr+=entity.get('описание','\\err нет описания')
+  special=entity.get('особые свойства',None)
+  if special is not None:
+   outStr+='\\newline\\textbf{Особые свойства(*): }'+special
 
  return outStr
 
-# { "название":"",
-#   "фантастическое":"Да",
-#   "описание":"",
-#   "особые свойства":"",
-#   "свойства":"",
-#   "тип боеприпасов":"",
-#   "магазин":"",
-#   "скорострельность":"",
-#   "Ближняя Дистанция":"",
-#   "Дальняя Дистанция":"",
-#   "основной БПв":"",
-#   "дополнительнй БПв":"",
-#   "тип Пв":"",
-#   "КУ":"",
-#   "требуемая Сила":"",
-#   "СП":"",
-#   "вес":""
-# },
+# [название]:
+#   фантастическое: #необязательно
+#   описание: ...
+#   особые свойства: ...
+#   свойства: ...
+#   тип боеприпасов: ...
+#   магазин: ...
+#   скорострельность: ...
+#   Ближняя Дистанция: ...
+#   Дальняя Дистанция: ...
+#   основной БПв: ...
+#   дополнительнй БПв: ...
+#   тип Пв: ...
+#   КУ: ...
+#   требуемая Сила: ...
+#   СП: ...
+#   вес: ...

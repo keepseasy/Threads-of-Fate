@@ -1,37 +1,21 @@
-from genLib import checkKey
-from genLib import sortKey
-def pureGen():
- return False
+from genLib import pureGen
+from genLib import getName as sortKey
 
-def genEntity(entityList):
+def genEntity(entityDict):
  outStr=''
- for entity in entityList:
-
-  checkKey('название',entity)
-  outStr+='\\subsection{'+entity.get('название')
-  outStr+='}'
-
-  checkKey('риск',entity)
-  outStr+='\\textbf{Риск:}'+entity.get('риск')
-
-  checkKey('СП',entity)
-  outStr+='\\newline\\textbf{СП:}'+entity.get('СП')
-
-  checkKey('описание',entity)
-  outStr+='\\paragraph{Описание:}'+entity.get('описание')
-
-  checkKey('эффекты',entity)
-  outStr+='\\paragraph{Эффекты:}'+entity.get('эффекты')
-
-  checkKey('проблемы',entity)
-  outStr+='\\paragraph{Проблемы:}'+entity.get('проблемы')
-
+ for key in entityDict:
+  entity=entityDict.get(key)
+  outStr+='\\subsection{'+key+'}'
+  outStr+='\\textbf{Риск:}'+entity.get('риск','\\err не задан риск')
+  outStr+='\\newline\\textbf{СП:}'+entity.get('СП','\\err не задана СП')
+  outStr+='\\paragraph{Описание:}'+entity.get('описание','\\err не задано описание')
+  outStr+='\\paragraph{Эффекты:}'+entity.get('эффекты','\\err не заданы эффекты')
+  outStr+='\\paragraph{Проблемы:}'+entity.get('проблемы','\\err не заданы проблемы')
  return outStr
 
-# {"название":"",
-#  "описание":"",
-#  "эффекты":"",
-#  "проблемы":"",
-#  "риск":"",
-#  "СП":""
-# },
+#[название]:
+#  описание: 
+#  эффекты: 
+#  проблемы: 
+#  риск: 
+#  СП: 

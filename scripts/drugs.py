@@ -1,36 +1,29 @@
-from genLib import checkKey
-from genLib import getOptional
-from genLib import sortKey
-#from genLib import genProps
+from genLib import pureGen
+from genLib import getName as sortKey
 from genLib import tryInt
-def pureGen():
- return False
 
-def genLine(entity):
+def genLine(key,entity):
  outStr=''
- checkKey('название',entity)
- outStr+='\\textbf{'+entity.get('название')
+ outStr+='\\textbf{'+key
 
- if checkKey('Можно нанести на оружие',entity,keep=True):
-  outStr+='\\newline [Масло]'
+# if 'Можно нанести на оружие' in entity:
+#  outStr+='\\newline [Масло]'
  outStr+='}'
 
  outStr+='\\newline\\textit{Токсичность }'
- checkKey('Токсичность',entity)
- outStr+=tryInt(entity.get('Токсичность'))
+ outStr+=tryInt(entity.get('Токсичность','\\err'))
 
  outStr+='\\newline\\textit{СП }'
- checkKey('СП',entity)
  outStr+=tryInt(entity.get('СП'))
  outStr+=' & '
 
- outStr+=getOptional('Первичный эффект',entity)
+ outStr+=entity.get('Первичный эффект','-')
  outStr+=' & '
 
- outStr+=getOptional('Эффект Интоксикации',entity)
+ outStr+=entity.get('Эффект Интоксикации','-')
  return outStr
 
-def genEntity(entityList):
+def genEntity(entityDict):
  outStr=''
  outStr+='\\begin{center}'
  outStr+='\\begin{longtable}{|p{3cm}|p{6.5cm}|p{6.5cm}|}'
@@ -41,8 +34,9 @@ def genEntity(entityList):
  outStr+='\\textbf{Эффект Интоксикации}'
  outStr+='\\\\ '
  outStr+='\\hline '
- for entity in entityList:
-  outStr+=genLine(entity)
+ for key in entityDict:
+  entity=entityDict.get(key)
+  outStr+=genLine(key,entity)
   outStr+='\\\\ \\hline '
 
  outStr+='\\end{longtable}'
@@ -50,10 +44,9 @@ def genEntity(entityList):
 
  return outStr
 
-# {"название":"",
-#  "Можно нанести на оружие":"Да",
-#  "Токсичность":"",
-#  "СП":"",
-#  "Первичный эффект":"",
-#  "Эффект Интоксикации":""
-# },
+#[название]:
+##  Можно нанести на оружие:
+#  Токсичность:
+#  СП:
+#  Первичный эффект:
+#  Эффект Интоксикации:

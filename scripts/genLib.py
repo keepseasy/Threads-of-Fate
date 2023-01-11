@@ -1,4 +1,11 @@
 import re
+def getName(dict):
+ return list(dict)[0]
+def pureGen():
+ return False
+def sortDict(entityDict,curSortKey=getName):
+ return dict(sorted(entityDict.items(),key=curSortKey))
+
 def checkKey(keystr,entity,keep=False):
  if keystr not in entity:
   if not keep:
@@ -33,35 +40,23 @@ def tryInt(val):
   return val
  return '\\err'
 
-def sortKey(dict):
- return dict.get('название','')
-
-def genShort(prop):
- name=list(prop)[0]
- val=tryInt(prop.get(name))
- return name+'('+val+')'
-
-def genLong(prop,costly):
- name=list(prop)[0]
- descr=prop.get(name)
- outStr='\\item\\textbf{'+name
- if costly:
-  checkKey('Цена',prop)
-  outStr+='('+prop.get('Цена')
-  outStr+=')'
- outStr+=': }'+descr
- return outStr
-
-def localSortKey(dict):
- return list(dict)[0]
-def genProps(props,costly=False,short=False):
- outStr=''
- props.sort(key=localSortKey)
+def genProps(props,eType=None):
+ props.sort(key=getName)
  strList=[]
- joiner=', ' if short else ''
+ joiner=', '
  for prop in props:
-  propStr=genShort(prop) if short else genLong(prop,costly)
-  strList.append(propStr)
+  cost=prop.get('стоимость',None)
+  name=getName(prop)
+  descr=prop.get(name,None)
+  
+  if eType is not None:
+   name=makelink(prop,eType)
+  if cost is not None:
+   name+='('+prop.get('стоимость')+')'
+  if descr is not None:
+   joiner=''
+   name='\\item\\textbf{'+name+': }'+descr
+  strList.append(name)
  return joiner.join(strList)
 
 def genSize(val):
@@ -75,40 +70,17 @@ def genSize(val):
   case 4: return 'Исполинский'
   case _: return '\\tbd'
 
-def clear(entityList,curSortKey):
- if entityList[0] is not str:
-  newList=[]
-  for feature in entityList:
-   if feature is not str:
-    skip=False
-    for newFeature in newList:
-     if newFeature['название']==feature['название']:
-      skip=True
-    if not skip:
-     newList.append(feature)
-  entityList=newList
-  for feature in entityList:
-   if feature is not str:
-    value=feature.get('название')
-    if value[0]=='-':
-     entityList = [d for d in entityList if d['название'] != value and d['название'] != value[1:]]
-  entityList.sort(key=curSortKey)
-  return entityList
-
- newList=[]
- for feature in entityList:
-  if feature not in newList:
-   newList+=feature
- entityList=newList
- for feature in entityList:
-  if feature[0]=='-':
-   entityList.remove(feature)
-   entityList.remove(feature[1:])
- entityList.sort()
- return entityList
+def clear(entityDict,curSortKey):
+ entityDict=sortDict(entityDict,curSortKey)
+ for feature in entityDict:
+  name=getName(feature)
+  if name[0]=='-':
+   my_dict.pop(name[1:], None)
+   del my_dict[name]
+ return entityDict
 
 def bookmark(name,eType):
- return '\\hypertarget{'+eType+str(hash(name))+'}{'+name+'}'
+ return '\\hypertarget{'+eType+str(hash(name))+'}{}'
 
 def makelink(name,eType,displayName=None):
  if displayName is None:

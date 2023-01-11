@@ -1,52 +1,46 @@
-from genLib import checkKey
-from genLib import getOptional
-from genLib import sortKey
+from genLib import getName as sortKey
 from genLib import genProps
-def pureGen():
- return False
+from genLib import pureGen
 
-def genEntity(entityList):
+def genEntity(entityDict):
  outStr=''
- for entity in entityList:
+ for key in entityDict:
+  entity=entityDict.get(key)
+  outStr+='\\subsection{'+key+'}'
 
-  checkKey('название',entity)
-  outStr+='\\subsection{'+entity.get('название')+'}'
-
-  if checkKey('Запас Энергии',entity,keep=True):
+  if 'Запас Энергии' in entity:
    outStr+='\\textbf{Запас Энергии: }'
    outStr+=entity.get('Запас Энергии')
    outStr+='\\newline'
 
   outStr+='\\textbf{СП: }'
-  outStr+=getOptional('СП',entity)
+  outStr+=entity.get('СП','-')
 
-  if checkKey('Базовый предмет',entity,keep=True):
+  if 'Базовый предмет' in entity:
    outStr+='\\newline\\textbf{Базовый предмет: }'
    outStr+=entity.get('Базовый предмет')
 
   outStr+='\\newline\\textbf{Описание: }'
-  checkKey('описание',entity)
-  outStr+=entity.get('описание')
+  outStr+=entity.get('описание','\\err нет описания')
   outStr+='\\newline'
-  if checkKey('Трюки',entity,keep=True):
+  if 'Трюки' in entity:
    outStr+='\\textbf{Трюки}\\begin{itemize}'
-   props=entity.get('Трюки')
-   outStr+=genProps(props)
+   outStr+=genProps(entity.get('Трюки'))
    outStr+='\\end{itemize}'
-  if checkKey('Изъяны',entity,keep=True):
+
+  if 'Изъяны' in entity:
    outStr+='\\textbf{Изъяны}\\begin{itemize}'
-   props=entity.get('Изъяны')
-   outStr+=genProps(props)
+   outStr+=genProps(entity.get('Изъяны'))
    outStr+='\\end{itemize}'
-  if checkKey('Функции',entity,keep=True):
+
+  if 'Функции' in entity:
    outStr+='\\textbf{Функции}\\begin{itemize}'
-   props=entity.get('Функции')
-   outStr+=genProps(props,costly=True)
+   outStr+=genProps(entity.get('Функции'))
    outStr+='\\end{itemize}'
-  if checkKey('Ходы',entity,keep=True):
+
+  if 'Ходы' in entity:
    outStr+='\\textbf{Ходы}\\begin{itemize}'
-   props=entity.get('Ходы')
-   outStr+=genProps(props,costly=True)
+   outStr+=genProps(entity.get('Ходы'))
    outStr+='\\end{itemize}'
  return outStr
 
@@ -61,12 +55,12 @@ def genEntity(entityList):
 #
 #  Функции:
 #  - "(Название Функции)": "(Описание Функции)"
-#    Цена: "(Стоимость Функции)"
+#    стоимость: "(Стоимость Функции)"
 #  - "(Название Функции)": "(Описание Функции)"
-#    Цена: "(Стоимость Функции)"
+#    стоимость: "(Стоимость Функции)"
 #
 #  Ходы:
 #  - "(Название Хода)": "(Описание Хода)"
-#    Цена: "(Стоимость Хода)"
+#    стоимость: "(Стоимость Хода)"
 #  - "(Название Хода)": "(Описание Хода)"
-#    Цена: "(Стоимость Хода)"
+#    стоимость: "(Стоимость Хода)"

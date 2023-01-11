@@ -1,10 +1,7 @@
-from genLib import checkKey
-from genLib import getOptional
-from genLib import sortKey
-def pureGen():
- return False
+from genLib import getName as sortKey
+from genLib import pureGen
 
-def genEntity(entityList):
+def genEntity(entityDict):
  outStr=''
  outStr+='\\begin{center}'
  outStr+='\\begin{tabular}{ |p{2.5cm}|p{7cm}||c|c|c||c|c| }'
@@ -12,44 +9,40 @@ def genEntity(entityList):
  outStr+='Название & Дополнительные эффекты & СВ & РВ & ТПв & тСл & СП\\\\ \\hline'
  outStr+='\\hline'
 
- for entity in entityList:
-  checkKey('название',entity)
-  outStr+=entity.get('название')
-  if checkKey('фантастическое',entity):
+ for key in entityDict:
+  entity=entityDict.get(key)
+  outStr+=key
+
+  if 'фантастическое' in entity:
    outStr+='\\textsuperscript{ф}'
   outStr+=' & '
 
-  outStr+=getOptional('дополнительные Эффекты',entity)
+  outStr+=entity.get('дополнительные Эффекты','-')
   outStr+=' & '
 
-  checkKey('Сила Взрыва',entity)
-  outStr+=entity.get('Сила Взрыва')
+  outStr+=entity.get('Сила Взрыва','\\err')
   outStr+=' & '
 
-  checkKey('Радиус Взрыва',entity)
-  outStr+=entity.get('Радиус Взрыва')
+  outStr+=entity.get('Радиус Взрыва','\\err')
   outStr+=' & '
 
-  checkKey('Тип ПВ',entity)
-  outStr+=entity.get('Тип ПВ')
+  outStr+=entity.get('Тип ПВ','\\err')
   outStr+=' & '
 
-  outStr+=getOptional('требуемая Сила',entity)
+  outStr+=entity.get('требуемая Сила','-')
   outStr+=' & '
 
-  checkKey('СП',entity)
-  outStr+=entity.get('СП')
+  outStr+=entity.get('СП','\\err')
   outStr+='\\\\ \\hline'
 
  outStr+='\\end{tabular}\\end{center}'
  return outStr
 
-# { "название":"",
-#   "фантастическое":"Да",
-#   "требуемая Сила":"",
-#   "Сила Взрыва":"",
-#   "Радиус Взрыва":"",
-#   "Тип ПВ":"",
-#   "дополнительные Эффекты":"",
-#   "СП":"",
-# },
+#название:
+#  фантастическое:
+#  требуемая Сила:
+#  Сила Взрыва:
+#  Радиус Взрыва:
+#  Тип ПВ:
+#  дополнительные Эффекты:
+#  СП:

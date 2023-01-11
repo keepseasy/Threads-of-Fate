@@ -1,5 +1,6 @@
 import sys
 import yaml
+import os.path
 from yaml.loader import SafeLoader
 from genLib import checkKey
 from genLib import clear
@@ -21,7 +22,7 @@ _temp = __import__(baseName, globals(), locals(), ['genEntity'], 0)
 genEntity = _temp.genEntity
 
 #import pure generation check
-_temp = __import__(baseName, globals(), locals(), ['genEntity'], 0)
+_temp = __import__(baseName, globals(), locals(), ['pureGen'], 0)
 pureGen = _temp.pureGen
 
 #import sorting key
@@ -29,19 +30,25 @@ _temp = __import__(baseName, globals(), locals(), ['sortKey'], 0)
 sortKey = _temp.sortKey
 
 #extract and sort data
-def getList(yamlName):
+def getDict(yamlName):
+ if not os.path.isfile(yamlName):
+  return {}
  with open(yamlName, 'r', encoding="utf-8") as jf:
   return yaml.load(jf, Loader=SafeLoader)
 
 #main: read data and write generated string to .tex file
-import os
 if not os.path.exists('scripts/output/'):
  os.makedirs('scripts/output/')
 f=open(texName, "w", encoding="utf-8")
-finalList=None
+finalDict=None
 if not pureGen():
- finalList=getList(yamlName2)
- finalList+=getList(yamlName1)
- finalList=clear(finalList,sortKey)
-f.write(genEntity(finalList))
+ basicDict=getDict(yamlName1)
+# print(basicDict)
+ if not basicDict:
+  print('missing generic Content file')
+  exit()
+ customDict=getDict(yamlName2)
+# print(customDict)
+ finalDict=clear(basicDict|customDict,sortKey)
+f.write(genEntity(finalDict))
 f.close()

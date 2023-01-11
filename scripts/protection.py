@@ -1,48 +1,39 @@
-from genLib import checkKey
-from genLib import tryInt
-#from genLib import tryFloat
-from genLib import getOptional
-def pureGen():
- return False
-def sortKey(dict):
- if ('бонус Защиты' in dict):
-  return int(dict.get('бонус Защиты'))
- else:
-  return '-1'
+from genLib import pureGen
+def sortKey(dict1):
+ entity=list(dict1)[1]
+ return int(entity.get('бонус Защиты','-1'))
 
-def genLine(entity,monster=False):
+def genLine(key,entity):
  outStr=''
 
- checkKey('название',entity)
- outStr+=entity.get('название')
- if checkKey('особые свойства',entity,keep=True):
+ outStr+=key
+ if 'особые свойства' in entity:
   outStr+='*'
- if checkKey('фантастический',entity):
+ if 'фантастическое' in entity:
   outStr+='\\textsuperscript{ф}'
  outStr+=' & '
 
- checkKey('бонус Защиты',entity)
- outStr+='+'+entity.get('бонус Защиты')
+ outStr+='+'+entity.get('бонус Защиты','\\err')
  outStr+=' & '
 
- outStr+=getOptional('ограничение Модификатора Ловкости',entity)
+ outStr+=entity.get('ограничение Модификатора Ловкости','-')
  outStr+=' & '
 
- outStr+=getOptional('требуемая Выносливость',entity)
+ outStr+=entity.get('требуемая Выносливость','-')
  outStr+=' & '
 
- outStr+=getOptional('Помеха на Скрытность',entity)
+ outStr+=entity.get('Помеха на Скрытность','-')
  outStr+=' & '
 
- outStr+=getOptional('СП',entity)
+ outStr+=entity.get('СП','-')
  outStr+=' & '
 
- outStr+=getOptional('вес',entity)
+ outStr+=entity.get('вес','-')
  outStr+='\\\\ \\hline'
 
  return outStr
 
-def genEntity(entityList):
+def genEntity(entityDict):
  outStr=''
  outStr+='\\begin{center}'
  outStr+='\\begin{tabular}{|c||c|c|c||c|c|c|}'
@@ -50,29 +41,29 @@ def genEntity(entityList):
  outStr+='Название & БЗщ & оМЛв & тВн & ПС & СП & Вес\\\\ \\hline'
  outStr+='\\hline'
 
- for entity in entityList:
-  outStr+=genLine(entity)
+ for key in entityDict:
+  entity=entityDict.get(key)
+  outStr+=genLine(key,entity)
 
  outStr+='\\end{tabular}'
  outStr+='\\end{center}'
 
- for entity in entityList:
-  outStr+='\\paragraph{'+entity.get('название')+'}'
-  checkKey('описание',entity)
-  outStr+=entity.get('описание')
-  if checkKey('особые свойства',entity,keep=True):
+ for key in entityDict:
+  entity=entityDict.get(key)
+  outStr+='\\paragraph{'+key+'}'
+  outStr+=entity.get('описание','\\err нет описания')
+  if 'особые свойства' in entity:
    outStr+='\\newline\\textbf{Особые свойства(*): }'+entity.get('особые свойства')
 
  return outStr
 
-# { "название":"",
-#   "фантастический":"Да",
-#   "описание":"",
-#   "особые свойства":"",
-#   "бонус Защиты":"",
-#   "ограничение Модификатора Ловкости":"",
-#   "требуемая Выносливость":"",
-#   "Помеха на Скрытность":"1",
-#   "СП":"",
-#   "вес":""
-# },
+#название:
+#  фантастическое:
+#  описание:
+#  особые свойства:
+#  бонус Защиты:
+#  ограничение Модификатора Ловкости:
+#  требуемая Выносливость:
+#  Помеха на Скрытность:
+#  СП:
+#  вес:

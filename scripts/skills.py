@@ -1,25 +1,18 @@
-from genLib import checkKey
-from genLib import sortKey
-def pureGen():
- return False
+from genLib import getName as sortKey
+from genLib import pureGen
 
-def genEntity(entityList):
+def genEntity(entityDict):
  outStr=''
- for entity in entityList:
-  checkKey('название',entity)
-  checkKey('описание',entity)
-  checkKey('часто используемые Характеристики',entity)
-  checkKey('когда использовать',entity)
-
-  outStr+='\\subsection{'+entity.get('название')
-  outStr+='('+entity.get('часто используемые Характеристики')
-  outStr+=')}\\paragraph{}'+entity.get('описание')
-  outStr+='\\paragraph{Используйте Навык, если герой:} '+entity.get('когда использовать')
+ for key in entityDict:
+  entity=entityDict.get(key)
+  outStr+='\\subsection{'+key
+  outStr+='('+entity.get('часто используемые Характеристики','\\err не заданы Характеристики')
+  outStr+=')}\\paragraph{}'+entity.get('описание','\\err не задано описание')
+  outStr+='\\paragraph{Используйте Навык, если герой:} '+entity.get('когда использовать','\\err не описаны условия использования')
 
  return outStr
 
-# { "название" : "",
-#   "часто используемые Характеристики" : "",
-#   "описание" : "",
-#   "когда использовать" : ""
-# },
+#[название] :
+#  часто используемые Характеристики: ...
+#  описание: ...
+#  когда использовать: ...

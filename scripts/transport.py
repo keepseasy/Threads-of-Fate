@@ -2,8 +2,8 @@ from genLib import checkKey
 from genLib import tryInt
 from genLib import tryFloat
 from genLib import getOptional
-def pureGen():
- return False
+from genLib import pureGen
+
 import re
 def sortKey(dict):
  if not ('Скорость' in dict):
@@ -34,39 +34,34 @@ def genEnv(val):
   return 'К'
  return '\\err'
 
-def genLine(entity):
+def genLine(key,entity):
  outStr=''
-
- checkKey('название',entity)
- outStr+=entity.get('название')
- if checkKey('фантастический',entity,keep=True):
+ outStr+=key
+ if 'фантастический' in entity:
   outStr+='\\textsuperscript{ф}'
  outStr+=' & '
 
- checkKey('Размер',entity)
- outStr+=entity.get('Размер')
- if checkKey('животное',entity,keep=True):
+ outStr+=entity.get('Размер','\\err')
+ if 'животное' in entity:
   outStr+='(Ж)'
  outStr+=' & '
 
- checkKey('Защита',entity)
- outStr+=entity.get('Защита')
+ outStr+=entity.get('Защита','\\err')
  outStr+=' & '
 
- outStr+=getOptional('Прочность',entity)
+ outStr+=entity.get('Прочность','-')
  outStr+=' & '
 
  checkKey('ЕЗ',entity)
- outStr+=entity.get('ЕЗ')
+ outStr+=entity.get('ЕЗ','\\err')
  outStr+=' & '
 
- outStr+=getOptional('ограничение Модификатора Ловкости',entity)
+ outStr+=entity.get('ограничение Модификатора Ловкости','-')
  outStr+=' & '
 
- checkKey('Проходимость',entity)
- outStr+=entity.get('Проходимость')
+ outStr+=entity.get('Проходимость','\\err')
  env=''
- if checkKey('Тип передвижения',entity,keep=True):
+ if 'Тип передвижения' in entity:
   env=genEnv(entity.get('Тип передвижения'))
   outStr+=env
  outStr+=' & '
@@ -74,24 +69,22 @@ def genLine(entity):
  if env == 'К':
   outStr+='-'
  else:
-  checkKey('Скорость',entity)
-  outStr+=entity.get('Скорость')
-  if checkKey('Не разгоняется',entity,keep=True):
+  outStr+=entity.get('Скорость','\\err')
+  if 'Не разгоняется' in entity:
    outStr+='М'
  outStr+=' & '
 
- checkKey('Грузоподъемность-вес',entity)
- outStr+=entity.get('Грузоподъемность-вес')
+ outStr+=entity.get('Грузоподъемность-вес','\\err')
  outStr+=' & '
 
- outStr+=getOptional('Расход',entity)
+ outStr+=entity.get('Расход','-')
  outStr+=' & '
 
- outStr+=getOptional('СП',entity)
+ outStr+=entity.get('СП','-')
  outStr+='\\\\ \\hline'
  return outStr
 
-def genEntity(entityList):
+def genEntity(entityDict):
  outStr=''
  outStr+='\\begin{center}'
  outStr+='\\begin{longtable}{|p{2.5cm}||c|c|c|c|c||c|c|c|c|c|c|}'
@@ -99,18 +92,19 @@ def genEntity(entityList):
  outStr+='Название & Размер & Зщ & Прч & ЕЗ & оМЛв & П & Ск & ГВ & Р & СП\\\\ \\hline'
  outStr+='\\hline'
 
- for entity in entityList:
-  outStr+=genLine(entity)
+ for key in entityDict:
+  entity=entityDict.get(key)
+  outStr+=genLine(key,entity)
 
  outStr+='\\end{longtable}'
  outStr+='\\end{center}'
  outStr+='*Через черту указана максимальная грузоподъемность полуприцепа, который может перевозить тягач.'
  outStr+='\\newline'
  outStr+='**Скорость транспорта определена в его Описании.'
- for entity in entityList:
-  outStr+='\\paragraph{'+entity.get('название')+'}'
-  checkKey('описание',entity)
-  outStr+=entity.get('описание')
+ for key in entityDict:
+  entity=entityDict.get(key)
+  outStr+='\\paragraph{'+key+'}'
+  outStr+=entity.get('описание','\\err нет описания')
 
  return outStr
 

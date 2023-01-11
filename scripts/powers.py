@@ -1,41 +1,38 @@
-from genLib import checkKey
-from genLib import sortKey
+from genLib import pureGen
+from genLib import getName as sortKey
 from powerForms import getForms
-def pureGen():
- return False
 
-def genEntity(entityList):
+from genLib import bookmark
+
+def genEntity(entityDict):
  outStr=''
- for entity in entityList:
-  checkKey('название',entity)
-  outStr+='\\subsection{'+bookmark(entity.get('название'),'power')+'}'
+ for key in entityDict:
+  entity=entityDict.get(key)
+  outStr+='\\subsection{'+key+'}'
+  outStr+=bookmark(key,'power')
 
   outStr+='\\textbf{Стоимость'
-  sus=checkKey('поддержание',entity)
-  if checkKey('продолжительность',entity,keep=True):
-#   duration=entity.get('продолжительность')
-   if sus:
-    outStr+='/Поддержание'
-
-  checkKey('стоимость',entity)
-  outStr+=': }'+entity.get('стоимость')+' Эн'
-  tmp=entity.get('поддержание')
-  if not tmp=='\\tbd':
-   outStr+='/'+tmp+' Эн'
-  if checkKey('РИЗ',entity,keep=True):
+  if 'поддержание' in entity:
+   outStr+='/Поддержание'
+  outStr+=': }'+entity.get('стоимость','\\err нет стоимости')+' Эн'
+  if 'поддержание' in entity:
+   outStr+='/'+entity.get('поддержание')+' Эн'
+  if 'РИЗ' in entity:
    outStr+=', РИЗ'
+  if 'поддержание' in entity and not 'продолжительность' in entity:
+   outStr+='\\err есть поддержание но нет продолжительности'
 
 
 #------------------------------------------------------------------
 #form
   outStr+='\\newline \\textbf{Форма: }'
-  if checkKey('Форма',entity,keep=True):
+  if 'Форма' in entity:
    entityForm=entity.get('Форма')
    outStr+=entityForm
    forms=getForms()
    for form in forms:
     if form.name==entityForm:
-     if form.name=='Область' and checkKey('Уточнение',entity,keep=True):
+     if form.name=='Область' and 'Уточнение' in entity:
       outStr+='['+entity.get('Форма')+']'
      outStr+=form.genEntity(entity)
      break
@@ -45,32 +42,27 @@ def genEntity(entityList):
    outStr+='\\err у Могущества не назначена Форма'
 #------------------------------------------------------------------
 # aiming resist
-  if checkKey('сопротивление Наведению',entity,keep=True):
+  if 'сопротивление Наведению' in entity:
    outStr+='\\newline \\textbf{Сопротивление Наведению: }'+entity.get('сопротивление Наведению')
 #------------------------------------------------------------------
-  if checkKey('продолжительность',entity,keep=True):
+  if 'продолжительность' in entity:
    outStr+='\\newline \\textbf{Длительность: }'+entity.get('продолжительность')
-  if checkKey('время сотворения',entity,keep=True):
+  if 'время сотворения' in entity:
    outStr+='\\newline \\textbf{Время сотворения: }'+entity.get('время сотворения')
 #------------------------------------------------------------------
-  checkKey('описание',entity)
-  outStr+='\\paragraph{Описание: }'+entity.get('описание')
-  if checkKey('Усиление',entity):
+  outStr+='\\paragraph{Описание: }'+entity.get('описание','\\err нет описания')
+  if 'Усиление' in entity:
    enhList=entity.get('Усиление')
    outStr+='\\paragraph{Усиление:}\\begin{itemize}'
    if type(enhList) is not list:
     outStr+='\\item \\err не удалось извлечь список усилений'
-   else:
-    for enh in enhList:
-     outStr+='\\item'
-     if type(enh) is not dict:
-      outStr+='\\err неправильный формат записи усилений'
-     else:
-      checkKey('стоимость',enh)
-      checkKey('описание',enh)
-      outStr+='+'+enh.get('стоимость')
-      outStr+=' Эн -> '
-      outStr+=enh.get('описание')
+   for enh in enhList:
+    outStr+='\\item'
+    if type(enh) is not dict:
+     outStr+='\\err неправильный формат записи усилений'
+    outStr+='+'+enh.get('стоимость','\\err нет стоимости')
+    outStr+=' Эн -> '
+    outStr+=enh.get('описание','\\err нет описания')
    outStr+='\\end{itemize}'
  return outStr
 
