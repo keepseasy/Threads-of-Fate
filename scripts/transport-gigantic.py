@@ -23,7 +23,7 @@ def genEntity(entityDict):
    outStr+='\\textsuperscript{ф}'
   outStr+='}'
 
-  env=genEnv(entity.get('Тип передвижения',None))
+  env=genEnv(entity.get('Тип передвижения'))
   outStr+='Скорость '
   if env == 'К':
    outStr+='-'

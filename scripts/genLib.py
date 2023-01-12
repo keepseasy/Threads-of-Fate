@@ -1,4 +1,9 @@
+import os.path
 import re
+import yaml
+from yaml.loader import SafeLoader
+
+
 def getName(dict):
  return list(dict)[0]
 def pureGen():
@@ -45,15 +50,15 @@ def genProps(props,eType=None):
  strList=[]
  joiner=', '
  for prop in props:
-  cost=prop.get('стоимость',None)
+  cost=prop.get('стоимость',False)
   name=getName(prop)
-  descr=prop.get(name,None)
+  descr=prop.get(name,False)
   
   if eType is not None:
    name=makelink(prop,eType)
-  if cost is not None:
+  if cost:
    name+='('+prop.get('стоимость')+')'
-  if descr is not None:
+  if descr:
    joiner=''
    name='\\item\\textbf{'+name+': }'+descr
   strList.append(name)
@@ -86,3 +91,9 @@ def makelink(name,eType,displayName=None):
  if displayName is None:
   displayName=name
  return '\\hyperlink{'+eType+str(hash(name))+'}{'+displayName+'}'
+
+def getDict(yamlName):
+ if not os.path.isfile(yamlName):
+  return {}
+ with open(yamlName, 'r', encoding="utf-8") as jf:
+  return yaml.load(jf, Loader=SafeLoader)

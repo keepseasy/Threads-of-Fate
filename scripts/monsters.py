@@ -1,15 +1,12 @@
 import math, glob, os
-from genLib import checkKey
-from genLib import tryInt
-from genLib import sortKey
+from genLib import getName as sortKey
 from genLib import genProps
 from genLib import genSize
 from genLib import bookmark
-from genLib import makeref
-from monsters_weapons import genLine
-from genFromYaml import getList
-def pureGen():
- return False
+from genLib import makelink
+from genLib import pureGen
+#from monsters_weapons import genLine
+from genLib import getDict
 
 def genPimaryMod(val):
  mod=math.floor((val-10)/2)
@@ -38,29 +35,8 @@ class heroStats:
   WEP=None
   UNA=None
   ACC=None
-  def fillGaps(self):
-   self.STR=0 if self.STR is None else self.STR
-   self.DEX=0 if self.DEX is None else self.DEX
-   self.CON=0 if self.CON is None else self.CON
-   self.INT=0 if self.INT is None else self.INT
-   self.WIS=0 if self.WIS is None else self.WIS
-   self.CHA=0 if self.CHA is None else self.CHA
-
-   self.SIZE=0 if self.SIZE is None else self.SIZE
-   self.HP=0 if self.HP is None else self.HP
-   self.SPD=0 if self.SPD is None else self.SPD
-   self.REF=0 if self.REF is None else self.REF
-   self.ENG=0 if self.ENG is None else self.ENG
-   self.WIL=0 if self.WIL is None else self.WIL
-
-   self.DEF=0 if self.DEF is None else self.DEF
-   self.TREADS='-' if self.TREADS is None else self.TREADS
-   self.WEP=0 if self.WEP is None else self.WEP
-   self.UNA=0 if self.UNA is None else self.UNA
-   self.ACC=0 if self.ACC is None else self.ACC
-
   def setPhe(self,entity):
-   if not checkKey('Феноменальная характеристика',entity,keep=True):
+   if 'Феноменальная характеристика' not in entity:
     return
    match entity.get('Феноменальная характеристика'):
     case 'Сила' : self.PHE=self.STR
@@ -71,62 +47,64 @@ class heroStats:
     case 'Обаяние' : self.PHE=self.CHA
 
   def __init__(self,entity):
-   self.STR=int(entity.get('Сила')) if checkKey('Сила',entity,keep=True) else None
-   self.DEX=int(entity.get('Ловкость')) if checkKey('Ловкость',entity,keep=True) else None
-   self.CON=int(entity.get('Выносливость')) if checkKey('Выносливость',entity,keep=True) else None
-   self.INT=int(entity.get('Интеллект')) if checkKey('Интеллект',entity,keep=True) else None
-   self.WIS=int(entity.get('Мудрость')) if checkKey('Мудрость',entity,keep=True) else None
-   self.CHA=int(entity.get('Обаяние')) if checkKey('Обаяние',entity,keep=True) else None
-   setPhe(entity)
+   self.STR=entity.get('Сила',-1)
+   self.DEX=entity.get('Ловкость',-1)
+   self.CON=entity.get('Выносливость',-1)
+   self.INT=entity.get('Интеллект',-1)
+   self.WIS=entity.get('Мудрость',-1)
+   self.CHA=entity.get('Обаяние',-1)
+   self.setPhe(entity)
 
-   self.SIZE=int(entity.get('Размер')) if checkKey('Размер',entity,keep=True) else None
-   self.HP=int(entity.get('ЕЗ')) if checkKey('ЕЗ',entity,keep=True) else None
-   self.SPD=int(entity.get('Скорость')) if checkKey('Скорость',entity,keep=True) else None
-   self.REF=int(entity.get('Реакция')) if checkKey('Реакция',entity,keep=True) else None
-   self.ENG=int(entity.get('Энергия')) if checkKey('Энергия',entity,keep=True) else None
-   self.WIL=int(entity.get('Воля')) if checkKey('Воля',entity,keep=True) else None
+   self.SIZE=entity.get('Размер',0)
+   self.HP=entity.get('ЕЗ',0)
+   self.SPD=entity.get('Скорость',0)
+   self.REF=entity.get('Реакция',0)
+   self.ENG=entity.get('Энергия',0)
+   self.WIL=entity.get('Воля',0)
 
-   self.DEF=int(entity.get('Бонус защиты')) if checkKey('Бонус защиты',entity,keep=True) else None
-   self.LIM=int(entity.get('Ограничение ловкости')) if checkKey('Ограничение ловкости',entity,keep=True) else None
-   self.TREADS=entity.get('Нити') if checkKey('Нити',entity,keep=True) else None
-   self.WEP=entity.get('Владение оружием') if checkKey('Владение оружием',entity,keep=True) else None
-   self.UNA=entity.get('Рукопашный бой') if checkKey('Рукопашный бой',entity,keep=True) else None
-   self.ACC=entity.get('Стрельба') if checkKey('Стрельба',entity,keep=True) else None
+   self.DEF=int(entity.get('Бонус защиты',0))
+   self.LIM=entity.get('Ограничение ловкости')
+   self.TREADS=entity.get('Нити')
+   self.WEP=entity.get('Владение оружием',0)
+   self.UNA=entity.get('Рукопашный бой',0)
+   self.ACC=entity.get('Стрельба',0)
 
-def genEntity(entityList):
- outStr=''
- originWeapons=getWeapons()
- originPowers=getPowers()
+def calculateSecondary(hero,doubleSpeed):
+ hero.HP+=(hero.SIZE+3)*hero.CON
+ hero.SPD+=math.floor((hero.DEX+hero.CON)/4)+hero.SIZE
+ if doubleSpeed:
+  hero.SPD*=2
+ hero.REF+=math.floor((hero.DEX+hero.WIS)/4)
+ hero.ENG+=math.floor((hero.CON+hero.CHA)/4)
+ hero.WIL+=math.floor((hero.INT+hero.WIS)/4)
+ DEX_BONUS=math.floor((hero.DEX-10)/2)
+ if hero.LIM is None:
+  hero.LIM=DEX_BONUS
+ elif hero.LIM>DEX_BONUS:
+  hero.LIM=DEX_BONUS
+ hero.DEF+=10+hero.LIM-hero.SIZE
+
+ return hero
+
+def genEntity(entityDict):
+# originWeapons=getWeapons()
+# originPowers=getPowers()
  originPerks=getPerks()
 
- for entity in entityList:
-  outStr=''
-  outStr+='\\subsection{'
-  outStr+=entity.get('название','\\err не задано название')
-  outStr+='}'
-  outStr+=bookmark(entity.get('название','\\err не задано название'),'monster')
-  checkKey('описание',entity)
-  outStr+=entity.get('описание')
+ outStr=''
+ for key in entityDict:
+  entity=entityDict.get(key)
+
+  template='Шаблон' in entity
+  hero=heroStats(entity)
+  if not template:
+   hero=calculateSecondary(hero,'Четвероногое' in entity)
+
+  outStr+='\\subsection{'+key+'}'
+  outStr+=bookmark(key,'monster')
+  outStr+=entity.get('описание','\\err нет описания')
 
   outStr+='\\begin{longtable}{l l l l l l l l l l}'
-  hero=heroStats(entity)
-  hero.fillGaps()
-  template=checkKey('Шаблон',entity,keep=True)
-  if not template:
-   hero.HP+=(hero.SIZE+3)*hero.CON
-   hero.SPD+=math.floor((hero.DEX+hero.CON)/4)+hero.SIZE
-   if checkKey('Четвероногое',entity,keep=True):
-    hero.SPD*=2
-   hero.REF+=math.floor((hero.DEX+hero.WIS)/4)
-   hero.ENG+=math.floor((hero.CON+hero.CHA)/4)
-   hero.WIL+=math.floor((hero.INT+hero.WIS)/4)
-   DEX_BONUS=math.floor((hero.DEX-10)/2)
-   if hero.LIM is None:
-    hero.LIM=DEX_BONUS
-   elif hero.LIM>DEX_BONUS:
-    hero.LIM=DEX_BONUS
-   hero.DEF+=10+hero.LIM-hero.SIZE
-
   outStr+='\\textbf{Сл:}'
   outStr+=' & '+str(hero.STR)
   if not template:
@@ -159,7 +137,6 @@ def genEntity(entityList):
   outStr+=' & '+str(hero.REF)
   outStr+=' & \\textbf{Энергия:}'
   outStr+=' & '+str(hero.ENG)
-  checkKey('защита',entity)
   outStr+=' & \\textbf{Защита:}'
   outStr+=' & '+str(hero.DEF)
   outStr+='\\\\'
@@ -182,18 +159,16 @@ def genEntity(entityList):
   outStr+='\\end{longtable}'
 
   outStr+='\\textbf{Атаки}'
-  if checkKey('атаки',entity):
+  if 'атаки' in entity:
    attacks=entity.get('атаки')
    outStr+='\\begin{longtable}{|p{3.5cm}|p{3cm}|c|c|c|c|c|}'
    outStr+='\\hline '
    outStr+='Название & Свойства & КМС & Дистанция & '
    outStr+='БПв & ТПв & КУ\\\\ \\hline '
-   for attack in attacks:
-    origin=getOriginWeapon(entity,originWeapons)
-    outStr+=genLine(attack,origin,hero)
-   outStr+='\\end{longtable}'
-  else:
-   outStr+='\\tbd'
+#   for attack in attacks:
+#    origin=getOriginWeapon(entity,originWeapons)
+#    outStr+=genLine(attack,origin,hero)
+#   outStr+='\\end{longtable}'
 
   battleSkills=hero.ACC+hero.WEP+hero.UNA
   if battleSkills>0:
@@ -206,39 +181,40 @@ def genEntity(entityList):
    outStr+=tmpStr[:-2]
   outStr+='\\newline'
 
-  skills=entity.get('Навыки',None)
-  if skills is not None:
+  
+  if 'Навыки' in entity:
+   skills=entity.get('Навыки')
    #добавить автоматическое исправление под шаблон
 
    outStr+='\\textbf{Навыки: }'
    outStr+=genProps(props,short=True)
    outStr+='\\newline'
 
-  powers=entity.get('Феномены',None)
-  if powers is not None:
-   #добавить автоматическое исправление под шаблон
-   for power in powers:
-    power=fillPower(power,originPowers)
+#  if 'Феномены' in entity:
+#   powers=entity.get('Феномены')
+#   #добавить автоматическое исправление под шаблон
+#   for power in powers:
+#    power=fillPower(power,originPowers)
+#
+#   outStr+='\\textbf{Феномены: }'
+#   outStr+=genProps(props,costly=True)
+#   outStr+='\\newline'
 
-   outStr+='\\textbf{Феномены: }'
-   outStr+=genProps(props,costly=True)
-   outStr+='\\newline'
-
-  flaws=entity.get('Недостатки',None)
-  if flaws is not None:
+  if 'Недостатки' in entity:
+   flaws=entity.get('Недостатки')
    outStr+='\\textbf{Недостатки}\\begin{itemize}'
    outStr+=genProps(flaws)
    outStr+='\\end{itemize}'
 
-  tricks=entity.get('Трюки',None)
-  if tricks is not None
+  if 'Трюки' in entity:
+   tricks=entity.get('Трюки')
    #добавить автоматическое исправление под шаблон
    tricks=fillPerks(tricks,originPerks)
 
    outStr+='\\textbf{Трюки}\\begin{itemize}'
    outStr+=genProps(props)
    outStr+='\\end{itemize}'
-  if checkKey('Ходы',entity,keep=True):
+  if Ходы in entity:
    outStr+='\\textbf{Ходы}\\begin{itemize}'
    moves=entity.get('Ходы')
    outStr+=genProps(moves,costly=True)
@@ -247,17 +223,17 @@ def genEntity(entityList):
 
  return outStr
 
-def getOriginWeapon(entity,originWeapons):
- if not checkKey('название',entity,keep=True):
-  return None
- originName=entity.get('базовый шаблон') if checkKey('базовый шаблон',entity,keep=True) else entity.get('название')
-# list.dict[]
- origin=[x for x in originWeapons if x.get(originName) is not None]
- return origin
+#def getOriginWeapon(entity,originWeapons):
+# if not checkKey('название',entity,keep=True):
+#  return None
+# originName=entity.get('базовый шаблон') if checkKey('базовый шаблон',entity,keep=True) else entity.get('название')
+## list.dict[]
+# origin=[x for x in originWeapons if x.get(originName) is not None]
+# return origin
 
-def prepSkills(skills,originPowers):
+def prepSkills(skills):
  preped=[]
- for skill in skills
+ for skill in skills:
   name=list(skill)[0]
   cost=skill.get(name)
   preped.append({name:None,'стоимость':cost})
@@ -265,9 +241,9 @@ def prepSkills(skills,originPowers):
 
 def prepPowers(powers,originPowers):
  preped=[]
- for power in powers
+ for power in powers:
   name=list(power)[0]
-  origin=[x for x in originWeapons if x.get('название')==name]
+  origin=[x for x in originPowers if x.get('название')==name]
   preped.append({name:None,'стоимость':origin.get('стоимость')})
  return preped
  return 
@@ -276,63 +252,63 @@ def prepPerks(prop,originPerks):
  
  originName=entity.get('название')
 # list.dict[]
- origin=[x for x in originWeapons if x.get(originName) is not None]
+ origin=[x for x in originPerks if x.get(originName) is not None]
  return origin
 
-def getPowers:
+def getPowers():
  powers=[]
  dataNames=['powers','powers-monsters']
  for dataName in dataNames:
   yamlName='content/'+dataName+'.yaml'
-  powers+=getList(yamlName)
+  powers+=getDict(yamlName)
  return powers
 
-def getPerks:
+def getPerks():
  dataName='tricks-monster'
  yamlName='content/'+dataName+'.yaml'
- return getList(yamlName)
+ return getDict(yamlName)
 
-def getWeapons:
- weapons=[]
- for dataName in glob.glob("content/weapons-*.yaml"):
-  yamlName='content/'+dataName+'.yaml'
-  weapons+=getList(yamlName)
-
- powers=[x for x in getPowers() if x.get('Форма')=='Снаряд']
- for power in powers
-  weapon={}
-  if checkKey('название',power):
-   weapon['назавние'].append(power.get('название'))
-  weapon['тип боеприпасов'].append('Ф')
-  if checkKey('Скорострельность',power):
-   weapon['скорострельность'].append(power.get('Скорострельность'))
-  else
-   weapon['скорострельность'].append('1')
-  if checkKey('Дистанция',power):
-   tmp=power.get('Тип Повреждений')
-   tmp=tmp.split('/')
-   weapon['Ближняя Дистанция'].append(tmp[0])
-   weapon['Дальняя Дистанция'].append(tmp[1])
-  else:
-   weapon['Ближняя Дистанция'].append('20')
-   weapon['Дальняя Дистанция'].append('40')
-  if checkKey('Бонус Повреждений',power):
-   tmp=power.get('Бонус Повреждений')
-   tmp=tmp.split('/')
-   weapon['основной БПв'].append(tmp[0])
-   weapon['дополнительнй БПв'].append(tmp[1])
-  if checkKey('Тип Повреждений',power):
-   tmp=power.get('Тип Повреждений')
-   tmp=tmp.split(', ')
-   finalstr=''
-   for t in tmp:
-    finalstr+=t[0]
-   weapon['тип Пв'].append(finalstr)
-  if checkKey('КУ',power):
-   weapon['КУ'].append(power.get('КУ'))
-  else
-   weapon['КУ'].append('20')
- return weapons
+#def getWeapons():
+# weapons=[]
+# for dataName in glob.glob("content/weapons-*.yaml"):
+#  yamlName='content/'+dataName+'.yaml'
+#  weapons+=getDict(yamlName)
+#
+# powers=[x for x in getPowers() if x.get('Форма')=='Снаряд']
+# for power in powers:
+#  weapon={}
+#  if checkKey('название',power):
+#   weapon['назавние'].append(power.get('название'))
+#  weapon['тип боеприпасов'].append('Ф')
+#  if checkKey('Скорострельность',power):
+#   weapon['скорострельность'].append(power.get('Скорострельность'))
+#  else:
+#   weapon['скорострельность'].append('1')
+#  if checkKey('Дистанция',power):
+#   tmp=power.get('Тип Повреждений')
+#   tmp=tmp.split('/')
+#   weapon['Ближняя Дистанция'].append(tmp[0])
+#   weapon['Дальняя Дистанция'].append(tmp[1])
+#  else:
+#   weapon['Ближняя Дистанция'].append('20')
+#   weapon['Дальняя Дистанция'].append('40')
+#  if checkKey('Бонус Повреждений',power):
+#   tmp=power.get('Бонус Повреждений')
+#   tmp=tmp.split('/')
+#   weapon['основной БПв'].append(tmp[0])
+#   weapon['дополнительнй БПв'].append(tmp[1])
+#  if checkKey('Тип Повреждений',power):
+#   tmp=power.get('Тип Повреждений')
+#   tmp=tmp.split(', ')
+#   finalstr=''
+#   for t in tmp:
+#    finalstr+=t[0]
+#   weapon['тип Пв'].append(finalstr)
+#  if checkKey('КУ',power):
+#   weapon['КУ'].append(power.get('КУ'))
+#  else:
+#   weapon['КУ'].append('20')
+# return weapons
 
 
 #- название: ""

@@ -27,7 +27,7 @@ def genEntity(entityDict):
   outStr+='\\subsection{'+key+'}'
   outStr+='\\begin{center}\\begin{tabular}{ p{1cm} p{15cm} }'
 
-  variants=entity.get('Грани',None)
+  variants=entity.get('Грани')
   if variants is None:
    outStr+='\\err не указаны Грани'
   count=0

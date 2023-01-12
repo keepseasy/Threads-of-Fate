@@ -1,9 +1,8 @@
 import sys
-import yaml
 import os.path
-from yaml.loader import SafeLoader
-from genLib import checkKey
 from genLib import clear
+from genLib import getDict
+
 
 #get all names
 baseName=''
@@ -30,11 +29,6 @@ _temp = __import__(baseName, globals(), locals(), ['sortKey'], 0)
 sortKey = _temp.sortKey
 
 #extract and sort data
-def getDict(yamlName):
- if not os.path.isfile(yamlName):
-  return {}
- with open(yamlName, 'r', encoding="utf-8") as jf:
-  return yaml.load(jf, Loader=SafeLoader)
 
 #main: read data and write generated string to .tex file
 if not os.path.exists('scripts/output/'):

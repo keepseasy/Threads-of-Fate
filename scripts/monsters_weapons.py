@@ -1,7 +1,6 @@
 import math
-from genLib import checkKey
 from genLib import tryInt
-from genLib import sortKey
+from genLib import getName as sortKey
 #from genLib import genProps
 from genLib import genSize
 from genLib import makelink
@@ -25,37 +24,37 @@ class weaponStats:
  dmgType=None
  crit=None
  def __init__(self,entity):
-  self.displayName=entity.get('название') if checkKey('название',entity,keep=True) else None
-  self.alias=entity.get('базовый шаблон') if checkKey('базовый шаблон',entity,keep=True) else None
-  self.hasSpecial=checkKey('особые свойства',entity,keep=True)
+  self.displayName=entity.get('название')
+  self.alias=entity.get('базовый шаблон')
+  self.hasSpecial='особые свойства' in entity
 
-  if checkKey('свойства',entity,keep=True):
+  if 'свойства' in entity:
    features=entity.get('свойства')
-    if features is list:
-     self.features=features
-    else:
-     self.features.append('\\err не удалось извлечь список свойств')
-  self.wType=entity.get('тип боеприпасов') if checkKey('тип боеприпасов',entity,keep=True) else None
-  self.clipSize=entity.get('магазин') if checkKey('магазин',entity,keep=True) else None
+   if features is list:
+    self.features=features
+   else:
+    self.features.append('\\err не удалось извлечь список свойств')
+  self.wType=entity.get('тип боеприпасов')
+  self.clipSize=entity.get('магазин')
   if self.clipSize is not int:
    self.clipSize=None
-  self.rateOfFire=entity.get('скорострельность') if checkKey('скорострельность',entity,keep=True) else None
+  self.rateOfFire=entity.get('скорострельность')
   if self.rateOfFire is not int:
    self.rateOfFire=None
-  self.shortDist=entity.get('Ближняя Дистанция') if checkKey('Ближняя Дистанция',entity,keep=True) else None
+  self.shortDist=entity.get('Ближняя Дистанция')
   if self.shortDist is not int:
    self.shortDist=None
-  self.longDist=entity.get('Дальняя Дистанция') if checkKey('Дальняя Дистанция',entity,keep=True) else None
+  self.longDist=entity.get('Дальняя Дистанция')
   if self.longDist is not int:
    self.longDist=None
-  self.dmg0=entity.get('основной БПв') if checkKey('основной БПв',entity,keep=True) else None
+  self.dmg0=entity.get('основной БПв')
   if self.dmg0 is not int:
    self.dmg0=None
-  self.dmg1=entity.get('дополнительнй БПв') if checkKey('дополнительнй БПв',entity,keep=True) else None
+  self.dmg1=entity.get('дополнительнй БПв')
   if self.dmg1 is not int:
    self.dmg1=None
-  self.dmgType=entity.get('тип Пв') if checkKey('тип Пв',entity,keep=True) else None
-  self.crit=entity.get('КУ') if checkKey('КУ',entity,keep=True) else None
+  self.dmgType=entity.get('тип Пв')
+  self.crit=entity.get('КУ')
   if self.crit is not int:
    self.crit=None
 
@@ -99,13 +98,13 @@ class weaponStats:
 def genMod(val):
  return math.floor((val-10)/2)
 
-def calcBonus(weapon,hero)
+def calcBonus(weapon,hero):
  if weapon.wType is not None:
   bonus=hero.ACC
   match weapon.wType:
    case 'М' : bonus+=genMod(hero.DEX)+genMod(hero.STR)+hero.SIZE
    case 'Ф' :bonus+=genMod(hero.PHE)-hero.SIZE
-   case -: bonus+=genMod(hero.DEX)-hero.SIZE
+   case _: bonus+=genMod(hero.DEX)-hero.SIZE
   return bonus
  bonus=hero.SIZE+genMod(hero.DEX)+genMod(hero.STR)
  bonus+= hero.UNA if 'Естественное' in weapon.features else hero.WEP
@@ -113,14 +112,14 @@ def calcBonus(weapon,hero)
 
 def genLine(entity,origin,hero):
  weapon=weaponStats(entity)
- if not origin is None
+ if origin is not None:
   weapon.merge(weaponStats(origin))
  makelink(name,eType,displayName=None)
  etype='power' if weapon.wType=='Ф' else 'weapon'
 
  displayName=weapon.displayName
  name=weapon.displayName
- if weapon.alias is not None
+ if weapon.alias is not None:
   name=weapon.alias
   displayName+='('+weapon.alias+')'
 
@@ -182,19 +181,18 @@ def genLine(entity,origin,hero):
  outStr+=' & '
 
  if weapon.dmgType is not None:
- checkKey('тип Пв',entity)
- outStr+=entity.get('тип Пв')
+  outStr+=weapon.dmgType
  outStr+=' & '
 
  if weapon.crit is None or weapon.crit<1 or weapon.crit>20:
   outStr+='\\err'
  else:
   outStr+=str(weapon.crit)
-  if weapon.crit<20
+  if weapon.crit<20:
    outStr+='+'
  outStr+='\\\\ '
  if weapon.wType is not None:
-  if weapon.wType='М' and 'Снаряды' not in weapon.features:
+  if weapon.wType=='М' and 'Снаряды' not in weapon.features:
    outStr+=genSubLine(weapon,hero)
  outStr+='\\hline '
  return outStr
