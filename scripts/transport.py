@@ -1,7 +1,3 @@
-from genLib import checkKey
-from genLib import tryInt
-from genLib import tryFloat
-from genLib import getOptional
 from genLib import pureGen
 
 import re
@@ -42,23 +38,13 @@ def genLine(key,entity):
  outStr+=' & '
 
  outStr+=entity.get('Размер','\\err')
- if 'животное' in entity:
-  outStr+='(Ж)'
+ if 'животное' in entity: outStr+='(Ж)'
  outStr+=' & '
 
- outStr+=entity.get('Защита','\\err')
- outStr+=' & '
-
- outStr+=entity.get('Прочность','-')
- outStr+=' & '
-
- checkKey('ЕЗ',entity)
- outStr+=entity.get('ЕЗ','\\err')
- outStr+=' & '
-
- outStr+=entity.get('ограничение Модификатора Ловкости','-')
- outStr+=' & '
-
+ outStr+=entity.get('Защита','\\err')+' & '
+ outStr+=entity.get('Прочность','-')+' & '
+ outStr+=entity.get('ЕЗ','\\err')+' & '
+ outStr+=entity.get('ограничение Модификатора Ловкости','-')+' & '
  outStr+=entity.get('Проходимость','\\err')
  env=''
  if 'Тип передвижения' in entity:
@@ -74,12 +60,8 @@ def genLine(key,entity):
    outStr+='М'
  outStr+=' & '
 
- outStr+=entity.get('Грузоподъемность-вес','\\err')
- outStr+=' & '
-
- outStr+=entity.get('Расход','-')
- outStr+=' & '
-
+ outStr+=entity.get('Грузоподъемность-вес','\\err')+' & '
+ outStr+=entity.get('Расход','-')+' & '
  outStr+=entity.get('СП','-')
  outStr+='\\\\ \\hline'
  return outStr

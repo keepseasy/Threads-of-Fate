@@ -6,12 +6,10 @@ from genLib import getDict
 
 #get all names
 baseName=''
-if len(sys.argv) > 1:
- baseName=sys.argv[1]
+if len(sys.argv) > 1: baseName=sys.argv[1]
 dataName=baseName
 
-if len(sys.argv) > 2:
- dataName=sys.argv[2]
+if len(sys.argv) > 2: dataName=sys.argv[2]
 texName='scripts/output/'+dataName+'.tex'
 yamlName1='content/'+dataName+'.yaml'
 yamlName2='localContent/'+dataName+'.yaml'
@@ -31,8 +29,7 @@ sortKey = _temp.sortKey
 #extract and sort data
 
 #main: read data and write generated string to .tex file
-if not os.path.exists('scripts/output/'):
- os.makedirs('scripts/output/')
+if not os.path.exists('scripts/output/'): os.makedirs('scripts/output/')
 f=open(texName, "w", encoding="utf-8")
 finalDict=None
 if not pureGen():

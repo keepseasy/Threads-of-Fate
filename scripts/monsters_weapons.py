@@ -36,27 +36,20 @@ class weaponStats:
     self.features.append('\\err не удалось извлечь список свойств')
   self.wType=entity.get('тип боеприпасов')
   self.clipSize=entity.get('магазин')
-  if self.clipSize is not int:
-   self.clipSize=None
+  if self.clipSize is not int: self.clipSize=None
   self.rateOfFire=entity.get('скорострельность')
-  if self.rateOfFire is not int:
-   self.rateOfFire=None
+  if self.rateOfFire is not int: self.rateOfFire=None
   self.shortDist=entity.get('Ближняя Дистанция')
-  if self.shortDist is not int:
-   self.shortDist=None
+  if self.shortDist is not int: self.shortDist=None
   self.longDist=entity.get('Дальняя Дистанция')
-  if self.longDist is not int:
-   self.longDist=None
+  if self.longDist is not int: self.longDist=None
   self.dmg0=entity.get('основной БПв')
-  if self.dmg0 is not int:
-   self.dmg0=None
+  if self.dmg0 is not int: self.dmg0=None
   self.dmg1=entity.get('дополнительнй БПв')
-  if self.dmg1 is not int:
-   self.dmg1=None
+  if self.dmg1 is not int: self.dmg1=None
   self.dmgType=entity.get('тип Пв')
   self.crit=entity.get('КУ')
-  if self.crit is not int:
-   self.crit=None
+  if self.crit is not int: self.crit=None
 
  def merge(self,origin):
   self.hasSpecial|=origin.hasSpecial

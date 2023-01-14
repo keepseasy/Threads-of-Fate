@@ -13,8 +13,7 @@ def genEntity(entityDict):
   entity=entityDict.get(key)
   outStr+=key
 
-  if 'фантастическое' in entity:
-   outStr+='\\textsuperscript{ф}'
+  if 'фантастическое' in entity: outStr+='\\textsuperscript{ф}'
   outStr+=' & '
 
   outStr+=entity.get('дополнительные Эффекты','-')

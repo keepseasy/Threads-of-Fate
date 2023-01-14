@@ -11,38 +11,10 @@ def pureGen():
 def sortDict(entityDict,curSortKey=getName):
  return dict(sorted(entityDict.items(),key=curSortKey))
 
-def checkKey(keystr,entity,keep=False):
- if keystr not in entity:
-  if not keep:
-   entity[keystr]='\\tbd'
-  return False
- val=entity.get(keystr)
- vType=type(val)
- if not vType==str and not vType==list or not val:
-  if not keep:
-   entity[keystr]='\\tbd'
-  return False
- return True
-
-def getOptional(keystr,entity):
-  if checkKey(keystr,entity,keep=True):
-   return entity.get(keystr)
-  else:
-   return '-'
-def tryFloat(val):
- if val=='\\tbd':
-  return val
- if re.match(r'^-?\d+(?:\.\d+)$', val) is None:
-  return '\\err'
- return val
-
 def tryInt(val):
- if val=='\\tbd':
-  return val
- if val.startswith('-') and val[1:].isdigit():
-  return val
- if val.isdigit():
-  return val
+ if val=='\\tbd': return val
+ if val.startswith('-') and val[1:].isdigit(): return val
+ if val.isdigit(): return val
  return '\\err'
 
 def genProps(props,eType=None):
@@ -50,14 +22,13 @@ def genProps(props,eType=None):
  strList=[]
  joiner=', '
  for prop in props:
+#  print(prop)
   cost=prop.get('стоимость',False)
   name=getName(prop)
   descr=prop.get(name,False)
   
-  if eType is not None:
-   name=makelink(prop,eType)
-  if cost:
-   name+='('+prop.get('стоимость')+')'
+  if eType is not None: name=makelink(prop,eType)
+  if cost: name+='('+str(prop.get('стоимость'))+')'
   if descr:
    joiner=''
    name='\\item\\textbf{'+name+': }'+descr
@@ -75,7 +46,7 @@ def genSize(val):
   case 4: return 'Исполинский'
   case _: return '\\tbd'
 
-def clear(entityDict,curSortKey):
+def clear(entityDict,curSortKey=getName):
  entityDict=sortDict(entityDict,curSortKey)
  for feature in entityDict:
   name=getName(feature)
@@ -88,12 +59,10 @@ def bookmark(name,eType):
  return '\\hypertarget{'+eType+str(hash(name))+'}{}'
 
 def makelink(name,eType,displayName=None):
- if displayName is None:
-  displayName=name
+ if displayName is None: displayName=name
  return '\\hyperlink{'+eType+str(hash(name))+'}{'+displayName+'}'
 
 def getDict(yamlName):
- if not os.path.isfile(yamlName):
-  return {}
+ if not os.path.isfile(yamlName): return {}
  with open(yamlName, 'r', encoding="utf-8") as jf:
   return yaml.load(jf, Loader=SafeLoader)

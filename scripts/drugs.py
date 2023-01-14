@@ -4,11 +4,9 @@ from genLib import tryInt
 
 def genLine(key,entity):
  outStr=''
- outStr+='\\textbf{'+key
+ outStr+='\\textbf{'+key+'}'
 
-# if 'Можно нанести на оружие' in entity:
-#  outStr+='\\newline [Масло]'
- outStr+='}'
+# if 'Можно нанести на оружие' in entity: outStr+='\\newline [Масло]'
 
  outStr+='\\newline\\textit{Токсичность }'
  outStr+=tryInt(entity.get('Токсичность','\\err'))

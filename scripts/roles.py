@@ -1,4 +1,3 @@
-from genLib import checkKey
 from genLib import getName as sortKey
 from genLib import pureGen
 def pureGen():
