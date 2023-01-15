@@ -5,7 +5,6 @@ from genLib import genSize
 from genLib import bookmark
 from genLib import makelink
 from genLib import pureGen
-#from monsters_weapons import genLine
 from genLib import getDict
 from genLib import clear
 
@@ -134,8 +133,8 @@ def genEntity(entityDict):
 
   statlength=checkStats(hero)
   if statlength>0:
-   outStr+='\\newline\\noindent\\begin{minipage}[b]{0.3\\linewidth}'
-   outStr+='\\begin{tabular}{|l l|}'
+#   outStr+='\\newline\\noindent\\begin{minipage}[b]{0.3\\linewidth}'
+   outStr+='\\newline\\begin{tabular}{|l l|}'
    outStr+='\\hline'
    outStr+='\\textbf{Сл:} & '+str(hero.STR)+genPimaryMod(hero.STR,template)+'\\\\' if hero.STR!=0 else ''
    outStr+='\\textbf{Лв:} & '+str(hero.DEX)+genPimaryMod(hero.DEX,template)+'\\\\' if hero.DEX!=0 else ''
@@ -155,8 +154,8 @@ def genEntity(entityDict):
    outStr+='\\hline'
 
    outStr+='\\end{tabular}}'
-   outStr+='\\end{minipage}'
-   outStr+='\\begin{minipage}[b]{0.7\\linewidth}'
+#   outStr+='\\end{minipage}'
+#   outStr+='\\begin{minipage}[b]{0.7\\linewidth}'
 
 
   if 'атаки' in entity:
@@ -165,8 +164,8 @@ def genEntity(entityDict):
    outStr+='\\begin{longtable}{|p{3cm}|p{2.5cm}|c|c|c|c|c|}'
    outStr+='\\hline '
    outStr+='Название & Свойства & КМС & Дистанция & '
-   outStr+='БПв & ТПв & КУ\\\\ \\hline '
-   for attack in prepWeapons(weapons,originWeapons,hero):
+   outStr+='БПв & ТПв & КУ \\\\ \\hline '
+   for attack in prepWeapons(weapons,originWeapons,hero,template):
     outStr+=genWeaponLine(attack)
    outStr+='\\end{longtable}'
 
@@ -190,8 +189,8 @@ def genEntity(entityDict):
    outStr+='\\newline\\textbf{Феномены: }'
    outStr+=genProps(prepPowers(powers,originPowers))
 
-  if statlength>0:
-   outStr+='\\end{minipage}'
+#  if statlength>0:
+#   outStr+='\\end{minipage}'
 
   if 'Недостатки' in entity:
    flaws=entity.get('Недостатки')
@@ -218,7 +217,7 @@ def genEntity(entityDict):
 
  return outStr
 
-def prepWeapons(props,origins,hero):
+def prepWeapons(props,origins,hero,template):
  preped=[]
  for prop in props:
   name=list(prop)[0]
@@ -227,12 +226,13 @@ def prepWeapons(props,origins,hero):
    weapon={}
   originName=weapon.get('базовый шаблон',name)
   origin=origins.get(originName,None)
-
-  preped.append({name:weaponMerge(weapon,origin,hero)})
+  merged={name:weaponMerge(weapon,origin,hero,template)}
+  preped.append(merged)
  return preped
 
 ##############################################################################
-def weaponMerge(weapon,origin,hero):
+def weaponMerge(weapon,origin,hero,template):
+ merged={}
  wType=origin.get('тип боеприпасов','')
  features=clear(origin.get('свойства',{})|weapon.get('свойства',{}))
  natural='Естественное' in features
@@ -251,20 +251,37 @@ def weaponMerge(weapon,origin,hero):
   bonus+=bDex-hero.SIZE
  bonus=meleeBonus if wType=='' else bonus
 
- origin['свойства']=features
-
- origin['Ближняя Дистанция']=origin.get('Ближняя Дистанция',0)+weapon.get('Ближняя Дистанция',0)
- origin['Дальняя Дистанция']=origin.get('Дальняя Дистанция',0)+weapon.get('Дальняя Дистанция',0)
-
  wBonus=origin.get('основной БПв',0)+weapon.get('основной БПв',0)
- origin['ББ БПв']=wBonus+meleeBonus
- origin['основной БПв']=wBonus+bonus
- origin['дополнительнй БПв']=origin.get('дополнительнй БПв',0)+weapon.get('дополнительнй БПв',0)+bonus
+ eBonus=origin.get('дополнительнй БПв',0)+weapon.get('дополнительнй БПв',0)
+
+ if template:
+  meleeBonus=0
+  bonus=0
 
  if 'КУ' in weapon:
   origin['КУ']=origin.get('КУ')+weapon.get('КУ')
 
- return origin
+ merged['свойства']=features
+ if 'особые свойства' in origin or 'особые свойства' in weapon:
+  merged['особые свойства']=''
+ merged['тип боеприпасов']=wType
+ merged['магазин']=weapon.get('магазин',origin.get('магазин'))
+ merged['скорострельность']=weapon.get('скорострельность',origin.get('скорострельность'))
+ if 'Ближняя Дистанция' in origin:
+  merged['Ближняя Дистанция']=origin.get('Ближняя Дистанция')+weapon.get('Ближняя Дистанция',0)
+ if 'Дальняя Дистанция' in origin:
+  merged['Дальняя Дистанция']=origin.get('Дальняя Дистанция')+weapon.get('Дальняя Дистанция',0)
+ merged['ББ БПв']=wBonus+meleeBonus
+ merged['основной БПв']=wBonus+bonus
+ if 'дополнительнй БПв' in origin:
+  merged['дополнительнй БПв']=eBonus+bonus
+ merged['тип Пв']=weapon.get('тип Пв',origin.get('тип Пв'))
+ if 'КУ' in weapon:
+  merged['КУ']=origin.get('КУ')+weapon.get('КУ')
+ elif 'КУ' in origin:
+  merged['КУ']=origin.get('КУ')
+
+ return merged
 
 ##############################################################################
 def genWeaponLine(prop):
@@ -338,19 +355,13 @@ def genWeaponLine(prop):
  return outStr
 
 def genWeaponSubLine(weapon):
- outStr=' & '
- outStr=' & '
- outStr+='- & '
- outStr+='Ближ. бой'
- outStr+=' & '
+ outStr=' &  & - & Ближ. бой & '
 
  val=weapon.get('ББ БПв',False)
  outStr+='+' if val>0 else ''
  outStr+=str(val) if val else '\\err'
 
- outStr+=' & '
- outStr+=' & '
- outStr+='\\\\ '
+ outStr+=' &  &  \\\\ '
  return outStr
 ##############################################################################
 
@@ -422,19 +433,18 @@ def getWeapons():
 
 def weaponFromPower(key,power):
  prop={}
- prop['назавние']=key
  prop['тип боеприпасов']='Ф'
 
- prop['скорострельность']=power.get('Скорострельность','1')
+ prop['скорострельность']=int(power.get('Скорострельность','1'))
 
  tmp=power.get('Дистанция','20/40')
  tmp=tmp.split('/')
- prop['Ближняя Дистанция']=tmp[0]
- prop['Дальняя Дистанция']=tmp[1]
+ prop['Ближняя Дистанция']=int(tmp[0])
+ prop['Дальняя Дистанция']=int(tmp[1])
  tmp=power.get('Бонус Повреждений','\\err/\\err')
  tmp=tmp.split('/')
- prop['основной БПв']=tmp[0]
- prop['дополнительнй БПв']=tmp[1]
+ prop['основной БПв']=int(tmp[0])
+ prop['дополнительнй БПв']=int(tmp[1])
 
  tmp=power.get('Тип Повреждений','-')
  tmp=tmp.split(', ')
@@ -443,9 +453,9 @@ def weaponFromPower(key,power):
   finalstr+=t[0]
  prop['тип Пв']=finalstr
 
- prop['КУ']=power.get('КУ','20')
+ prop['КУ']=int(power.get('КУ','20'))
 
- return {key:prop}
+ return prop
 
 #- название: ""
 #  Шаблон: "Да"
