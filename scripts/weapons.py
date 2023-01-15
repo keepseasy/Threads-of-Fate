@@ -28,49 +28,48 @@ def genLine(key,entity):
   elif tmp=='Э':
    outStr+='*'
   else:
-   outStr+=tryInt(entity.get('магазин','\\err'))
+   val=entity.get('магазин',False)
+   outStr+=str(val) if val else '\\err'
   outStr+='/'
-  outStr+=tryInt(entity.get('скорострельность','\\err'))
+  val=entity.get('скорострельность',False)
+  outStr+=str(val) if val else '\\err'
  else:
   outStr+='-'
  outStr+=' & '
 
  if isRanged:
-  outStr+=tryInt(entity.get('Ближняя Дистанция','\\err'))
+  val=entity.get('Ближняя Дистанция',False)
+  outStr+=str(val) if val else '\\err'
   outStr+='/'
-  outStr+=tryInt(entity.get('Дальняя Дистанция','\\err'))
+  val=entity.get('Дальняя Дистанция',False)
+  outStr+=str(val) if val else '\\err'
  else:
   outStr+='Ближ. бой'
  outStr+=' & '
 
- dmgStr=tryInt(entity.get('основной БПв','\\err'))
- if not dmgStr=='\\err' and not dmgStr=='\\tbd':
-  if int(dmgStr)>0:
-   outStr+='+'
- outStr+=dmgStr
- secondary=bool(entity.get('дополнительнй БПв',False))
- if isRanged or secondary:
+ if 'основной БПв' in entity:
+  val=entity.get('основной БПв')
+  outStr+='+' if val>0 else ''
+  outStr+=str(val)
+ else:
+  outStr+='\\err'
+
+ val=entity.get('дополнительнй БПв',False)
+ if isRanged or val:
   outStr+='/'
-  dmgStr=tryInt(entity.get('дополнительнй БПв','\\err'))
-  if not dmgStr=='\\err' and not dmgStr=='\\tbd':
-   if int(dmgStr)>0:
-    outStr+='+'
-  outStr+=dmgStr
+  if 'дополнительнй БПв' in entity:
+   outStr+='+' if val>0 else ''
+   outStr+=str(val)
+  else:
+   outStr+='\\err'
  outStr+=' & '
 
  outStr+=entity.get('тип Пв','\\err')
  outStr+=' & '
 
- tmp=tryInt(entity.get('КУ','\\err'))
- if tmp=='\\err' or tmp=='\\tbd':
-  outStr+=tmp
- elif int(tmp)==0 or int(tmp)>20:
-  outStr+='\\err'
- elif int(tmp)==20:
-  outStr+=tmp
- else:
-  outStr+=tmp
-  outStr+='+'
+ val=entity.get('КУ',0)
+ outStr+=str(val) if val>1 and val<=20 else '\\err'
+ outStr+='+' if val==20 else ''
 
  outStr+=' & '
 
