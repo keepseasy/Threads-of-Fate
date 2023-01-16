@@ -120,6 +120,7 @@ def genEntity(entityDict):
   template='Шаблон' in entity
   hero=heroStats(entity)
 
+  newLineNeeded=False
 
   if not template: hero=calculateSecondary(hero,'Четвероногое' in entity)
 
@@ -130,7 +131,7 @@ def genEntity(entityDict):
 
   outStr+=bookmark(key,'monster')
   outStr+=entity.get('описание','\\err нет описания')
-
+  newLineNeeded=True
   statlength=checkStats(hero)
   if statlength>0:
 #   outStr+='\\newline\\noindent\\begin{minipage}[b]{0.3\\linewidth}'
@@ -154,11 +155,13 @@ def genEntity(entityDict):
    outStr+='\\hline'
 
    outStr+='\\end{tabular}}'
+   newLineNeeded=False
 #   outStr+='\\end{minipage}'
 #   outStr+='\\begin{minipage}[b]{0.7\\linewidth}'
 
 
   if 'атаки' in entity:
+   outStr+='\\newline' if newLineNeeded else ''
    outStr+='\\newline\\textbf{Атаки}'
    weapons=entity.get('атаки')
    outStr+='\\begin{longtable}{|p{3cm}|p{2.5cm}|c|c|c|c|c|}'
@@ -168,49 +171,64 @@ def genEntity(entityDict):
    for attack in prepWeapons(weapons,originWeapons,hero,template):
     outStr+=genWeaponLine(attack,template)
    outStr+='\\end{longtable}'
+   newLineNeeded=False
 
   battleSkills=hero.ACC+hero.WEP+hero.UNA
   if battleSkills>0:
-   outStr+='\\newline'
+   outStr+='\\newline' if newLineNeeded else ''
    outStr+='\\textbf{Боевые Навыки: }'
    tmpStr=''
    tmpStr+='Владение оружием('+str(hero.WEP)+'), ' if hero.WEP>0 else ''
    tmpStr+='Рукопашный бой('+str(hero.UNA)+'), ' if hero.UNA>0 else ''
    tmpStr+='Стрельба('+str(hero.ACC)+'), ' if hero.ACC>0 else ''
    outStr+=tmpStr[:-2]
+   newLineNeeded=True
 
   if 'Навыки' in entity:
    skills=entity.get('Навыки')
-   outStr+='\\newline\\textbf{Навыки: }'
+   outStr+='\\newline' if newLineNeeded else ''
+   outStr+='\\textbf{Навыки: }'
    outStr+=genProps(prepSkills(skills))
+   newLineNeeded=True
 
   if 'Феномены' in entity:
    powers=entity.get('Феномены')
-   outStr+='\\newline\\textbf{Феномены: }'
+   outStr+='\\newline' if newLineNeeded else ''
+   outStr+='\\textbf{Феномены: }'
    outStr+=genProps(prepPowers(powers,originPowers))
+   newLineNeeded=True
+
 
 #  if statlength>0:
 #   outStr+='\\end{minipage}'
 
   if 'Недостатки' in entity:
    flaws=entity.get('Недостатки')
-   outStr+='\\newline\\textbf{Недостатки}\\begin{itemize}'
+   outStr+='\\newline' if newLineNeeded else ''
+   outStr+='\\textbf{Недостатки}\\begin{itemize}'
    outStr+=genProps(flaws)
    outStr+='\\end{itemize}'
+   newLineNeeded=False
+
 
   if 'Трюки' in entity:
    tricks=entity.get('Трюки')
-   outStr+='\\newline\\textbf{Трюки}\\begin{itemize}'
+   outStr+='\\newline' if newLineNeeded else ''
+   outStr+='\\textbf{Трюки}\\begin{itemize}'
    outStr+=genProps(prepTricks(tricks,originTricks))
    outStr+='\\end{itemize}'
+   newLineNeeded=False
 
   if 'Функции' in entity:
-   outStr+='\\newline\\textbf{Ходы}\\begin{itemize}'
+   outStr+='\\newline' if newLineNeeded else ''
+   outStr+='\\textbf{Ходы}\\begin{itemize}'
    outStr+=genProps(entity.get('Функции'))
    outStr+='\\end{itemize}'
+   newLineNeeded=False
 
   if 'Ходы' in entity:
-   outStr+='\\newline\\textbf{Ходы}\\begin{itemize}'
+   outStr+='\\newline' if newLineNeeded else ''
+   outStr+='\\textbf{Ходы}\\begin{itemize}'
    outStr+=genProps(entity.get('Ходы'))
    outStr+='\\end{itemize}'
   outStr+='\\newpage'
