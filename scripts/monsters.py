@@ -331,17 +331,17 @@ def genWeaponLine(prop):
   outStr+='- & Ближ. бой'
  outStr+=' & '
 
- if 'основной БПв' in entity:
-  val=entity.get('основной БПв')
+ if 'основной БПв' in weapon:
+  val=weapon.get('основной БПв')
   outStr+='+' if val>0 else ''
   outStr+=str(val)
  else:
   outStr+='\\err'
 
- val=entity.get('дополнительнй БПв',False)
+ val=weapon.get('дополнительнй БПв',False)
  if isRanged or val:
   outStr+='/'
-  if 'дополнительнй БПв' in entity:
+  if 'дополнительнй БПв' in weapon:
    outStr+='+' if val>0 else ''
    outStr+=str(val)
   else:
