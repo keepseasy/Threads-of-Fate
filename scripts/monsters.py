@@ -149,7 +149,7 @@ def genEntity(entityDict):
    outStr+='\\textbf{ЕЗ:} & '+str(hero.HP)+'\\\\' if hero.HP!=0 else ''
    outStr+='\\textbf{Энергия:} & '+str(hero.ENG)+'\\\\' if hero.ENG!=0 else ''
    outStr+='\\textbf{Нити:} & '+str(hero.TREADS)+'\\\\' if hero.TREADS!=0 else ''
-   outStr+='\\textbf{Размер:} & '+genSize(hero.SIZE)+'\\\\' if hero.SIZE!=0 else ''
+   outStr+='\\textbf{Размер:} & '+genSize(hero.SIZE)+'\\\\' if hero.SIZE!=0 or not template else ''
    outStr+='\\textbf{Защита:} & '+str(hero.DEF)+'\\\\' if hero.DEF!=0 else ''
    outStr+='\\hline'
 
@@ -166,7 +166,7 @@ def genEntity(entityDict):
    outStr+='Название & Свойства & КМС & Дистанция & '
    outStr+='БПв & ТПв & КУ \\\\ \\hline '
    for attack in prepWeapons(weapons,originWeapons,hero,template):
-    outStr+=genWeaponLine(attack)
+    outStr+=genWeaponLine(attack,template)
    outStr+='\\end{longtable}'
 
   battleSkills=hero.ACC+hero.WEP+hero.UNA
@@ -257,6 +257,11 @@ def weaponMerge(weapon,origin,hero,template):
  if template:
   meleeBonus=0
   bonus=0
+ else:
+  if bonus==0:
+   merged['Помеха Основная']=True
+  if meleeBonus==0:
+   merged['Помеха Дополнительная']=True
 
  if 'КУ' in weapon:
   origin['КУ']=origin.get('КУ')+weapon.get('КУ')
@@ -284,7 +289,7 @@ def weaponMerge(weapon,origin,hero,template):
  return merged
 
 ##############################################################################
-def genWeaponLine(prop):
+def genWeaponLine(prop,template):
  outStr=''
  name=list(prop)[0]
  weapon=prop.get(name,{})
@@ -346,6 +351,7 @@ def genWeaponLine(prop):
    outStr+=str(val)
   else:
    outStr+='\\err'
+ outStr+='*' if 'Помеха Основная' in weapon and not template else ''
  outStr+=' & '
 
  outStr+=weapon.get('тип Пв','\\err')
@@ -356,16 +362,17 @@ def genWeaponLine(prop):
  outStr+='+' if val<20 else ''
 
  outStr+='\\\\ '
- outStr+=genWeaponSubLine(weapon) if addLine else ''
+ outStr+=genWeaponSubLine(weapon,template) if addLine else ''
  outStr+='\\hline '
  return outStr
 
-def genWeaponSubLine(weapon):
+def genWeaponSubLine(weapon,template):
  outStr=' &  & - & Ближ. бой & '
 
  val=weapon.get('ББ БПв',False)
  outStr+='+' if val>0 else ''
  outStr+=str(val) if val else '\\err'
+ outStr+='*' if 'Помеха Дополнительная' in weapon and not template else ''
 
  outStr+=' &  &  \\\\ '
  return outStr
