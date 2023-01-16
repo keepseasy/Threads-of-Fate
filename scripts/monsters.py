@@ -154,7 +154,7 @@ def genEntity(entityDict):
    outStr+='\\textbf{Защита:} & '+str(hero.DEF)+'\\\\' if hero.DEF!=0 else ''
    outStr+='\\hline'
 
-   outStr+='\\end{tabular}}'
+   outStr+='\\end{tabular}'
    newLineNeeded=False
 #   outStr+='\\end{minipage}'
 #   outStr+='\\begin{minipage}[b]{0.7\\linewidth}'
@@ -162,7 +162,7 @@ def genEntity(entityDict):
 
   if 'атаки' in entity:
    outStr+='\\newline' if newLineNeeded else ''
-   outStr+='\\newline\\textbf{Атаки}'
+   outStr+='\\textbf{Атаки}'
    weapons=entity.get('атаки')
    outStr+='\\begin{longtable}{|p{3cm}|p{2.5cm}|c|c|c|c|c|}'
    outStr+='\\hline '
