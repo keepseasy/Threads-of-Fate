@@ -31,7 +31,7 @@ def genProps(props,eType=None):
   if cost: name+='('+str(prop.get('стоимость'))+')'
   if descr:
    joiner=''
-   name='\\item\\textbf{'+name+': }'+descr
+   name='\\newline\\textbullet\\ \\textbf{'+name+': }'+descr
   strList.append(name)
  return joiner.join(strList)
 
