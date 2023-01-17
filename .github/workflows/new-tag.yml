@@ -25,7 +25,7 @@ jobs:
 
 #genereate new version tag
     - name: "Get next version"
-      if: draft==false
+      if: inputs.draft==false
       run: |
         curl --silent -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/keepseasy/Threads-of-Fate/releases/latest |
         grep '"tag_name":' |
