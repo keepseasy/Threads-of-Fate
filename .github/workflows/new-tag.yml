@@ -8,6 +8,11 @@ on:
         - major
         - minor
         - patch
+      draft:
+        description: 'Make unpublished'
+        required: true
+        type: boolean
+        default: false
 
 jobs:
   build-book:
@@ -20,6 +25,7 @@ jobs:
 
 #genereate new version tag
     - name: "Get next version"
+      if: draft==false
       run: |
         curl --silent -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/keepseasy/Threads-of-Fate/releases/latest |
         grep '"tag_name":' |
