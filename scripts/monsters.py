@@ -128,28 +128,23 @@ def genEntity(entityDict):
   outStr+='[Легендарное]' if 'Легендарное' in entity else ''
   outStr+='[Не живое]' if 'Не живое' in entity else ''
   outStr+='}'
-
   outStr+=bookmark(key,'monster')
 
   if 'атаки' in entity:
-   outStr+='\\newline' if newLineNeeded else ''
-   outStr+='\\textbf{Атаки}'
    weapons=entity.get('атаки')
    outStr+='\\begin{longtable}{|p{3cm}|p{2.5cm}|c|c|c|c|c|}'
-   outStr+='\\hline '
+   outStr+='\\multicolumn{7}{c}{\\textbf{Атаки}} \\\\ \\hline'
    outStr+='Название & Свойства & КМС & Дистанция & '
    outStr+='БПв & ТПв & КУ \\\\ \\hline '
    for attack in prepWeapons(weapons,originWeapons,hero,template):
     outStr+=genWeaponLine(attack,template)
    outStr+='\\end{longtable}'
   
-  outStr+=entity.get('описание','\\err нет описания')
-  newLineNeeded=True
   statlength=checkStats(hero)
   if statlength>0:
-#   outStr+='\\newline\\noindent\\begin{minipage}[b]{0.3\\linewidth}'
-   outStr+='\\newline\\begin{tabular}{|l l|}'
-   outStr+='\\hline'
+   outStr+='\\begin{wraptable}{l}{4.6cm}'
+   outStr+='\\begin{tabular}{|l l|}'
+   outStr+='\\multicolumn{2}{c}{\\textbf{Характеристики}} \\\\ \\hline'
    outStr+='\\textbf{Сл:} & '+str(hero.STR)+genPimaryMod(hero.STR,template)+'\\\\' if hero.STR!=0 else ''
    outStr+='\\textbf{Лв:} & '+str(hero.DEX)+genPimaryMod(hero.DEX,template)+'\\\\' if hero.DEX!=0 else ''
    outStr+='\\textbf{Вн:} & '+str(hero.CON)+genPimaryMod(hero.CON,template)+'\\\\' if hero.CON!=0 else ''
@@ -165,68 +160,56 @@ def genEntity(entityDict):
    outStr+='\\textbf{Нити:} & '+str(hero.TREADS)+'\\\\' if hero.TREADS!=0 else ''
    outStr+='\\textbf{Размер:} & '+genSize(hero.SIZE)+'\\\\' if hero.SIZE!=0 or not template else ''
    outStr+='\\textbf{Защита:} & '+str(hero.DEF)+'\\\\' if hero.DEF!=0 else ''
-   outStr+='\\hline'
+   outStr+='\\hline \\end{tabular}'
+   outStr+='\\end{wraptable}'
 
-   outStr+='\\end{tabular}'
-   newLineNeeded=False
-#   outStr+='\\end{minipage}'
-#   outStr+='\\begin{minipage}[b]{0.7\\linewidth}'
+  outStr+=entity.get('описание','\\err нет описания')
 
   battleSkills=hero.ACC+hero.WEP+hero.UNA
   if battleSkills>0:
-   outStr+='\\newline' if newLineNeeded else ''
+   outStr+='\\newline'
    outStr+='\\textbf{Боевые Навыки: }'
    tmpStr=''
    tmpStr+='Владение оружием('+str(hero.WEP)+'), ' if hero.WEP>0 else ''
    tmpStr+='Рукопашный бой('+str(hero.UNA)+'), ' if hero.UNA>0 else ''
    tmpStr+='Стрельба('+str(hero.ACC)+'), ' if hero.ACC>0 else ''
    outStr+=tmpStr[:-2]
-   newLineNeeded=True
 
   if 'Навыки' in entity:
    skills=entity.get('Навыки')
-   outStr+='\\newline' if newLineNeeded else ''
+   outStr+='\\newline'
    outStr+='\\textbf{Навыки: }'
    outStr+=genProps(prepSkills(skills))
-   newLineNeeded=True
 
   if 'Феномены' in entity:
    powers=entity.get('Феномены')
-   outStr+='\\newline' if newLineNeeded else ''
+   outStr+='\\newline'
    outStr+='\\textbf{Феномены: }'
    outStr+=genProps(prepPowers(powers,originPowers))
-   newLineNeeded=True
-
-#  if statlength>0:
-#   outStr+='\\end{minipage}'
 
   if 'Недостатки' in entity:
    flaws=entity.get('Недостатки')
-   outStr+='\\newline' if newLineNeeded else ''
+   outStr+='\\newline'
    outStr+='\\textbf{Недостатки}'
    outStr+=genProps(flaws)
-   newLineNeeded=True
-
 
   if 'Трюки' in entity:
    tricks=entity.get('Трюки')
-   outStr+='\\newline' if newLineNeeded else ''
+   outStr+='\\newline'
    outStr+='\\textbf{Трюки}'
    outStr+=genProps(prepTricks(tricks,originTricks))
-   newLineNeeded=True
 
   if 'Функции' in entity:
-   outStr+='\\newline' if newLineNeeded else ''
+   outStr+='\\newline'
    outStr+='\\textbf{Ходы}'
    outStr+=genProps(entity.get('Функции'))
-   newLineNeeded=True
 
   if 'Ходы' in entity:
-   outStr+='\\newline' if newLineNeeded else ''
+   outStr+='\\newline'
    outStr+='\\textbf{Ходы}'
    outStr+=genProps(entity.get('Ходы'))
-  outStr+='\\newpage'
 
+  outStr+='\\clearpage'
  return outStr
 
 def prepWeapons(props,origins,hero,template):
