@@ -19,12 +19,6 @@ on:
         type: boolean
         default: false
 
-      experimental:
-        description: 'Make make experimental'
-        required: true
-        type: boolean
-        default: false
-
 jobs:
   build-book:
     runs-on: ubuntu-latest
