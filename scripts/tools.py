@@ -24,24 +24,20 @@ def genEntity(entityDict):
   outStr+=entity.get('описание','\\err нет описания')
   outStr+='\\newline'
   if 'Трюки' in entity:
-   outStr+='\\textbf{Трюки}\\begin{itemize}'
+   outStr+='\\newline\\textbf{Трюки}'
    outStr+=genProps(entity.get('Трюки'))
-   outStr+='\\end{itemize}'
 
   if 'Изъяны' in entity:
-   outStr+='\\textbf{Изъяны}\\begin{itemize}'
+   outStr+='\\newline\\textbf{Изъяны}'
    outStr+=genProps(entity.get('Изъяны'))
-   outStr+='\\end{itemize}'
 
   if 'Функции' in entity:
-   outStr+='\\textbf{Функции}\\begin{itemize}'
+   outStr+='\\newline\\textbf{Функции}'
    outStr+=genProps(entity.get('Функции'))
-   outStr+='\\end{itemize}'
 
   if 'Ходы' in entity:
-   outStr+='\\textbf{Ходы}\\begin{itemize}'
+   outStr+='\\newline\\textbf{Ходы}'
    outStr+=genProps(entity.get('Ходы'))
-   outStr+='\\end{itemize}'
  return outStr
 
 #- название: "(Название)"
