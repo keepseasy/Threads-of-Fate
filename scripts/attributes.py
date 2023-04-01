@@ -1,5 +1,6 @@
 from genLib import getName as sortKey
 from genLib import pureGen
+from genLib import genProps
 
 def genEntity(entityDict):
  outStr=''
@@ -11,14 +12,27 @@ def genEntity(entityDict):
   outStr+='}'
   outStr+='\\paragraph{Экспертные навыки: } '+entity.get('Экспертные Навыки','\\err не заданы Экспертные Навыки')
   outStr+='\\newline '+entity.get('описание','\\err не задано описание Атрибута')
-  outStr+='\\paragraph{'+entity.get('название Трюка','\\err не задано название трюка')
-  outStr+=':} '+entity.get('описание Трюка','\\err не задано описание трюка')
-  if 'название Функции' in entity:
-   outStr+='\\paragraph{Функция — '+entity.get('название Функции','\\err не задано название Функции')
-   outStr+=':} '+entity.get('описание Функции','\\err не задано описание Функции')
+
+  if 'Трюки' in entity:
+   # outStr+='\\newline'
+   # outStr+='\\textbf{Трюки}'
+   outStr+=genProps(entity.get('Трюки'))
+   # outStr+='\\paragraph{'+entity.get('название Трюка','\\err не задано название трюка')
+   # outStr+=':} '+entity.get('описание Трюка','\\err не задано описание трюка')
+
+  if 'Функции' in entity:
+   outStr+='\\newline'
+   outStr+='\\textbf{Функции}'
+   outStr+=genProps(entity.get('Функции'))
+
+  # if 'название Функции' in entity:
+   # outStr+='\\paragraph{Функция — '+entity.get('название Функции','\\err не задано название Функции')
+   # outStr+=':} '+entity.get('описание Функции','\\err не задано описание Функции')
+
   outStr+='\\paragraph{Ход — '+entity.get('название Хода','\\err не задано название Хода')
   outStr+=' ('+entity.get('стоимость Хода','\\err не задана стоимость Хода')
   outStr+='):} '+entity.get('описание Хода','\\err не задано описание Хода')
+
   outStr+='\\paragraph{Если Ход совершается без обрыва Нитей,} '+entity.get('штраф Хода без Нитей','\\err не задан штраф')
   if 'название результата неприятности Успех' in entity:
    outStr+='\\trouble{'+entity.get('название результата неприятности Успех')
@@ -38,6 +52,8 @@ def genEntity(entityDict):
 #   описание: ...
 #   название Трюка: ...
 #   описание Трюка: ...
+#   название Функции: ...
+#   описание Функции: ...
 #   название Хода: ...
 #   стоимость Хода: ...
 #   описание Хода: ...

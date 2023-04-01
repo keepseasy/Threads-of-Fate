@@ -201,7 +201,7 @@ def genEntity(entityDict):
 
   if 'Функции' in entity:
    outStr+='\\newline'
-   outStr+='\\textbf{Ходы}'
+   outStr+='\\textbf{Функции}'
    outStr+=genProps(entity.get('Функции'))
 
   if 'Ходы' in entity:

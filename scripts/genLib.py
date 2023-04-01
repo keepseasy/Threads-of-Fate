@@ -48,11 +48,12 @@ def genSize(val):
 
 def clear(entityDict,curSortKey=getName):
  entityDict=sortDict(entityDict,curSortKey)
+ delList=[]
  for feature in entityDict:
-  name=getName(feature)
-  if name[0]=='-':
-   my_dict.pop(name[1:], None)
-   del my_dict[name]
+  if feature[0]=='-':
+   delList.append(feature)
+ for feature in delList:
+  del entityDict[feature]
  return entityDict
 
 def bookmark(name,eType):
