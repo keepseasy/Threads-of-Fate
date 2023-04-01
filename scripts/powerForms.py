@@ -80,7 +80,6 @@ def genBombInfo(self):
  prop='Бонус Повреждений'
  self.props[prop]=False
  outStr+='\\newline\\textbf{'+prop+'} Бомбы равен 0/-1, если не указано иначе'
- outStr+='} и \\textbf{'+prop+'}.'
 
  prop='КУ'
  self.props[prop]=False
