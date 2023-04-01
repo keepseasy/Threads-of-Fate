@@ -33,15 +33,15 @@
      inkscape:deskcolor="#505050"
      inkscape:document-units="mm"
      showgrid="true"
-     inkscape:zoom="0.7071068"
-     inkscape:cx="457.49808"
-     inkscape:cy="613.76867"
+     inkscape:zoom="1"
+     inkscape:cx="293.49999"
+     inkscape:cy="339.99999"
      inkscape:window-width="1722"
      inkscape:window-height="1041"
      inkscape:window-x="182"
      inkscape:window-y="0"
      inkscape:window-maximized="0"
-     inkscape:current-layer="layer12"
+     inkscape:current-layer="layer8"
      inkscape:snap-global="true"><inkscape:page
        x="0"
        y="0"
@@ -101,8 +101,7 @@
      inkscape:groupmode="layer"
      id="layer8"
      inkscape:label="Здоровье и Энергия"
-     style="display:inline"
-     sodipodi:insensitive="true"><rect
+     style="display:inline"><rect
    style="fill:none;stroke:#000000;stroke-width:3.02362;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
    id="rect14064"
    width="255.00009"
@@ -222,7 +221,7 @@
      sodipodi:role="line"
      id="tspan14378-1"
      x="315"
-     y="207.49048">Опасная Рана(1/4 ЕЗ)</tspan></text>
+     y="207.49048">Опасная Рана(1/5 ЕЗ)</tspan></text>
 <text
    xml:space="preserve"
    style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.3333px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none"
@@ -242,7 +241,7 @@
      sodipodi:role="line"
      id="tspan14378-51"
      x="315"
-     y="247.49048">Потеря конечности(1/4+мВн ЕЗ)</tspan></text>
+     y="247.49048">Потеря конечности(2/5 ЕЗ)</tspan></text>
 <path
    style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.980951px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
    d="m 275.00001,145.49048 h 255"

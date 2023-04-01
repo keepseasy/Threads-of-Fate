@@ -42,7 +42,7 @@ def genProjectileInfo(self):
  prop='Дистанция'
  self.props[prop]=False
  outStr+='\\newline\\textbf{'+prop+'} Снаряда определяется, как Ближняя 20 / Дальняя 40, если не сказано иначе.'
- 
+
  prop='Тип Повреждений'
  self.props[prop]=True
  outStr+='\\newline В описании Снаряда обязательно должны быть указаны \\textbf{'+prop
@@ -53,7 +53,7 @@ def genProjectileInfo(self):
 
  prop='КУ'
  self.props[prop]=False
- outStr+='\\newline\\textbf{'+prop+'} Снаряда равен 20, если не сказано иначе.'
+ outStr+='\\newline\\textbf{'+prop+'} Бомбы равен 20, если не сказано иначе.'
 
  prop='Скорострельность'
  self.props[prop]=False
@@ -70,6 +70,25 @@ def genBombInfo(self):
  prop='Сила Взрыва'
  self.props[prop]=False
  outStr+='\\newline\\textbf{'+prop+'} Бомбы равна \\textbf{10+Концентрация(МФх)}, если не сказано иначе.'
+
+ outStr+='\\newline Бомбу можно можно метнуть прямо в другое существо. В этом случае стрела будет Метательным оружием. Если Цель Бомбы получает КУ, эффекты КУ распространяются на всех существ в Радиусе Взрыва.'
+
+ prop='Тип Повреждений'
+ self.props[prop]=False
+ outStr+='\\newline\\textbf{'+prop+'} Бомбы является Дробящим, если не указано иначе'
+
+ prop='Бонус Повреждений'
+ self.props[prop]=False
+ outStr+='\\newline\\textbf{'+prop+'} Бомбы равен 0/-1, если не указано иначе'
+ outStr+='} и \\textbf{'+prop+'}.'
+
+ prop='КУ'
+ self.props[prop]=False
+ outStr+='\\newline\\textbf{'+prop+'} Бомбы равен 20, если не сказано иначе.'
+
+ prop='Дистанция'
+ self.props[prop]=False
+ outStr+='\\newline\\textbf{'+prop+'} Бомбы определяется, как Ближняя 5 / Дальняя 20, если не сказано иначе.'
 
  outStr+='\\newline В описании Бомбы обязательно должны быть описаны эффекты взрыва.'
  return outStr

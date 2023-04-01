@@ -4,7 +4,7 @@ from genLib import pureGen
 def genEntity(entityDict):
  outStr=''
  outStr+='\\begin{center}'
- outStr+='\\begin{tabular}{ |p{2.5cm}|p{7cm}||c|c|c||c|c| }'
+ outStr+='\\begin{tabular}{ |p{2.7cm}|p{7cm}||c|c|c||c|c| }'
  outStr+='\\hline'
  outStr+='Название & Дополнительные эффекты & СВ & РВ & ТПв & тСл & СП\\\\ \\hline'
  outStr+='\\hline'
