@@ -364,9 +364,12 @@ def genWeaponLine(prop,template):
 def genWeaponSubLine(weapon,template):
  outStr=' &  & - & Ближ. бой & '
 
- val=weapon.get('ББ БПв',False)
- outStr+='+' if val>0 else ''
- outStr+=str(val) if val else '\\err'
+ val=weapon.get('ББ БПв','err')
+ if val=='err':
+  outStr+='\\err'
+ else:
+  outStr+='+' if val>0 else ''
+  outStr+=str(val)
  outStr+='*' if 'Помеха Дополнительная' in weapon and not template else ''
 
  outStr+=' &  &  \\\\ '
