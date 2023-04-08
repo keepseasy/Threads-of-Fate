@@ -37,22 +37,14 @@ def genLine(key,entity):
   outStr+='\\textsuperscript{ф}'
  outStr+=' & '
 
- outStr+=entity.get('Размер','\\err')
- if 'животное' in entity: outStr+='(Ж)'
- outStr+=' & '
-
+ outStr+=entity.get('Размер','\\err')+' & '
  outStr+=entity.get('Защита','\\err')+' & '
  outStr+=entity.get('Прочность','-')+' & '
  outStr+=entity.get('ЕЗ','\\err')+' & '
  outStr+=entity.get('ограничение Модификатора Ловкости','-')+' & '
- outStr+=entity.get('Проходимость','\\err')
- env=''
- if 'Тип передвижения' in entity:
-  env=genEnv(entity.get('Тип передвижения'))
-  outStr+=env
- outStr+=' & '
+ outStr+=entity.get('Проходимость','\\err')+' & '
 
- if env == 'К':
+ if entity.get('Форма','') == 'Космический':
   outStr+='-'
  else:
   outStr+=entity.get('Скорость','\\err')

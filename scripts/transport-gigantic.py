@@ -35,7 +35,10 @@ def genEntity(entityDict):
 
   outStr+='Проходимость '
   outStr+=entity.get('Проходимость','\\err нет проходимости')
-  outStr+=env
+  outStr+='.'
+
+  outStr+='Тип передвижения'
+  outStr+=entity.get('Тип передвижения','\\err нет Типа передвижения')
   outStr+='.'
 
   outStr+='\\newline'+entity.get('описание','\\err нет описания')

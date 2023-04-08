@@ -31,8 +31,8 @@
 \input{trouble-check-blank}
 \newcommand{\tbd}{\textcolor{orange}{\textbf{\textit{TBD}}}}
 \newcommand{\err}{\textcolor{red}{\textbf{\textit{ERR}}}}
-\newcommand{\genAndGet}[2]{
-\input{|python3 scripts/genFromYaml.py #1 #2}
+\newcommand{\genAndGet}[3]{
+\input{|python3 scripts/genFromYaml.py #1 #2 #3}
 \input{scripts/output/#2}
 }
 \begin{document}
@@ -46,6 +46,7 @@
 \input{leisure-and-travel}
 \input{supernatural}
 \input{monsters}
+
 %\input{tips-to-master}
 \end{document}
 \endinput

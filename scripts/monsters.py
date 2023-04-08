@@ -424,7 +424,7 @@ def getTricks():
 
 def getWeapons():
  props={}
- dataNames=['weapons-elder','weapons-melee','weapons-modern','weapons-monsters','weapons-supplimental']
+ dataNames=['weapons','weapons-monsters']
  for dataName in dataNames:
   yamlName='content/'+dataName+'.yaml'
   props|=getDict(yamlName)
@@ -435,11 +435,13 @@ def getWeapons():
  for key in powers:
   power=powers.get(key)
   if power.get('Форма')=='Снаряд':
-   props[key]=weaponFromPower(key,power)
+   props[key]=weaponFromMissile(key,power)
+  if power.get('Форма')=='Бомба':
+   props[key]=weaponFromBomb(key,power)
 
  return clear(props)
 
-def weaponFromPower(key,power):
+def weaponFromMissile(key,power):
  prop={}
  prop['тип боеприпасов']='Ф'
 
@@ -455,6 +457,32 @@ def weaponFromPower(key,power):
  prop['дополнительнй БПв']=int(tmp[1])
 
  tmp=power.get('Тип Повреждений','-')
+ tmp=tmp.split(', ')
+ finalstr=''
+ for t in tmp:
+  finalstr+=t[0]
+ prop['тип Пв']=finalstr
+
+ prop['КУ']=int(power.get('КУ','20'))
+
+ return prop
+
+
+def weaponFromBomb(key,power):
+ prop={}
+ prop['тип боеприпасов']='Ф'
+ prop['скорострельность']='1'
+
+ tmp=power.get('Дистанция','5/20')
+ tmp=tmp.split('/')
+ prop['Ближняя Дистанция']=int(tmp[0])
+ prop['Дальняя Дистанция']=int(tmp[1])
+ tmp=power.get('Бонус Повреждений','0/-1')
+ tmp=tmp.split('/')
+ prop['основной БПв']=int(tmp[0])
+ prop['дополнительнй БПв']=int(tmp[1])
+
+ tmp=power.get('Тип Повреждений','Д')
  tmp=tmp.split(', ')
  finalstr=''
  for t in tmp:
