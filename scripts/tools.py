@@ -24,8 +24,8 @@ def genEntity(entityDict):
   outStr+=entity.get('описание','\\err нет описания')
   outStr+='\\newline'
   if 'Трюки' in entity:
-   outStr+='\\newline\\textbf{Трюки}'
-   outStr+=genProps(entity.get('Трюки'))
+   outStr+='\\newline\\textbf{Свойства}'
+   outStr+=genProps(entity.get('Свойства'))
 
   if 'Изъяны' in entity:
    outStr+='\\newline\\textbf{Изъяны}'
@@ -45,7 +45,7 @@ def genEntity(entityDict):
 #  Запас Энергии: "(размер)"
 #  СП: "(Стоимость)"
 #  описание: "(Описание)"
-#  Трюки:
+#  Свойства:
 #  - "(Название Трюка)": "(Описание Трюка)"
 #  - "(Название Трюка)": "(Описание Трюка)"
 #
