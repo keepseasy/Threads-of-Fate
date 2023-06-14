@@ -1,5 +1,7 @@
 % !TEX options=--shell-escape
 \documentclass[a4paper]{book}
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
 \usepackage{cmap}
 \usepackage[T2A]{fontenc}
 \usepackage[utf8]{inputenc}
@@ -14,6 +16,13 @@
 \usepackage{multicol}
 \usepackage{vwcol}
 
+\usepackage{imakeidx}
+\indexsetup{level=\subsection,toclevel=section,noclearpage}
+\makeindex[title=Алфавитный перечень Атрибутов, name=attributes]%level=\section*, 
+\makeindex[title=Алфавитный перечень Трюков, name=tricks]%level=\section*, 
+\makeindex[title=Алфавитный перечень Оружия, name=weapons]%level=\subsection*, 
+\makeindex[title=Алфавитный перечень Феноменов, name=powers]%level=\section*, 
+\makeindex[title=Алфавитный перечень Существ, name=monsters]%level=\section*, 
 
 \usepackage{hyperref}
 \hypersetup{
@@ -36,6 +45,7 @@
 \input{|python3 scripts/genFromYaml.py #1 #2 #3}
 \input{scripts/output/#2}
 }
+
 \begin{document}
 \tableofcontents
 \input{introduction}

@@ -1,12 +1,13 @@
 from genLib import tryInt
 from genLib import getName as sortKey
 from genLib import pureGen
-from genLib import bookmark
+#from genLib import bookmark
 from genLib import sortDict
 
-def genLine(key,entity):
+def genLine(key,entity,idx):
  outStr=''
- outStr+=bookmark(key,'weapon')+key
+# outStr+=bookmark(key,'weapon')+key
+ outStr+='\\index['+idx+']{'+key+'}'
  if 'особые свойства' in entity:
   outStr+='*'
  if 'фантастическое' in entity:
@@ -84,7 +85,7 @@ def genLine(key,entity):
 
  return outStr
 
-def genEntity(entityDict):
+def genEntity(entityDict,idx):
  outStr=''
  outStr+='\\begin{center}'
  outStr+='\\begin{longtable}{|p{3cm}|p{2.5cm}||c|c|c|c|c||c|c|c|}'
@@ -95,7 +96,7 @@ def genEntity(entityDict):
 
  for key in entityDict:
   entity=entityDict.get(key)
-  outStr+=genLine(key,entity)
+  outStr+=genLine(key,entity,idx)
 
  outStr+='\\end{longtable}'
  outStr+='\\end{center}'

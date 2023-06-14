@@ -1,7 +1,7 @@
 from genLib import getName as sortKey
 from genLib import pureGen
 
-def genEntity(entityDict):
+def genEntity(entityDict,idx):
  outStr=''
  outStr+='\\begin{center}'
  outStr+='\\begin{tabular}{ |p{2.7cm}|p{7cm}||c|c|c||c|c| }'

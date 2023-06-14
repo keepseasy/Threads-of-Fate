@@ -2,9 +2,9 @@ from genLib import pureGen
 from genLib import getName as sortKey
 from powerForms import getForms
 
-from genLib import bookmark
+#from genLib import bookmark
 
-def genEntity(entityDict):
+def genEntity(entityDict,idx):
  outStr=''
  for key in entityDict:
   entity=entityDict.get(key)
@@ -12,7 +12,8 @@ def genEntity(entityDict):
   if 'Уточнение Формы' in entity:
    outStr+='['+entity.get('Уточнение Формы')+']'
   outStr+='}'
-  outStr+=bookmark(key,'power')
+  outStr+='\\index['+idx+']{'+key+'}'
+#  outStr+=bookmark(key,'power')
 
   outStr+='\\textbf{Стоимость'
   if 'поддержание' in entity:
@@ -31,7 +32,7 @@ def genEntity(entityDict):
    if form.name==entityForm:
     if form.name=='Область' and 'Уточнение' in entity:
      outStr+='['+entity.get('Форма')+']'
-    outStr+=form.genEntity(entity)
+    outStr+=form.genEntity(entity,idx)
     break
   else:
    outStr+='\\err у Могущества неправильная Форма'

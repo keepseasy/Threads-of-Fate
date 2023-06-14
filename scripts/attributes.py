@@ -2,14 +2,15 @@ from genLib import getName as sortKey
 from genLib import pureGen
 from genLib import genProps
 
-def genEntity(entityDict):
+def genEntity(entityDict,idx):
  outStr=''
  for key in entityDict:
   entity=entityDict.get(key)
 
-  outStr+='\\subsection{'+key
+  outStr+='\\subsubsection{'+key
   if 'Наследие' in entity: outStr+='[Наследие]'
   outStr+='}'
+  outStr+='\\index['+idx+']{'+key+'}'
   outStr+='\\paragraph{Экспертные навыки: } '+entity.get('Экспертные Навыки','\\err не заданы Экспертные Навыки')
   outStr+='\\newline '+entity.get('описание','\\err не задано описание Атрибута')
 

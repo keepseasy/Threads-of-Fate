@@ -3,7 +3,7 @@ from genLib import pureGen
 def pureGen():
  return False
 
-def genEntity(entityDict):
+def genEntity(entityDict,idx):
  outStr='Чтобы определить Амплуа случайным образом, бросьте К20 и сверьтесь с результатом.'
  outStr+='\\begin{center}\\begin{tabular}{ |c|p{12cm}|c| }\\hline \\textbf{К20} & \\textbf{Если...} & \\textbf{...то герой} \\\\ \\hline '
  count=0

@@ -2,7 +2,7 @@ import math, glob, os
 from genLib import getName as sortKey
 from genLib import genProps
 from genLib import genSize
-from genLib import bookmark
+#from genLib import bookmark
 from genLib import makelink
 from genLib import pureGen
 from genLib import getDict
@@ -108,7 +108,7 @@ def checkStats(hero):
  count+=1 if hero.DEF!=0 else 0
  return count
 
-def genEntity(entityDict):
+def genEntity(entityDict,idx):
  originWeapons=getWeapons()
  originPowers=getPowers()
  originTricks=getTricks()
@@ -124,11 +124,12 @@ def genEntity(entityDict):
 
   if not template: hero=calculateSecondary(hero,'Четвероногое' in entity)
 
-  outStr+='\\subsection{'+key
+  outStr+='\\subsubsection{'+key
   outStr+='[Легендарное]' if 'Легендарное' in entity else ''
   outStr+='[Не живое]' if 'Не живое' in entity else ''
   outStr+='}'
-  outStr+=bookmark(key,'monster')
+  outStr+='\\index['+idx+']{'+key+'}'
+#  outStr+=bookmark(key,'monster')
 
   if 'атаки' in entity:
    weapons=entity.get('атаки')

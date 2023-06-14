@@ -58,5 +58,5 @@ if not pureGen():
 # print(customDict)
  finalDict=clear(basicDict|customDict,sortKey)
  finalDict=pickForm(finalDict,form)
-f.write(genEntity(finalDict))
+f.write(genEntity(finalDict,baseName))
 f.close()

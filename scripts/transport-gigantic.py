@@ -14,7 +14,7 @@ def genEnv(val):
   return 'К'
  return '\\err'
 
-def genEntity(entityDict):
+def genEntity(entityDict,idx):
  outStr=''
  for key in entityDict:
   entity=entityDict.get(key)
@@ -35,9 +35,9 @@ def genEntity(entityDict):
 
   outStr+='Проходимость '
   outStr+=entity.get('Проходимость','\\err нет проходимости')
-  outStr+='.'
+  outStr+='. '
 
-  outStr+='Тип передвижения'
+  outStr+='Тип передвижения '
   outStr+=entity.get('Тип передвижения','\\err нет Типа передвижения')
   outStr+='.'
 
