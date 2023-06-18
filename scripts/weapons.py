@@ -7,7 +7,7 @@ from genLib import sortDict
 def genLine(key,entity,idx):
  outStr=''
 # outStr+=bookmark(key,'weapon')+key
- outStr+='\\index['+idx+']{'+key+'}'
+ outStr+='\\index['+idx+']{'+key+'}'+key
  if 'особые свойства' in entity:
   outStr+='*'
  if 'фантастическое' in entity:

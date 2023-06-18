@@ -8,8 +8,9 @@ from genLib import pureGen
 from genLib import getDict
 from genLib import clear
 
-def genPimaryMod(val,template=False):
- if template: return ''
+#def genPimaryMod(val,template=False):
+# if template: return ''
+def genPimaryMod(val):
  mod=math.floor((val-10)/2)
  outStr='('
  if mod>=0: outStr+='+'
@@ -51,12 +52,12 @@ class heroStats:
     case _ : self.PHENAME=''
 
   def __init__(self,entity):
-   self.STR=entity.get('Сила',0)
-   self.DEX=entity.get('Ловкость',0)
-   self.CON=entity.get('Выносливость',0)
-   self.INT=entity.get('Интеллект',0)
-   self.WIS=entity.get('Мудрость',0)
-   self.CHA=entity.get('Обаяние',0)
+   self.STR=10+entity.get('Сила',0)
+   self.DEX=10+entity.get('Ловкость',0)
+   self.CON=10+entity.get('Выносливость',0)
+   self.INT=10+entity.get('Интеллект',0)
+   self.WIS=10+entity.get('Мудрость',0)
+   self.CHA=10+entity.get('Обаяние',0)
    self.setPhe(entity)
 
    self.SIZE=entity.get('Размер',0)
@@ -89,24 +90,24 @@ def calculateSecondary(hero,doubleSpeed):
 
  return hero
 
-def checkStats(hero):
- count=0
- count+=1 if hero.STR!=0 else 0
- count+=1 if hero.DEX!=0 else 0
- count+=1 if hero.CON!=0 else 0
- count+=1 if hero.INT!=0 else 0
- count+=1 if hero.WIS!=0 else 0
- count+=1 if hero.CHA!=0 else 0
- count+=1 if hero.PHENAME!='' else 0
- count+=1 if hero.SPD!=0 else 0
- count+=1 if hero.REF!=0 else 0
- count+=1 if hero.WIL!=0 else 0
- count+=1 if hero.HP!=0 else 0
- count+=1 if hero.ENG!=0 else 0
- count+=1 if hero.TREADS!=0 else 0
- count+=1 if hero.SIZE!=0 else 0
- count+=1 if hero.DEF!=0 else 0
- return count
+#def checkStats(hero):
+# count=0
+# count+=1 if hero.STR!=0 else 0
+# count+=1 if hero.DEX!=0 else 0
+# count+=1 if hero.CON!=0 else 0
+# count+=1 if hero.INT!=0 else 0
+# count+=1 if hero.WIS!=0 else 0
+# count+=1 if hero.CHA!=0 else 0
+# count+=1 if hero.PHENAME!='' else 0
+# count+=1 if hero.SPD!=0 else 0
+# count+=1 if hero.REF!=0 else 0
+# count+=1 if hero.WIL!=0 else 0
+# count+=1 if hero.HP!=0 else 0
+# count+=1 if hero.ENG!=0 else 0
+# count+=1 if hero.TREADS!=0 else 0
+# count+=1 if hero.SIZE!=0 else 0
+# count+=1 if hero.DEF!=0 else 0
+# return count
 
 def genEntity(entityDict,idx):
  originWeapons=getWeapons()
@@ -117,12 +118,13 @@ def genEntity(entityDict,idx):
  for key in entityDict:
   entity=entityDict.get(key)
 
-  template='Шаблон' in entity
+#  template='Шаблон' in entity
   hero=heroStats(entity)
 
   newLineNeeded=False
 
-  if not template: hero=calculateSecondary(hero,'Четвероногое' in entity)
+#  if not template: hero=calculateSecondary(hero,'Четвероногое' in entity)
+  hero=calculateSecondary(hero,'Четвероногое' in entity)
 
   outStr+='\\subsubsection{'+key
   outStr+='[Легендарное]' if 'Легендарное' in entity else ''
@@ -137,32 +139,41 @@ def genEntity(entityDict,idx):
    outStr+='\\multicolumn{7}{c}{\\textbf{Атаки}} \\\\ \\hline'
    outStr+='Название & Свойства & КМС & Дистанция & '
    outStr+='БПв & ТПв & КУ \\\\ \\hline '
-   for attack in prepWeapons(weapons,originWeapons,hero,template):
-    outStr+=genWeaponLine(attack,template)
+#   for attack in prepWeapons(weapons,originWeapons,hero,template):
+#    outStr+=genWeaponLine(attack,template)
+   for attack in prepWeapons(weapons,originWeapons,hero):
+    outStr+=genWeaponLine(attack)
    outStr+='\\end{longtable}'
   
-  statlength=checkStats(hero)
-  if statlength>0:
-   outStr+='\\begin{wraptable}{l}{4.6cm}'
-   outStr+='\\begin{tabular}{|l l|}'
-   outStr+='\\multicolumn{2}{c}{\\textbf{Характеристики}} \\\\ \\hline'
-   outStr+='\\textbf{Сл:} & '+str(hero.STR)+genPimaryMod(hero.STR,template)+'\\\\' if hero.STR!=0 else ''
-   outStr+='\\textbf{Лв:} & '+str(hero.DEX)+genPimaryMod(hero.DEX,template)+'\\\\' if hero.DEX!=0 else ''
-   outStr+='\\textbf{Вн:} & '+str(hero.CON)+genPimaryMod(hero.CON,template)+'\\\\' if hero.CON!=0 else ''
-   outStr+='\\textbf{Ин:} & '+str(hero.INT)+genPimaryMod(hero.INT,template)+'\\\\' if hero.INT!=0 else ''
-   outStr+='\\textbf{Мд:} & '+str(hero.WIS)+genPimaryMod(hero.WIS,template)+'\\\\' if hero.WIS!=0 else ''
-   outStr+='\\textbf{Об:} & '+str(hero.CHA)+genPimaryMod(hero.CHA,template)+'\\\\' if hero.CHA!=0 else ''
-   outStr+='\\textbf{ФХ:} & '+str(hero.PHENAME)+'\\\\' if hero.PHENAME!='' else ''
-   outStr+='\\textbf{Скорость:} & '+str(hero.SPD)+'\\\\' if hero.SPD!=0 else ''
-   outStr+='\\textbf{Реакция:} & '+str(hero.REF)+'\\\\' if hero.REF!=0 else ''
-   outStr+='\\textbf{Воля:} & '+str(hero.WIL)+'\\\\' if hero.WIL!=0 else ''
-   outStr+='\\textbf{ЕЗ:} & '+str(hero.HP)+'\\\\' if hero.HP!=0 else ''
-   outStr+='\\textbf{Энергия:} & '+str(hero.ENG)+'\\\\' if hero.ENG!=0 else ''
-   outStr+='\\textbf{Нити:} & '+str(hero.TREADS)+'\\\\' if hero.TREADS!=0 else ''
-   outStr+='\\textbf{Размер:} & '+genSize(hero.SIZE)+'\\\\' if hero.SIZE!=0 or not template else ''
-   outStr+='\\textbf{Защита:} & '+str(hero.DEF)+'\\\\' if hero.DEF!=0 else ''
-   outStr+='\\hline \\end{tabular}'
-   outStr+='\\end{wraptable}'
+#  statlength=checkStats(hero)
+#  if statlength>0:
+  outStr+='\\begin{wraptable}{l}{4.6cm}'
+  outStr+='\\begin{tabular}{|l l|}'
+  outStr+='\\multicolumn{2}{c}{\\textbf{Характеристики}} \\\\ \\hline'
+#  outStr+='\\textbf{Сл:} & '+str(hero.STR)+genPimaryMod(hero.STR,template)+'\\\\'# if hero.STR!=0 else ''
+#  outStr+='\\textbf{Лв:} & '+str(hero.DEX)+genPimaryMod(hero.DEX,template)+'\\\\'# if hero.DEX!=0 else ''
+#  outStr+='\\textbf{Вн:} & '+str(hero.CON)+genPimaryMod(hero.CON,template)+'\\\\'# if hero.CON!=0 else ''
+#  outStr+='\\textbf{Ин:} & '+str(hero.INT)+genPimaryMod(hero.INT,template)+'\\\\'# if hero.INT!=0 else ''
+#  outStr+='\\textbf{Мд:} & '+str(hero.WIS)+genPimaryMod(hero.WIS,template)+'\\\\'# if hero.WIS!=0 else ''
+#  outStr+='\\textbf{Об:} & '+str(hero.CHA)+genPimaryMod(hero.CHA,template)+'\\\\'# if hero.CHA!=0 else ''
+  outStr+='\\textbf{Сл:} & '+str(hero.STR)+genPimaryMod(hero.STR)+'\\\\'# if hero.STR!=0 else ''
+  outStr+='\\textbf{Лв:} & '+str(hero.DEX)+genPimaryMod(hero.DEX)+'\\\\'# if hero.DEX!=0 else ''
+  outStr+='\\textbf{Вн:} & '+str(hero.CON)+genPimaryMod(hero.CON)+'\\\\'# if hero.CON!=0 else ''
+  outStr+='\\textbf{Ин:} & '+str(hero.INT)+genPimaryMod(hero.INT)+'\\\\'# if hero.INT!=0 else ''
+  outStr+='\\textbf{Мд:} & '+str(hero.WIS)+genPimaryMod(hero.WIS)+'\\\\'# if hero.WIS!=0 else ''
+  outStr+='\\textbf{Об:} & '+str(hero.CHA)+genPimaryMod(hero.CHA)+'\\\\'# if hero.CHA!=0 else ''
+  outStr+='\\textbf{ФХ:} & '+str(hero.PHENAME)+'\\\\' if hero.PHENAME!='' else ''
+  outStr+='\\textbf{Скорость:} & '+str(hero.SPD)+'\\\\'# if hero.SPD!=0 else ''
+  outStr+='\\textbf{Реакция:} & '+str(hero.REF)+'\\\\'# if hero.REF!=0 else ''
+  outStr+='\\textbf{Воля:} & '+str(hero.WIL)+'\\\\'# if hero.WIL!=0 else ''
+  outStr+='\\textbf{ЕЗ:} & '+str(hero.HP)+'\\\\'# if hero.HP!=0 else ''
+  outStr+='\\textbf{Энергия:} & '+str(hero.ENG)+'\\\\'# if hero.ENG!=0 else ''
+  outStr+='\\textbf{Нити:} & '+str(hero.TREADS)+'\\\\' if hero.TREADS!=0 else ''
+#  outStr+='\\textbf{Размер:} & '+genSize(hero.SIZE)+'\\\\' if hero.SIZE!=0 or not template else ''
+  outStr+='\\textbf{Размер:} & '+genSize(hero.SIZE)+'\\\\' if hero.SIZE!=0 else ''
+  outStr+='\\textbf{Защита:} & '+str(hero.DEF)+'\\\\'# if hero.DEF!=0 else ''
+  outStr+='\\hline \\end{tabular}'
+  outStr+='\\end{wraptable}'
 
   outStr+=entity.get('описание','\\err нет описания')
 
@@ -213,7 +224,8 @@ def genEntity(entityDict,idx):
   outStr+='\\clearpage'
  return outStr
 
-def prepWeapons(props,origins,hero,template):
+#def prepWeapons(props,origins,hero,template):
+def prepWeapons(props,origins,hero):
  preped=[]
  for prop in props:
   name=list(prop)[0]
@@ -222,12 +234,14 @@ def prepWeapons(props,origins,hero,template):
    weapon={}
   originName=weapon.get('базовый шаблон',name)
   origin=origins.get(originName,None)
-  merged={name:weaponMerge(weapon,origin,hero,template)}
+#  merged={name:weaponMerge(weapon,origin,hero,template)}
+  merged={name:weaponMerge(weapon,origin,hero)}
   preped.append(merged)
  return preped
 
 ##############################################################################
-def weaponMerge(weapon,origin,hero,template):
+#def weaponMerge(weapon,origin,hero,template):
+def weaponMerge(weapon,origin,hero):
  merged={}
  wType=origin.get('тип боеприпасов','')
  features=clear(origin.get('свойства',{})|weapon.get('свойства',{}))
@@ -250,14 +264,14 @@ def weaponMerge(weapon,origin,hero,template):
  wBonus=origin.get('основной БПв',0)+weapon.get('основной БПв',0)
  eBonus=origin.get('дополнительнй БПв',0)+weapon.get('дополнительнй БПв',0)
 
- if template:
-  meleeBonus=0
-  bonus=0
- else:
-  if bonus==0:
-   merged['Помеха Основная']=True
-  if meleeBonus==0:
-   merged['Помеха Дополнительная']=True
+# if template:
+#  meleeBonus=0
+#  bonus=0
+# else:
+ if bonus==0:
+  merged['Помеха Основная']=True
+ if meleeBonus==0:
+  merged['Помеха Дополнительная']=True
 
  if 'КУ' in weapon:
   origin['КУ']=origin.get('КУ')+weapon.get('КУ')
@@ -285,7 +299,8 @@ def weaponMerge(weapon,origin,hero,template):
  return merged
 
 ##############################################################################
-def genWeaponLine(prop,template):
+#def genWeaponLine(prop,template):
+def genWeaponLine(prop):
  outStr=''
  name=list(prop)[0]
  weapon=prop.get(name,{})
@@ -347,7 +362,8 @@ def genWeaponLine(prop,template):
    outStr+=str(val)
   else:
    outStr+='\\err'
- outStr+='*' if 'Помеха Основная' in weapon and not template else ''
+# outStr+='*' if 'Помеха Основная' in weapon and not template else ''
+ outStr+='*' if 'Помеха Основная' in weapon else ''
  outStr+=' & '
 
  outStr+=weapon.get('тип Пв','\\err')
@@ -358,11 +374,13 @@ def genWeaponLine(prop,template):
  outStr+='+' if val<20 else ''
 
  outStr+='\\\\ '
- outStr+=genWeaponSubLine(weapon,template) if addLine else ''
+# outStr+=genWeaponSubLine(weapon,template) if addLine else ''
+ outStr+=genWeaponSubLine(weapon) if addLine else ''
  outStr+='\\hline '
  return outStr
 
-def genWeaponSubLine(weapon,template):
+#def genWeaponSubLine(weapon,template):
+def genWeaponSubLine(weapon):
  outStr=' &  & - & Ближ. бой & '
 
  val=weapon.get('ББ БПв','err')
@@ -371,7 +389,8 @@ def genWeaponSubLine(weapon,template):
  else:
   outStr+='+' if val>0 else ''
   outStr+=str(val)
- outStr+='*' if 'Помеха Дополнительная' in weapon and not template else ''
+# outStr+='*' if 'Помеха Дополнительная' in weapon and not template else ''
+ outStr+='*' if 'Помеха Дополнительная' in weapon else ''
 
  outStr+=' &  &  \\\\ '
  return outStr
