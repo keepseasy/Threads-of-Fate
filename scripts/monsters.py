@@ -90,25 +90,6 @@ def calculateSecondary(hero,doubleSpeed):
 
  return hero
 
-#def checkStats(hero):
-# count=0
-# count+=1 if hero.STR!=0 else 0
-# count+=1 if hero.DEX!=0 else 0
-# count+=1 if hero.CON!=0 else 0
-# count+=1 if hero.INT!=0 else 0
-# count+=1 if hero.WIS!=0 else 0
-# count+=1 if hero.CHA!=0 else 0
-# count+=1 if hero.PHENAME!='' else 0
-# count+=1 if hero.SPD!=0 else 0
-# count+=1 if hero.REF!=0 else 0
-# count+=1 if hero.WIL!=0 else 0
-# count+=1 if hero.HP!=0 else 0
-# count+=1 if hero.ENG!=0 else 0
-# count+=1 if hero.TREADS!=0 else 0
-# count+=1 if hero.SIZE!=0 else 0
-# count+=1 if hero.DEF!=0 else 0
-# return count
-
 def genEntity(entityDict,idx):
  originWeapons=getWeapons()
  originPowers=getPowers()
@@ -118,12 +99,10 @@ def genEntity(entityDict,idx):
  for key in entityDict:
   entity=entityDict.get(key)
 
-#  template='Шаблон' in entity
   hero=heroStats(entity)
 
   newLineNeeded=False
 
-#  if not template: hero=calculateSecondary(hero,'Четвероногое' in entity)
   hero=calculateSecondary(hero,'Четвероногое' in entity)
 
   outStr+='\\subsubsection{'+key
@@ -139,23 +118,13 @@ def genEntity(entityDict,idx):
    outStr+='\\multicolumn{7}{c}{\\textbf{Атаки}} \\\\ \\hline'
    outStr+='Название & Свойства & КМС & Дистанция & '
    outStr+='БПв & ТПв & КУ \\\\ \\hline '
-#   for attack in prepWeapons(weapons,originWeapons,hero,template):
-#    outStr+=genWeaponLine(attack,template)
    for attack in prepWeapons(weapons,originWeapons,hero):
     outStr+=genWeaponLine(attack)
    outStr+='\\end{longtable}'
   
-#  statlength=checkStats(hero)
-#  if statlength>0:
   outStr+='\\begin{wraptable}{l}{4.6cm}'
   outStr+='\\begin{tabular}{|l l|}'
   outStr+='\\multicolumn{2}{c}{\\textbf{Характеристики}} \\\\ \\hline'
-#  outStr+='\\textbf{Сл:} & '+str(hero.STR)+genPimaryMod(hero.STR,template)+'\\\\'# if hero.STR!=0 else ''
-#  outStr+='\\textbf{Лв:} & '+str(hero.DEX)+genPimaryMod(hero.DEX,template)+'\\\\'# if hero.DEX!=0 else ''
-#  outStr+='\\textbf{Вн:} & '+str(hero.CON)+genPimaryMod(hero.CON,template)+'\\\\'# if hero.CON!=0 else ''
-#  outStr+='\\textbf{Ин:} & '+str(hero.INT)+genPimaryMod(hero.INT,template)+'\\\\'# if hero.INT!=0 else ''
-#  outStr+='\\textbf{Мд:} & '+str(hero.WIS)+genPimaryMod(hero.WIS,template)+'\\\\'# if hero.WIS!=0 else ''
-#  outStr+='\\textbf{Об:} & '+str(hero.CHA)+genPimaryMod(hero.CHA,template)+'\\\\'# if hero.CHA!=0 else ''
   outStr+='\\textbf{Сл:} & '+str(hero.STR)+genPimaryMod(hero.STR)+'\\\\'# if hero.STR!=0 else ''
   outStr+='\\textbf{Лв:} & '+str(hero.DEX)+genPimaryMod(hero.DEX)+'\\\\'# if hero.DEX!=0 else ''
   outStr+='\\textbf{Вн:} & '+str(hero.CON)+genPimaryMod(hero.CON)+'\\\\'# if hero.CON!=0 else ''
@@ -169,7 +138,6 @@ def genEntity(entityDict,idx):
   outStr+='\\textbf{ЕЗ:} & '+str(hero.HP)+'\\\\'# if hero.HP!=0 else ''
   outStr+='\\textbf{Энергия:} & '+str(hero.ENG)+'\\\\'# if hero.ENG!=0 else ''
   outStr+='\\textbf{Нити:} & '+str(hero.TREADS)+'\\\\' if hero.TREADS!=0 else ''
-#  outStr+='\\textbf{Размер:} & '+genSize(hero.SIZE)+'\\\\' if hero.SIZE!=0 or not template else ''
   outStr+='\\textbf{Размер:} & '+genSize(hero.SIZE)+'\\\\' if hero.SIZE!=0 else ''
   outStr+='\\textbf{Защита:} & '+str(hero.DEF)+'\\\\'# if hero.DEF!=0 else ''
   outStr+='\\hline \\end{tabular}'
@@ -224,7 +192,6 @@ def genEntity(entityDict,idx):
   outStr+='\\clearpage'
  return outStr
 
-#def prepWeapons(props,origins,hero,template):
 def prepWeapons(props,origins,hero):
  preped=[]
  for prop in props:
@@ -234,13 +201,11 @@ def prepWeapons(props,origins,hero):
    weapon={}
   originName=weapon.get('базовый шаблон',name)
   origin=origins.get(originName,None)
-#  merged={name:weaponMerge(weapon,origin,hero,template)}
   merged={name:weaponMerge(weapon,origin,hero)}
   preped.append(merged)
  return preped
 
 ##############################################################################
-#def weaponMerge(weapon,origin,hero,template):
 def weaponMerge(weapon,origin,hero):
  merged={}
  wType=origin.get('тип боеприпасов','')
@@ -299,7 +264,6 @@ def weaponMerge(weapon,origin,hero):
  return merged
 
 ##############################################################################
-#def genWeaponLine(prop,template):
 def genWeaponLine(prop):
  outStr=''
  name=list(prop)[0]
@@ -362,7 +326,6 @@ def genWeaponLine(prop):
    outStr+=str(val)
   else:
    outStr+='\\err'
-# outStr+='*' if 'Помеха Основная' in weapon and not template else ''
  outStr+='*' if 'Помеха Основная' in weapon else ''
  outStr+=' & '
 
@@ -374,12 +337,10 @@ def genWeaponLine(prop):
  outStr+='+' if val<20 else ''
 
  outStr+='\\\\ '
-# outStr+=genWeaponSubLine(weapon,template) if addLine else ''
  outStr+=genWeaponSubLine(weapon) if addLine else ''
  outStr+='\\hline '
  return outStr
 
-#def genWeaponSubLine(weapon,template):
 def genWeaponSubLine(weapon):
  outStr=' &  & - & Ближ. бой & '
 
@@ -389,7 +350,6 @@ def genWeaponSubLine(weapon):
  else:
   outStr+='+' if val>0 else ''
   outStr+=str(val)
-# outStr+='*' if 'Помеха Дополнительная' in weapon and not template else ''
  outStr+='*' if 'Помеха Дополнительная' in weapon else ''
 
  outStr+=' &  &  \\\\ '
@@ -516,26 +476,26 @@ def weaponFromBomb(key,power):
 
  return prop
 
-#- название: ""
-#  Шаблон: "Да"
+#(название):
+#  Форма: 
 #  описание: ""
-#  Сила: ''
-#  Ловкость: ''
-#  Выносливость: ''
-#  Интеллект: ''
-#  Мудрость: ''
-#  Обаяние: ''
-#  Феноменальная характеристика: ''
-#  Размер: '(численное представление: 0-Средний)'
+#  Сила: 
+#  Ловкость: 
+#  Выносливость: 
+#  Интеллект: 
+#  Мудрость: 
+#  Обаяние: 
+#  Феноменальная характеристика: 
+#  Размер: (численное представление: 0-Средний)
 #  Четвероногое: "Да"
-#  Скорость: '(модификатор относительно базового значения)'
-#  Реакция: '(модификатор относительно базового значения)'
-#  Воля: '(модификатор относительно базового значения)'
-#  Энергия: '(модификатор относительно базового значения)'
-#  ЕЗ: '(модификатор относительно базового значения)'
-#  Нити: ""
-#  Бонус защиты: ""
-#  Ограничение ловкости: ""
+#  Скорость: (модификатор относительно базового значения)
+#  Реакция: (модификатор относительно базового значения)
+#  Воля: (модификатор относительно базового значения)
+#  Энергия: (модификатор относительно базового значения)
+#  ЕЗ: (модификатор относительно базового значения)
+#  Нити: 
+#  Бонус защиты: 
+#  Ограничение ловкости: 
 #
 #  атаки:
 #  - название: ''
@@ -564,7 +524,7 @@ def weaponFromBomb(key,power):
 #    КУ: ''
 #
 #  Стрельба: (Значение Навыка)
-#  Безоружный бой: (Значение Навыка)
+#  Рукопашный бой: (Значение Навыка)
 #  Владение оружием: (Значение Навыка)
 #
 #  Навыки:
@@ -576,8 +536,8 @@ def weaponFromBomb(key,power):
 #  - (Название Трюка): '(Описание Трюка)'
 #
 #  Недостатки:
-#  - (Название Недостатка):'(Описание Недостатка)'
-#  - (Название Недостатка):'(Описание Недостатка)'
+#  - (Название Недостатка): '(Описание Недостатка)'
+#  - (Название Недостатка): '(Описание Недостатка)'
 #
 #  Феномены:
 #  - (Название Феномена): '(Описание Феномена)'
