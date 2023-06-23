@@ -90,7 +90,7 @@ def calculateSecondary(hero,doubleSpeed):
 
  return hero
 
-def genEntity(entityDict,idx):
+def genEntity(entityDict,idx,form):
  originWeapons=getWeapons()
  originPowers=getPowers()
  originTricks=getTricks()
@@ -98,6 +98,7 @@ def genEntity(entityDict,idx):
  outStr=''
  for key in entityDict:
   entity=entityDict.get(key)
+#  print(key)
 
   hero=heroStats(entity)
 
@@ -201,6 +202,7 @@ def prepWeapons(props,origins,hero):
    weapon={}
   originName=weapon.get('базовый шаблон',name)
   origin=origins.get(originName,None)
+#  print(name)
   merged={name:weaponMerge(weapon,origin,hero)}
   preped.append(merged)
  return preped
@@ -498,30 +500,31 @@ def weaponFromBomb(key,power):
 #  Ограничение ловкости: 
 #
 #  атаки:
-#  - название: ''
-#    прототип: ''
-#    свойства: ''
-#    тип боеприпасов: ''
-#    магазин: ''
-#    скорострельность: ''
-#    Ближняя Дистанция: ''
-#    Дальняя Дистанция: ''
-#    основной БПв: ''
-#    дополнительнй БПв: ''
-#    тип Пв: ''
-#    КУ: ''
+#    - (название):
+#        базовый шаблон:
+#        свойства: ''
+#        тип боеприпасов: ''
+#        магазин: ''
+#        скорострельность: ''
+#        Ближняя Дистанция: ''
+#        Дальняя Дистанция: ''
+#        основной БПв: ''
+#        дополнительнй БПв: ''
+#        тип Пв: ''
+#        КУ: ''
 #
-#  - название: ''
-#    свойства: ''
-#    тип боеприпасов: ''
-#    магазин: ''
-#    скорострельность: ''
-#    Ближняя Дистанция: ''
-#    Дальняя Дистанция: ''
-#    основной БПв: ''
-#    дополнительнй БПв: ''
-#    тип Пв: ''
-#    КУ: ''
+#    - (название):
+#        базовый шаблон:
+#        свойства: ''
+#        тип боеприпасов: ''
+#        магазин: ''
+#        скорострельность: ''
+#        Ближняя Дистанция: ''
+#        Дальняя Дистанция: ''
+#        основной БПв: ''
+#        дополнительнй БПв: ''
+#        тип Пв: ''
+#        КУ: ''
 #
 #  Стрельба: (Значение Навыка)
 #  Рукопашный бой: (Значение Навыка)

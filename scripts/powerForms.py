@@ -8,7 +8,7 @@ class formTemplate:
   self.name=name
   self.genInfo=genInfo
   self.genInfo(self)
- def genEntity(self,entity,idx):
+ def genEntity(self,entity,idx,form):
   outStr=''
   index=list(self.props)
   for item in index:
@@ -20,7 +20,7 @@ class formTemplate:
     outStr+=entity.get(item)
   return outStr
 
-def genEntity(entity,idx):
+def genEntity(entity,idx,form):
  outStr=''
  for form in getForms():
   outStr+='\\section{'+form.name+'}'

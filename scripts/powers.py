@@ -4,16 +4,23 @@ from powerForms import getForms
 
 #from genLib import bookmark
 
-def genEntity(entityDict,idx):
+def genEntity(entityDict,idx,form):
  outStr=''
+ allForms=True if form=='' else False
+
  for key in entityDict:
   entity=entityDict.get(key)
   outStr+='\\subsection{'+key
-  if 'Уточнение Формы' in entity:
+  if 'Уточнение Формы' in entity and not allForms:
    outStr+='['+entity.get('Уточнение Формы')+']'
   outStr+='}'
   outStr+='\\index['+idx+']{'+key+'}'
 #  outStr+=bookmark(key,'power')
+  if allForms:
+   outStr+='\\textbf{Форма: }'+entity.get('Форма','\\err')
+   if 'Уточнение Формы' in entity:
+    outStr+='['+entity.get('Уточнение Формы')+']'
+   outStr+='\\newline'
 
   outStr+='\\textbf{Стоимость'
   if 'поддержание' in entity:
@@ -28,14 +35,14 @@ def genEntity(entityDict,idx):
 #form
   entityForm=entity.get('Форма')
   forms=getForms()
-  for form in forms:
-   if form.name==entityForm:
-    if form.name=='Область' and 'Уточнение' in entity:
+  for curForm in forms:
+   if curForm.name==entityForm:
+    if curForm.name=='Область' and 'Уточнение' in entity:
      outStr+='['+entity.get('Форма')+']'
-    outStr+=form.genEntity(entity,idx)
+    outStr+=curForm.genEntity(entity,idx,form)
     break
   else:
-   outStr+='\\err у Могущества неправильная Форма'
+   outStr+='\\err у Феномена неправильная Форма'
 #------------------------------------------------------------------
 # aiming resist
   if 'сопротивление Наведению' in entity:

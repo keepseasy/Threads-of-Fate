@@ -2,7 +2,7 @@ from genLib import getName as sortKey
 from genLib import genProps
 from genLib import pureGen
 
-def genEntity(entityDict,idx):
+def genEntity(entityDict,idx,form):
  outStr=''
  for key in entityDict:
   entity=entityDict.get(key)

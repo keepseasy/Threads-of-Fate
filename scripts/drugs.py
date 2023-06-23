@@ -21,7 +21,7 @@ def genLine(key,entity):
  outStr+=entity.get('Эффект Интоксикации','-')
  return outStr
 
-def genEntity(entityDict,idx):
+def genEntity(entityDict,idx,form):
  outStr=''
  outStr+='\\begin{center}'
  outStr+='\\begin{longtable}{|p{3cm}|p{6.5cm}|p{6.5cm}|}'

@@ -33,7 +33,7 @@ def genLine(key,entity):
 
  return outStr
 
-def genEntity(entityDict,idx):
+def genEntity(entityDict,idx,form):
  outStr=''
  outStr+='\\begin{center}'
  outStr+='\\begin{tabular}{|c||c|c|c||c|c|c|}'

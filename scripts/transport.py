@@ -58,7 +58,7 @@ def genLine(key,entity):
  outStr+='\\\\ \\hline'
  return outStr
 
-def genEntity(entityDict,idx):
+def genEntity(entityDict,idx,form):
  outStr=''
  outStr+='\\begin{center}'
  outStr+='\\begin{longtable}{|p{2.5cm}||c|c|c|c|c||c|c|c|c|c|c|}'
