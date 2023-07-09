@@ -23,7 +23,7 @@ def genEntity(entityDict,idx,form):
   outStr+='\\newline\\textbf{Описание: }'
   outStr+=entity.get('описание','\\err нет описания')
   outStr+='\\newline'
-  if 'Трюки' in entity:
+  if 'Свойства' in entity:
    outStr+='\\newline\\textbf{Свойства}'
    outStr+=genProps(entity.get('Свойства'))
 
