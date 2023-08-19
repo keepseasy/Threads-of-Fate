@@ -120,6 +120,7 @@ def genEntity(entityDict,idx,form):
    outStr+='Название & Свойства & КМС & Дистанция & '
    outStr+='БПв & ТПв & КУ \\\\ \\hline '
    for attack in prepWeapons(weapons,originWeapons,hero):
+#    print(attack)
     outStr+=genWeaponLine(attack)
    outStr+='\\end{longtable}'
   
@@ -210,6 +211,7 @@ def prepWeapons(props,origins,hero):
 ##############################################################################
 def weaponMerge(weapon,origin,hero):
  merged={}
+# print(origin)
  wType=origin.get('тип боеприпасов','')
  features=clear(origin.get('свойства',{})|weapon.get('свойства',{}))
  natural='Естественное' in features
@@ -231,10 +233,6 @@ def weaponMerge(weapon,origin,hero):
  wBonus=origin.get('основной БПв',0)+weapon.get('основной БПв',0)
  eBonus=origin.get('дополнительнй БПв',0)+weapon.get('дополнительнй БПв',0)
 
-# if template:
-#  meleeBonus=0
-#  bonus=0
-# else:
  if bonus==0:
   merged['Помеха Основная']=True
  if meleeBonus==0:
@@ -417,13 +415,15 @@ def getWeapons():
   yamlName='localContent/'+dataName+'.yaml'
   props|=getDict(yamlName)
  powers=getPowers()
+
  for key in powers:
   power=powers.get(key)
   if power.get('Форма')=='Снаряд':
    props[key]=weaponFromMissile(key,power)
   if power.get('Форма')=='Бомба':
    props[key]=weaponFromBomb(key,power)
-
+  if power.get('Форма')=='Метка':
+   props[key]=props["Метка/касание"]
  return clear(props)
 
 def weaponFromMissile(key,power):
@@ -454,6 +454,32 @@ def weaponFromMissile(key,power):
 
 
 def weaponFromBomb(key,power):
+ prop={}
+ prop['тип боеприпасов']='Ф'
+ prop['скорострельность']='1'
+
+ tmp=power.get('Дистанция','5/20')
+ tmp=tmp.split('/')
+ prop['Ближняя Дистанция']=int(tmp[0])
+ prop['Дальняя Дистанция']=int(tmp[1])
+ tmp=power.get('Бонус Повреждений','0/-1')
+ tmp=tmp.split('/')
+ prop['основной БПв']=int(tmp[0])
+ prop['дополнительнй БПв']=int(tmp[1])
+
+ tmp=power.get('Тип Повреждений','Д')
+ tmp=tmp.split(', ')
+ finalstr=''
+ for t in tmp:
+  finalstr+=t[0]
+ prop['тип Пв']=finalstr
+
+ prop['КУ']=int(power.get('КУ','20'))
+
+ return prop
+
+def weaponFromMark(key,prop):
+
  prop={}
  prop['тип боеприпасов']='Ф'
  prop['скорострельность']='1'
