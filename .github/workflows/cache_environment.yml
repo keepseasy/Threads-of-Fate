@@ -28,4 +28,4 @@ jobs:
         pip install -r scripts/requirements.txt
 
     - run: |
-        ls /etc/texmf/web2c/fmtutil.cnf
+        ls /etc/texmf/web2c/
