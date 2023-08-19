@@ -48,7 +48,9 @@ jobs:
 #    - run: texconfig rehash
     - run: ls /usr/local/share/texmf
     - run: ls /var/lib/texmf
-    - run: sudo texhash
+    - run: |
+        sudo fmtutil-sys --all
+        sudo texhash
 
 #get python and needed libs
     - uses: actions/setup-python@v4
