@@ -48,6 +48,7 @@ jobs:
     - run: ls /var/lib/texmf
     - run: |
         fmtutil-sys --all
+    - run: |
         texhash
 
 #get python and needed libs
