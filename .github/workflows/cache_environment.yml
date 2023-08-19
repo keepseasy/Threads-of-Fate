@@ -8,6 +8,8 @@ jobs:
       VERSION: ""
 
     steps:
+#checkout needed to scan for dependencies
+    - uses: actions/checkout@v3
 #get latex tools
     - run: sudo apt -y update
     - run: sudo apt -y install texlive-latex-base texlive-fonts-recommended texlive-latex-extra
@@ -22,3 +24,10 @@ jobs:
     - run: pip install -r scripts/requirements.txt
 #get svg tools
     - run: sudo apt -y install librsvg2-bin
+
+    - name: Save Primes
+      id: cache-primes-save
+      uses: actions/cache/save@v3
+      with:
+        path: /
+        key: last-cache
