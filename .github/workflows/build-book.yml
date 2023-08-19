@@ -36,16 +36,16 @@ jobs:
     - name: "get latex and svg tools"
       run: |
         sudo apt -y update
-        sudo apt -y install texlive-latex-base 
-#        sudo apt -y install texlive-fonts-extra texlive-fonts-recommended texlive-latex-extra
-#        sudo apt -y install texlive-lang-cyrillic
+        sudo apt -y install texlive-latex-base texlive-latex-extra
+        sudo apt -y install texlive-fonts-extra texlive-fonts-recommended
+        sudo apt -y install texlive-lang-cyrillic
 
-#        sudo apt -y install librsvg2-bin
+        sudo apt -y install librsvg2-bin
 
 #get latex and svg tools
     - uses: awalsh128/cache-apt-pkgs-action@latest
       with:
-        packages: texlive-fonts-recommended texlive-latex-extra texlive-fonts-extra texlive-lang-cyrillic librsvg2-bin
+        packages: librsvg2-bin
         version: 1.0
     - run: texhash
 
