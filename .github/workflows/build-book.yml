@@ -47,6 +47,7 @@ jobs:
       with:
         packages: texlive-latex-base texlive-fonts-recommended texlive-latex-extra texlive-fonts-extra texlive-lang-cyrillic librsvg2-bin
         version: 1.0
+    - run: texconfig rehash
 
 #get python and needed libs
     - uses: actions/setup-python@v4
