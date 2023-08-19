@@ -46,6 +46,8 @@ jobs:
         packages: librsvg2-bin texlive-latex-base texlive-latex-extra texlive-fonts-extra texlive-fonts-recommended texlive-lang-cyrillic
         version: 1.0
 #    - run: texconfig rehash
+    - run: ls /usr/local/share/texmf
+    - run: ls /var/lib/texmf
     - run: texhash
 
 #get python and needed libs
