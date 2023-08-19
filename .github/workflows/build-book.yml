@@ -43,7 +43,8 @@ jobs:
     - uses: awalsh128/cache-apt-pkgs-action@latest
       with:
 #        packages: librsvg2-bin
-        packages: librsvg2-bin texlive-latex-base texlive-latex-extra texlive-fonts-extra texlive-fonts-recommended texlive-lang-cyrillic
+        packages: librsvg2-bin texlive texlive-latex-extra texlive-fonts-extra texlive-lang-cyrillic
+#        packages: librsvg2-bin texlive-latex-base texlive-latex-extra texlive-fonts-extra texlive-fonts-recommended texlive-lang-cyrillic
         version: 1.0
     - run: ls /var/lib/texmf
     - run: |
