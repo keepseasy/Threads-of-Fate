@@ -49,8 +49,8 @@ jobs:
     - run: ls /usr/local/share/texmf
     - run: ls /var/lib/texmf
     - run: |
-        sudo fmtutil-sys --all
-        sudo texhash
+        fmtutil-sys --all
+        texhash
 
 #get python and needed libs
     - uses: actions/setup-python@v4
