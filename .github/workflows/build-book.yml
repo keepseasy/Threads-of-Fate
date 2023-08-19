@@ -45,13 +45,13 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r scripts/requirements.txt
 
-#restore system from cache
-    - name: Restore cached Primes
-      id: cache-primes-restore
-      uses: actions/cache/restore@v3
-      with:
-        path: /
-        key: last-cache
+##restore system from cache
+#    - name: Restore cached Primes
+#      id: cache-primes-restore
+#      uses: actions/cache/restore@v3
+#      with:
+#        path: /
+#        key: last-cache
 
 
 
