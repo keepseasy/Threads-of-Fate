@@ -27,9 +27,5 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r scripts/requirements.txt
 
-    - name: Save Primes
-      id: cache-primes-save
-      uses: actions/cache/save@v3
-      with:
-        path: /
-        key: last-cache
+    - run: |
+        ls /etc/texmf/web2c/fmtutil.cnf
