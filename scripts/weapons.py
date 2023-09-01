@@ -70,7 +70,7 @@ def genLine(key,entity,idx):
 
  val=entity.get('КУ',0)
  outStr+=str(val) if val>1 and val<=20 else '\\err'
- outStr+='+' if val==20 else ''
+ outStr+='+' if not val==20 else ''
 
  outStr+=' & '
 
