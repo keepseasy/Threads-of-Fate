@@ -14,7 +14,7 @@ on:
         - patch
 
       draft:
-        description: 'Make unpublished'
+        description: 'dry run'
         required: true
         type: boolean
         default: false
@@ -26,21 +26,46 @@ jobs:
       VERSION: ""
 
     steps:
+    - name: Disable initramfs update
+      run: sudo sed -i 's/yes/no/g' /etc/initramfs-tools/update-initramfs.conf
+    - name: Disable man-db update
+      run: sudo rm -f /var/lib/man-db/auto-update
+
     - uses: actions/checkout@v3
-#get latex tools
-    - run: sudo apt -y update
-    - run: sudo apt -y install texlive-latex-base texlive-fonts-recommended texlive-latex-extra
-    - run: sudo apt -y install texlive-fonts-extra
-    - run: sudo apt -y install texlive-lang-cyrillic
+
+#get latex and svg tools
+#    - run: |
+#        sudo apt -y update
+#        sudo apt -y install texlive-latex-base texlive-latex-extra
+#        sudo apt -y install texlive-fonts-extra texlive-fonts-recommended
+#        sudo apt -y install texlive-lang-cyrillic
+
+    - uses: awalsh128/cache-apt-pkgs-action@latest
+      with:
+#        packages: librsvg2-bin
+        packages: librsvg2-bin texlive texlive-latex-extra texlive-fonts-extra texlive-lang-cyrillic
+#        packages: librsvg2-bin texlive-latex-base texlive-latex-extra texlive-fonts-extra texlive-fonts-recommended texlive-lang-cyrillic
+        version: 1.0
+    - run: ls /var/lib/texmf
+    - run: |
+        fmtutil-sys --all
+    - run: |
+        texhash
+
 #get python and needed libs
     - uses: actions/setup-python@v4
       with:
         python-version: "3.10"
         cache: 'pip'
-    - run: python -m pip install --upgrade pip
     - run: pip install -r scripts/requirements.txt
-#get svg tools
-    - run: sudo apt -y install librsvg2-bin
+
+##restore system from cache
+#    - name: Restore cached Primes
+#      id: cache-primes-restore
+#      uses: actions/cache/restore@v3
+#      with:
+#        path: /
+#        key: last-cache
 
 
 
