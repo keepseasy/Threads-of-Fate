@@ -34,23 +34,23 @@ jobs:
     - uses: actions/checkout@v3
 
 #get latex and svg tools
-#    - run: |
-#        sudo apt -y update
-#        sudo apt -y install texlive-latex-base texlive-latex-extra
-#        sudo apt -y install texlive-fonts-extra texlive-fonts-recommended
-#        sudo apt -y install texlive-lang-cyrillic
+    - run: |
+        sudo apt -y update
+        sudo apt -y install texlive texlive-latex-base texlive-latex-extra
+        sudo apt -y install texlive-fonts-extra texlive-fonts-recommended
+        sudo apt -y install texlive-lang-cyrillic
 
     - uses: awalsh128/cache-apt-pkgs-action@latest
       with:
-#        packages: librsvg2-bin
-        packages: librsvg2-bin texlive texlive-latex-extra texlive-fonts-extra texlive-lang-cyrillic
+        packages: librsvg2-bin
+#        packages: librsvg2-bin texlive texlive-latex-extra texlive-fonts-extra texlive-lang-cyrillic
 #        packages: librsvg2-bin texlive-latex-base texlive-latex-extra texlive-fonts-extra texlive-fonts-recommended texlive-lang-cyrillic
         version: 1.0
-    - run: ls /var/lib/texmf
-    - run: |
-        fmtutil-sys --all
-    - run: |
-        texhash
+#    - run: ls /var/lib/texmf
+#    - run: |
+#        fmtutil-sys --all
+#    - run: |
+#        texhash
 
 #get python and needed libs
     - uses: actions/setup-python@v4
