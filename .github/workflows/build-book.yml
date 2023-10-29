@@ -70,20 +70,13 @@ jobs:
 
 
 #make book - double run to get proper table of contents
-    - run: mkdir output
     - run: |
-        pdflatex --enable-pipes --shell-escape -output-directory=output ./Threads-of-Fate.tex
-        cd output
-        for name in `ls *.idx`; do
-         makeindex #name
-        done
-        cd ..
-        pdflatex --enable-pipes --shell-escape -output-directory=output ./Threads-of-Fate.tex
-        pdflatex --enable-pipes --shell-escape -output-directory=output ./Threads-of-Fate.tex
+        pdflatex --enable-pipes --shell-escape ./Threads-of-Fate.tex
+        pdflatex --enable-pipes --shell-escape ./Threads-of-Fate.tex
 
 
 #make character sheet
-    - run: rsvg-convert -f pdf -d 300 -p 300 -o output/character-sheet.pdf character-sheet.svg
+    - run: rsvg-convert -f pdf -d 300 -p 300 -o character-sheet.pdf character-sheet.svg
 
 #genereate new version tag
     - name: "Get next version"
@@ -125,7 +118,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-        asset_path: ./output/Threads-of-Fate.pdf
+        asset_path: ./Threads-of-Fate.pdf
         asset_name: Threads-of-Fate-v${{ env.VERSION }}.pdf
         asset_content_type: application/pdf
 
@@ -137,6 +130,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-        asset_path: ./output/character-sheet.pdf
+        asset_path: ./character-sheet.pdf
         asset_name: Character-sheet-v${{ env.VERSION }}.pdf
         asset_content_type: application/pdf
