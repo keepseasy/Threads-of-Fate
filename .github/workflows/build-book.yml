@@ -73,11 +73,13 @@ jobs:
     - run: mkdir output
     - run: |
         pdflatex --enable-pipes --shell-escape -output-directory=output ./Threads-of-Fate.tex
+        cd output
+        for name in `ls *.idx`; do
+         makeindex #name
+        done
+        cd ..
         pdflatex --enable-pipes --shell-escape -output-directory=output ./Threads-of-Fate.tex
-#        makeindex still not working properly
-#        for name in `ls output/*.idx`; do
-#         makeindex #name
-#        done
+        pdflatex --enable-pipes --shell-escape -output-directory=output ./Threads-of-Fate.tex
 
 
 #make character sheet
