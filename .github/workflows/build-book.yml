@@ -71,8 +71,15 @@ jobs:
 
 #make book - double run to get proper table of contents
     - run: mkdir output
-    - run: pdflatex --enable-pipes --shell-escape -output-directory=output ./Threads-of-Fate.tex
-    - run: pdflatex --enable-pipes --shell-escape -output-directory=output ./Threads-of-Fate.tex
+    - run: |
+        pdflatex --enable-pipes --shell-escape -output-directory=output ./Threads-of-Fate.tex
+        pdflatex --enable-pipes --shell-escape -output-directory=output ./Threads-of-Fate.tex
+#        makeindex still not working properly
+#        for name in `ls output/*.idx`; do
+#         makeindex #name
+#        done
+
+
 #make character sheet
     - run: rsvg-convert -f pdf -d 300 -p 300 -o output/character-sheet.pdf character-sheet.svg
 
