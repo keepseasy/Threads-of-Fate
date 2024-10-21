@@ -73,6 +73,8 @@ jobs:
     - run: |
         pdflatex --enable-pipes --shell-escape ./Threads-of-Fate.tex
         pdflatex --enable-pipes --shell-escape ./Threads-of-Fate.tex
+        pdflatex --enable-pipes --shell-escape ./Threads-of-Fate-light.tex
+        pdflatex --enable-pipes --shell-escape ./Threads-of-Fate-light.tex
 
 
 #make character sheet
@@ -120,6 +122,18 @@ jobs:
         upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
         asset_path: ./Threads-of-Fate.pdf
         asset_name: Threads-of-Fate-v${{ env.VERSION }}.pdf
+        asset_content_type: application/pdf
+
+    - name: Upload Character sheet
+      if: inputs.draft==false
+      id: upload-book-light
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+        asset_path: ./Threads-of-Fate-light.pdf
+        asset_name: Threads-of-Fate-light-v${{ env.VERSION }}.pdf
         asset_content_type: application/pdf
 
     - name: Upload Character sheet
