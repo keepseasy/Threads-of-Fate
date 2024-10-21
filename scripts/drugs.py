@@ -33,10 +33,13 @@ def genEntity(entityDict,idx,form):
  outStr+='\\\\ '
  outStr+='\\hline '
  for key in entityDict:
+  if 'расширенная версия' in entity:
+   outStr+='\\ifx\\islight\\undefined '
   entity=entityDict.get(key)
   outStr+=genLine(key,entity)
   outStr+='\\\\ \\hline '
-
+  if 'расширенная версия' in entity:
+   outStr+='\\fi '
  outStr+='\\end{longtable}'
  outStr+='\\end{center}'
 

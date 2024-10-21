@@ -95,13 +95,18 @@ def genEntity(entityDict,idx,form):
  outStr+='\\hline '
 
  for key in entityDict:
+  if 'расширенная версия' in entity:
+   outStr+='\\ifx\\islight\\undefined '
   entity=entityDict.get(key)
   outStr+=genLine(key,entity,idx)
-
+  if 'расширенная версия' in entity:
+   outStr+='\\fi '
  outStr+='\\end{longtable}'
  outStr+='\\end{center}'
 
  for key in entityDict:
+  if 'расширенная версия' in entity:
+   outStr+='\\ifx\\islight\\undefined '
   entity=entityDict.get(key)
 
   outStr+='\\paragraph{'+key+'}'
@@ -109,7 +114,8 @@ def genEntity(entityDict,idx,form):
   special=entity.get('особые свойства',None)
   if special is not None:
    outStr+='\\newline\\textbf{Особые свойства(*): }'+special
-
+  if 'расширенная версия' in entity:
+   outStr+='\\fi '
  return outStr
 
 # [название]:

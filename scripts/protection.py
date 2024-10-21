@@ -5,7 +5,8 @@ def sortKey(dict1):
 
 def genLine(key,entity):
  outStr=''
-
+ if 'расширенная версия' in entity:
+  outStr+='\\ifx\\islight\\undefined '
  outStr+=key
  if 'особые свойства' in entity:
   outStr+='*'
@@ -30,6 +31,8 @@ def genLine(key,entity):
 
  outStr+=entity.get('вес','-')
  outStr+='\\\\ \\hline'
+ if 'расширенная версия' in entity:
+  outStr+='\\fi '
 
  return outStr
 

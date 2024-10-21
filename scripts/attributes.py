@@ -7,6 +7,8 @@ def genEntity(entityDict,idx,form):
  for key in entityDict:
   entity=entityDict.get(key)
 
+  if 'расширенная версия' in entity:
+   outStr+='\\ifx\\islight\\undefined '
   outStr+='\\subsubsection{'+key
   if 'Наследие' in entity: outStr+='[Наследие]'
   outStr+='}'
@@ -45,7 +47,8 @@ def genEntity(entityDict,idx,form):
    outStr+='}{'+entity.get('название результата неприятности Катастрофа','\\err не задано название Катастрофы')
    outStr+='}{'+entity.get('описание Катастрофы','\\err не задано описание Катастрофы')
    outStr+='}'
-
+  if 'расширенная версия' in entity:
+   outStr+='\\fi '
  return outStr
 
 # [название]:

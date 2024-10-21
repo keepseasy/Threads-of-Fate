@@ -10,6 +10,8 @@ def genEntity(entityDict,idx,form):
  outStr+='\\hline'
 
  for key in entityDict:
+  if 'расширенная версия' in entity:
+   outStr+='\\ifx\\islight\\undefined '
   entity=entityDict.get(key)
   outStr+=key
 
@@ -33,6 +35,8 @@ def genEntity(entityDict,idx,form):
 
   outStr+=entity.get('СП','\\err')
   outStr+='\\\\ \\hline'
+  if 'расширенная версия' in entity:
+   outStr+='\\fi '
 
  outStr+='\\end{tabular}\\end{center}'
  return outStr
