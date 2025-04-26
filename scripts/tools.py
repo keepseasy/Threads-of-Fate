@@ -1,6 +1,6 @@
-from genLib import getName as sortKey
-from genLib import genProps
-from genLib import pureGen
+from scripts.genLib import getName as sortKey
+from scripts.genLib import genProps
+from scripts.genLib import pureGen
 
 def genEntity(entityDict,idx,form):
  outStr=''

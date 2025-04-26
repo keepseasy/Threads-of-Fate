@@ -1,8 +1,8 @@
-from genLib import tryInt
-from genLib import getName as sortKey
-from genLib import pureGen
-#from genLib import bookmark
-from genLib import sortDict
+from scripts.genLib import tryInt
+from scripts.genLib import getName as sortKey
+from scripts.genLib import pureGen
+#from scripts.genLib import bookmark
+from scripts.genLib import sortDict
 
 def genLine(key,entity,idx):
  outStr=''
@@ -95,9 +95,9 @@ def genEntity(entityDict,idx,form):
  outStr+='\\hline '
 
  for key in entityDict:
+  entity=entityDict.get(key)
   if 'расширенная версия' in entity:
    outStr+='\\ifx\\islight\\undefined '
-  entity=entityDict.get(key)
   outStr+=genLine(key,entity,idx)
   if 'расширенная версия' in entity:
    outStr+='\\fi '

@@ -1,4 +1,4 @@
-from genLib import pureGen
+from scripts.genLib import pureGen
 
 import re
 def sortKey(dict):

@@ -1,5 +1,5 @@
-from genLib import getName as sortKey
-from genLib import pureGen
+from scripts.genLib import getName as sortKey
+from scripts.genLib import pureGen
 
 def genEntity(entityDict,idx,form):
  outStr=''
@@ -10,9 +10,9 @@ def genEntity(entityDict,idx,form):
  outStr+='\\hline'
 
  for key in entityDict:
+  entity=entityDict.get(key)
   if 'расширенная версия' in entity:
    outStr+='\\ifx\\islight\\undefined '
-  entity=entityDict.get(key)
   outStr+=key
 
   if 'фантастическое' in entity: outStr+='\\textsuperscript{ф}'

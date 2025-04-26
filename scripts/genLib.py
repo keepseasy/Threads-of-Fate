@@ -1,5 +1,5 @@
 import os.path
-import re
+#import re
 import yaml
 from yaml.loader import SafeLoader
 

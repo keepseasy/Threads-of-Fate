@@ -1,8 +1,8 @@
-from genLib import pureGen
-from genLib import getName as sortKey
-from powerForms import getForms
+from scripts.genLib import pureGen
+from scripts.genLib import getName as sortKey
+from scripts.powerForms import getForms
 
-#from genLib import bookmark
+#from scripts.genLib import bookmark
 
 def genEntity(entityDict,idx,form):
  outStr=''

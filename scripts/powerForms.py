@@ -1,4 +1,4 @@
-from genLib import getName as sortKey
+from scripts.genLib import getName as sortKey
 def pureGen():
  return True
 class formTemplate:

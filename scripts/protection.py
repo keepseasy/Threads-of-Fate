@@ -1,4 +1,4 @@
-from genLib import pureGen
+from scripts.genLib import pureGen
 def sortKey(dict1):
  entity=list(dict1)[1]
  return int(entity.get('бонус Защиты','-1'))

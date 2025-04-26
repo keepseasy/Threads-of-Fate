@@ -1,5 +1,5 @@
-from genLib import getName as sortKey
-from genLib import pureGen
+from scripts.genLib import getName as sortKey
+from scripts.genLib import pureGen
 def pureGen():
  return False
 

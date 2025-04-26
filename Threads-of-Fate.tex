@@ -23,6 +23,7 @@
 \makeindex[title=Алфавитный перечень Существ, name=monsters]
 \makeindex[title=Алфавитный перечень Архетипов, name=monster-templates]
 
+\usepackage{pythontex}
 \usepackage[hypertexnames=true]{hyperref}
 \hypersetup{
     colorlinks,
@@ -40,9 +41,16 @@
 \input{trouble-check-blank}
 \newcommand{\tbd}{\textcolor{orange}{\textbf{\textit{TBD}}}}
 \newcommand{\err}{\textcolor{red}{\textbf{\textit{ERR}}}}
+
 \newcommand{\genAndGet}[3]{
-\input{|python3 scripts/genFromYaml.py #1 #2 #3}
-\input{scripts/output/#2}
+%\pyc{import sys}
+%\pyc{sys.stdout.reconfigure(encoding='utf-8')}
+\pyc{baseName = "#1"}
+\pyc{dataName = "#2"}
+\pyc{form = "#3"}
+\pyc{from scripts.genFromYaml import main}
+\pyc{str = main(baseName,dataName,form)}
+\py{str}
 }
 
 \begin{document}

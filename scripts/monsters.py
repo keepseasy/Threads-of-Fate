@@ -1,12 +1,14 @@
-import math, glob, os
-from genLib import getName as sortKey
-from genLib import genProps
-from genLib import genSize
-#from genLib import bookmark
-from genLib import makelink
-from genLib import pureGen
-from genLib import getDict
-from genLib import clear
+import math
+#import os
+#import glob
+from scripts.genLib import getName as sortKey
+from scripts.genLib import genProps
+from scripts.genLib import genSize
+#from scripts.genLib import bookmark
+from scripts.genLib import makelink
+from scripts.genLib import pureGen
+from scripts.genLib import getDict
+from scripts.genLib import clear
 
 #def genPimaryMod(val,template=False):
 # if template: return ''
@@ -484,23 +486,23 @@ def weaponFromMark(key,prop):
  prop['тип боеприпасов']='Ф'
  prop['скорострельность']='1'
 
- tmp=power.get('Дистанция','5/20')
+ tmp=prop.get('Дистанция','5/20')
  tmp=tmp.split('/')
  prop['Ближняя Дистанция']=int(tmp[0])
  prop['Дальняя Дистанция']=int(tmp[1])
- tmp=power.get('Бонус Повреждений','0/-1')
+ tmp=prop.get('Бонус Повреждений','0/-1')
  tmp=tmp.split('/')
  prop['основной БПв']=int(tmp[0])
  prop['дополнительнй БПв']=int(tmp[1])
 
- tmp=power.get('Тип Повреждений','Д')
+ tmp=prop.get('Тип Повреждений','Д')
  tmp=tmp.split(', ')
  finalstr=''
  for t in tmp:
   finalstr+=t[0]
  prop['тип Пв']=finalstr
 
- prop['КУ']=int(power.get('КУ','20'))
+ prop['КУ']=int(prop.get('КУ','20'))
 
  return prop
 
