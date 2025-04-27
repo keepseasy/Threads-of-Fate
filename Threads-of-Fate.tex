@@ -42,6 +42,12 @@
 \newcommand{\tbd}{\textcolor{orange}{\textbf{\textit{TBD}}}}
 \newcommand{\err}{\textcolor{red}{\textbf{\textit{ERR}}}}
 
+\newcommand{\earlyEnd}{
+----> current stop <----
+\end{document}
+\endinput
+}
+
 \newcommand{\genAndGet}[3]{
 %\pyc{import sys}
 %\pyc{sys.stdout.reconfigure(encoding='utf-8')}
@@ -54,9 +60,10 @@
 }
 
 \begin{document}
-\tableofcontents
-\input{introduction}
+%\tableofcontents
+%\input{introduction}
 \input{base-mechanics}
+\earlyEnd
 \input{hero-creation}
 \input{money-talk}
 \input{battles}
