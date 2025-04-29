@@ -5,6 +5,7 @@ Threads-of-Fate-light.pdf
 token.txt
 _*
 *.tmp
+~*
 
 ## Core latex/pdflatex auxiliary files:
 *.aux
