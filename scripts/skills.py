@@ -1,5 +1,6 @@
 from scripts.genLib import getName as sortKey
 from scripts.genLib import pureGen
+from scripts.genLib import try_to_get
 
 def genEntity(entityDict,idx,form):
   outStr=''
@@ -8,9 +9,9 @@ def genEntity(entityDict,idx,form):
     if 'расширенная версия' in entity:
       outStr+='\\ifx\\islight\\undefined '
     outStr+='\\subsection{'+key
-    outStr+='('+entity.get('часто используемые Характеристики','\\err не заданы Характеристики')
-    outStr+=')}\\paragraph{}'+entity.get('описание','\\err не задано описание')
-    outStr+='\\paragraph{Используйте Навык, если герой:} '+entity.get('когда использовать','\\err не описаны условия использования')
+    outStr+='('+try_to_get('часто используемые Характеристики', entity, key)
+    outStr+=')}\\paragraph{}'+try_to_get('описание', entity, key)
+    outStr+='\\paragraph{Используйте Навык, если герой:} '+try_to_get('когда использовать', entity, key)
     if 'расширенная версия' in entity:
       outStr+='\\fi '
 

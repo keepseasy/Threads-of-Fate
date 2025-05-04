@@ -1,8 +1,18 @@
 import os.path
 #import re
+import sys
 import yaml
 from yaml.loader import SafeLoader
 
+def printerr(str):
+  print(str, file=sys.stderr)
+
+def try_to_get(property_name,entity,key):
+  if property_name not in entity:
+    errStr = 'Ошибка генерации: в записи ' + key + ' не задано свойство: ' + property_name
+    printerr(errStr)
+    return ''
+  return entity.get(property_name)
 
 def getName(dict):
  return list(dict)[0]
@@ -15,25 +25,28 @@ def tryInt(val):
  if val=='\\tbd': return val
  if val.startswith('-') and val[1:].isdigit(): return val
  if val.isdigit(): return val
- return '\\err'
+ printerr(val +' is not convertable to int')
+ return ''
 
 def genProps(props,eType=None):
- props.sort(key=getName)
- strList=[]
- joiner=', '
- for prop in props:
-#  print(prop)
-  cost=prop.get('стоимость',False)
-  name=getName(prop)
-  descr=prop.get(name,False)
-  
-  if eType is not None: name=makelink(prop,eType)
-  if cost: name+='('+str(prop.get('стоимость'))+')'
-  if descr:
-   joiner=''
-   name='\\newline\\textbullet\\ \\textbf{'+name+': }'+descr
-  strList.append(name)
- return joiner.join(strList)
+  props.sort(key=getName)
+  strList=[]
+  joiner=', '
+  strList.append('\\begin{itemize}')
+
+  for prop in props:
+#   print(prop)
+    cost=prop.get('стоимость',False)
+    name=getName(prop)
+    descr=prop.get(name,False)
+    if eType is not None: name=makelink(prop,eType)
+    if cost: name+='('+str(prop.get('стоимость'))+')'
+    if descr:
+      joiner=''
+      name='\\item \\textbf{'+name+': }'+descr
+    strList.append(name)
+  strList.append('\\end{itemize}')
+  return joiner.join(strList)
 
 def genSize(val):
  match val:

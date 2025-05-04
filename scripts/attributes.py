@@ -1,6 +1,7 @@
 from scripts.genLib import getName as sortKey
 from scripts.genLib import pureGen
 from scripts.genLib import genProps
+from scripts.genLib import try_to_get
 
 def genEntity(entityDict,idx,form):
  outStr=''
@@ -13,40 +14,45 @@ def genEntity(entityDict,idx,form):
   if 'Наследие' in entity: outStr+='[Наследие]'
   outStr+='}'
   outStr+='\\index['+idx+']{'+key+'}'
-  outStr+='\\paragraph{Экспертные навыки: } '+entity.get('Экспертные Навыки','\\err не заданы Экспертные Навыки')
-  outStr+='\\newline '+entity.get('описание','\\err не задано описание Атрибута')
+  if 'Экспертные навыки' in entity:
+    outStr+='\\paragraph{Экспертные навыки: } '+entity.get('Экспертные Навыки')
+  else:
+    outStr+='\\paragraph{Экспертные навыки:} нет.'
 
-  if 'Трюки' in entity:
-   # outStr+='\\newline'
-   # outStr+='\\textbf{Трюки}'
-   outStr+=genProps(entity.get('Трюки'))
-   # outStr+='\\paragraph{'+entity.get('название Трюка','\\err не задано название трюка')
-   # outStr+=':} '+entity.get('описание Трюка','\\err не задано описание трюка')
+
+  #outStr+='\\newline ' + try_to_get('описание', entity, key)
+
+  if 'Свойства' in entity:
+   #outStr+='\\newline'
+   outStr+='\\paragraph{Свойства}'
+   outStr+=genProps(entity.get('Свойства'))
 
   if 'Функции' in entity:
-   outStr+='\\newline'
-   outStr+='\\textbf{Функции}'
+   #outStr+='\\newline'
+   outStr+='\\paragraph{Функции}'
    outStr+=genProps(entity.get('Функции'))
 
-  # if 'название Функции' in entity:
-   # outStr+='\\paragraph{Функция — '+entity.get('название Функции','\\err не задано название Функции')
-   # outStr+=':} '+entity.get('описание Функции','\\err не задано описание Функции')
+  if 'Снаряжение' in entity:
+    #outStr+='\\newline'
+    outStr+='\\paragraph{Снаряжение}'
+    outStr+=genProps(entity.get('Снаряжение'))
 
-  outStr+='\\paragraph{Ход — '+entity.get('название Хода','\\err не задано название Хода')
-  outStr+=' ('+entity.get('стоимость Хода','\\err не задана стоимость Хода')
-  outStr+='):} '+entity.get('описание Хода','\\err не задано описание Хода')
+  outStr+='\\paragraph{Темная Сторона. }' + try_to_get('Темная Сторона', entity, key)
 
-  outStr+='\\paragraph{Если Ход совершается без обрыва Нитей,} '+entity.get('штраф Хода без Нитей','\\err не задан штраф')
-  if 'название результата неприятности Успех' in entity:
-   outStr+='\\trouble{'+entity.get('название результата неприятности Успех')
-   outStr+='}{'+entity.get('описание Успеха','\\err не задано описание Успеха')
-   outStr+='}{'+entity.get('название результата неприятности Затруднения','\\err не задано название Затруднения')
-   outStr+='}{'+entity.get('описание Затруднений','\\err не задано описание Затруднения')
-   outStr+='}{'+entity.get('название результата неприятности Проблемы','\\err не задано название Проблем')
-   outStr+='}{'+entity.get('описание Проблемы','\\err не задано описание Проблем')
-   outStr+='}{'+entity.get('название результата неприятности Катастрофа','\\err не задано название Катастрофы')
-   outStr+='}{'+entity.get('описание Катастрофы','\\err не задано описание Катастрофы')
-   outStr+='}'
+  outStr+='\\paragraph{Ход — ' + try_to_get('название Хода', entity, key)
+  outStr+=' (' + try_to_get('стоимость Хода', entity, key)
+  outStr+='):} ' + try_to_get('описание Хода', entity, key)
+
+  outStr+='\\paragraph{Если Ход совершается без обрыва Нитей,} ' + try_to_get('штраф Хода без Нитей', entity, key)
+  outStr+='\\trouble{' + try_to_get('название результата неприятности Успех', entity, key)
+  outStr+='}{' + try_to_get('описание Успеха', entity, key)
+  outStr+='}{' + try_to_get('название результата неприятности Затруднения', entity, key)
+  outStr+='}{' + try_to_get('описание Затруднений', entity, key)
+  outStr+='}{' + try_to_get('название результата неприятности Проблемы', entity, key)
+  outStr+='}{' + try_to_get('описание Проблемы', entity, key)
+  outStr+='}{' + try_to_get('название результата неприятности Катастрофа', entity, key)
+  outStr+='}{' + try_to_get('описание Катастрофы', entity, key)
+  outStr+='}'
   if 'расширенная версия' in entity:
    outStr+='\\fi '
  return outStr

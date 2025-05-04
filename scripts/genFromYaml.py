@@ -1,34 +1,23 @@
-#import sys
 import os.path
 from scripts.genLib import clear
 from scripts.genLib import getDict
+from scripts.genLib import try_to_get
 
 def pickForm(myDict,myForm):
  if myForm=='':
   return myDict
  newDict={}
- for name in myDict:
-  entity=myDict.get(name)
-  curForm=entity.get('Форма','')
-  if curForm=='':
-   print(name,': err no form')
+ for key in myDict:
+  entity=myDict.get(key)
+  curForm=try_to_get('Форма', entity, key)
   if curForm==myForm:
-   newDict[name]=entity
+   newDict[key]=entity
  return newDict
 
 def main(baseName,dataName,form):
-#get all names
-#baseName=''
-#if len(sys.argv) > 1: baseName=sys.argv[1]
-#dataName=baseName
-
-#if len(sys.argv) > 2: dataName=sys.argv[2]
   texName='scripts/output/'+dataName+'.tex'
-  yamlName1='content/'+dataName+'.yaml'
-  yamlName2='localContent/'+dataName+'.yaml'
-
-#form=''
-#if len(sys.argv) > 3: form=sys.argv[3]
+  yamlName1='base_content/'+dataName+'.yaml'
+  yamlName2='dlc/'+dataName+'.yaml'
 
 #import generation algorythm
   _temp = __import__('scripts.'+baseName, globals(), locals(), ['genEntity'], 0)

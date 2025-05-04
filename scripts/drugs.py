@@ -1,6 +1,7 @@
 from scripts.genLib import pureGen
 from scripts.genLib import getName as sortKey
 from scripts.genLib import tryInt
+from scripts.genLib import try_to_get
 
 def genLine(key,entity):
  outStr=''
@@ -9,7 +10,7 @@ def genLine(key,entity):
 # if 'Можно нанести на оружие' in entity: outStr+='\\newline [Масло]'
 
  outStr+='\\newline\\textit{Токсичность }'
- outStr+=tryInt(entity.get('Токсичность','\\err'))
+ outStr+=tryInt(try_to_get('Токсичность', entity, key))
 
  outStr+='\\newline\\textit{СП }'
  outStr+=tryInt(entity.get('СП'))

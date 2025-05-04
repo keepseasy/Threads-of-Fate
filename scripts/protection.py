@@ -1,4 +1,5 @@
 from scripts.genLib import pureGen
+from scripts.genLib import try_to_get
 def sortKey(dict1):
  entity=list(dict1)[1]
  return int(entity.get('бонус Защиты','-1'))
@@ -14,7 +15,7 @@ def genLine(key,entity):
   outStr+='\\textsuperscript{ф}'
  outStr+=' & '
 
- outStr+='+'+entity.get('бонус Защиты','\\err')
+ outStr+='+'+try_to_get('бонус Защиты', entity, key)
  outStr+=' & '
 
  outStr+=entity.get('ограничение Модификатора Ловкости','-')
@@ -54,7 +55,7 @@ def genEntity(entityDict,idx,form):
  for key in entityDict:
   entity=entityDict.get(key)
   outStr+='\\paragraph{'+key+'}'
-  outStr+=entity.get('описание','\\err нет описания')
+  outStr+=try_to_get('описание', entity, key)
   if 'особые свойства' in entity:
    outStr+='\\newline\\textbf{Особые свойства(*): }'+entity.get('особые свойства')
 

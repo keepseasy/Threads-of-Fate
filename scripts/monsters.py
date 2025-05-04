@@ -9,6 +9,7 @@ from scripts.genLib import makelink
 from scripts.genLib import pureGen
 from scripts.genLib import getDict
 from scripts.genLib import clear
+from scripts.genLib import try_to_get
 
 #def genPimaryMod(val,template=False):
 # if template: return ''
@@ -147,7 +148,7 @@ def genEntity(entityDict,idx,form):
   outStr+='\\hline \\end{tabular}'
   outStr+='\\end{wraptable}'
 
-  outStr+=entity.get('описание','\\err нет описания')
+  outStr+=try_to_get('описание', entity, key)
 
   battleSkills=hero.ACC+hero.WEP+hero.UNA
   if battleSkills>0:

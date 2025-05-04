@@ -1,6 +1,7 @@
 from scripts.genLib import getName as sortKey
 from scripts.genLib import genProps
 from scripts.genLib import pureGen
+from scripts.genLib import try_to_get
 
 def genEntity(entityDict,idx,form):
  outStr=''
@@ -21,7 +22,7 @@ def genEntity(entityDict,idx,form):
    outStr+=entity.get('Базовый предмет')
 
   outStr+='\\newline\\textbf{Описание: }'
-  outStr+=entity.get('описание','\\err нет описания')
+  outStr+=try_to_get('описание', entity, key)
   outStr+='\\newline'
   if 'Свойства' in entity:
    outStr+='\\newline\\textbf{Свойства}'

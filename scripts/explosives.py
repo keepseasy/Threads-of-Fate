@@ -1,5 +1,6 @@
 from scripts.genLib import getName as sortKey
 from scripts.genLib import pureGen
+from scripts.genLib import try_to_get
 
 def genEntity(entityDict,idx,form):
  outStr=''
@@ -21,19 +22,19 @@ def genEntity(entityDict,idx,form):
   outStr+=entity.get('дополнительные Эффекты','-')
   outStr+=' & '
 
-  outStr+=entity.get('Сила Взрыва','\\err')
+  outStr+=try_to_get('Сила Взрыва', entity, key)
   outStr+=' & '
 
-  outStr+=entity.get('Радиус Взрыва','\\err')
+  outStr+=try_to_get('Радиус Взрыва', entity, key)
   outStr+=' & '
 
-  outStr+=entity.get('Тип ПВ','\\err')
+  outStr+=try_to_get('Тип ПВ', entity, key)
   outStr+=' & '
 
   outStr+=entity.get('требуемая Сила','-')
   outStr+=' & '
 
-  outStr+=entity.get('СП','\\err')
+  outStr+=try_to_get('СП', entity, key)
   outStr+='\\\\ \\hline'
   if 'расширенная версия' in entity:
    outStr+='\\fi '

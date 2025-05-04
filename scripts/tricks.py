@@ -1,5 +1,6 @@
 from scripts.genLib import getName as sortKey
 from scripts.genLib import pureGen
+from scripts.genLib import try_to_get
 
 def genEntity(entityDict,idx,form):
  outStr=''
@@ -12,7 +13,7 @@ def genEntity(entityDict,idx,form):
    outStr+='[Могущество]'
   outStr+='}'
   outStr+='\\index['+idx+']{'+key+'}'
-  outStr+='\\paragraph{}'+entity.get('описание','\\err не задано описание')
+  outStr+='\\paragraph{}'+try_to_get('описание', entity, key)
   if 'расширенная версия' in entity:
    outStr+='\\fi '
  return outStr

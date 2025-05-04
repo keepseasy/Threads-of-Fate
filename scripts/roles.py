@@ -1,5 +1,7 @@
 from scripts.genLib import getName as sortKey
 from scripts.genLib import pureGen
+from scripts.genLib import try_to_get
+from scripts.genLib import printerr
 def pureGen():
  return False
 
@@ -12,13 +14,13 @@ def genEntity(entityDict,idx,form):
 
   count+=1
   outStr+='\\textbf{'+str(count)
-  outStr+='} & '+entity.get('описание','\\err нет описания')
+  outStr+='} & '+try_to_get('описание', entity, key)
   outStr+=' & '+key
   outStr+=' \\\\ \\hline '
  outStr+='\\end{tabular}\\end{center}'
 
  if count!=20:
-  outStr+='\\err количество Амплуа не равно 20'
+  printerr('Ошибка генерации: в записи ' + key + ' свойство Амплуа содержит не 20 записей')
  outStr+='Чтобы определить Грань случайным образом, бросьте К20 и сверьтесь с результатом.'
 
  for key in entityDict:
@@ -28,7 +30,7 @@ def genEntity(entityDict,idx,form):
 
   variants=entity.get('Грани')
   if variants is None:
-   outStr+='\\err не указаны Грани'
+   printerr('Ошибка генерации: в записи ' + key + ' не задано свойство: Грани')
   count=0
   for variant in variants:
    pros=list(variant)[0]
@@ -40,5 +42,5 @@ def genEntity(entityDict,idx,form):
    outStr+=' \\\\'
   outStr+='\\end{tabular}\\end{center}'
  if count!=20:
-  outStr+='\\err количество Граней не равно 10'
+  printerr('Ошибка генерации: в записи ' + key + ' свойство Грани содержит не 10 записей')
  return outStr

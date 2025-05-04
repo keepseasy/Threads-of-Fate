@@ -1,4 +1,5 @@
 from scripts.genLib import pureGen
+from scripts.genLib import try_to_get
 
 import re
 def sortKey(dict):
@@ -19,16 +20,16 @@ def sortKey(dict):
 
  return int(numStr)
 
-def genEnv(val):
- if type(val) != str:
-  return '\\err'
- if val == 'Водный':
-  return 'В'
- if val == 'Летающий':
-  return 'Л'
- if val == 'Космический':
-  return 'К'
- return '\\err'
+# def genEnv(val):
+#  if type(val) != str:
+#   return '\\err'
+#  if val == 'Водный':
+#   return 'В'
+#  if val == 'Летающий':
+#   return 'Л'
+#  if val == 'Космический':
+#   return 'К'
+#  return '\\err'
 
 def genLine(key,entity):
  outStr=''
@@ -37,22 +38,22 @@ def genLine(key,entity):
   outStr+='\\textsuperscript{ф}'
  outStr+=' & '
 
- outStr+=entity.get('Размер','\\err')+' & '
- outStr+=entity.get('Защита','\\err')+' & '
+ outStr+=try_to_get('Размер', entity, key)+' & '
+ outStr+=try_to_get('Защита', entity, key)+' & '
  outStr+=entity.get('Прочность','-')+' & '
- outStr+=entity.get('ЕЗ','\\err')+' & '
+ outStr+=try_to_get('ЕЗ', entity, key)+' & '
  outStr+=entity.get('ограничение Модификатора Ловкости','-')+' & '
- outStr+=entity.get('Проходимость','\\err')+' & '
+ outStr+=try_to_get('Проходимость', entity, key)+' & '
 
  if entity.get('Форма','') == 'Космический':
   outStr+='-'
  else:
-  outStr+=entity.get('Скорость','\\err')
+  outStr+=try_to_get('Скорость', entity, key)
   if 'Не разгоняется' in entity:
    outStr+='М'
  outStr+=' & '
 
- outStr+=entity.get('Грузоподъемность-вес','\\err')+' & '
+ outStr+=try_to_get('Грузоподъемность-вес', entity, key)+' & '
  outStr+=entity.get('Расход','-')+' & '
  outStr+=entity.get('СП','-')
  outStr+='\\\\ \\hline'
@@ -78,7 +79,7 @@ def genEntity(entityDict,idx,form):
  for key in entityDict:
   entity=entityDict.get(key)
   outStr+='\\paragraph{'+key+'}'
-  outStr+=entity.get('описание','\\err нет описания')
+  outStr+=try_to_get('описание', entity, key)
 
  return outStr
 
