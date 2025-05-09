@@ -8,11 +8,17 @@ def printerr(str):
   print(str, file=sys.stderr)
 
 def try_to_get(property_name,entity,key):
-  if property_name not in entity:
+  # print('-->')
+  # print(property_name)
+  # print(entity)
+  # print(key)
+  # print('<--')
+  str = entity.get(property_name)
+  if property_name not in entity or not str:
     errStr = 'Ошибка генерации: в записи ' + key + ' не задано свойство: ' + property_name
     printerr(errStr)
     return ''
-  return entity.get(property_name)
+  return str
 
 def getName(dict):
  return list(dict)[0]

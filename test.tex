@@ -42,12 +42,6 @@
 \newcommand{\tbd}{\textcolor{orange}{\textbf{\textit{TBD}}}}
 \newcommand{\err}{\textcolor{red}{\textbf{\textit{ERR}}}}
 
-\newcommand{\earlyEnd}{
-----> current stop <----
-\end{document}
-\endinput
-}
-
 \newcommand{\genAndGet}[3]{
 %\pyc{import sys}
 %\pyc{sys.stdout.reconfigure(encoding='utf-8')}
@@ -58,27 +52,35 @@
 \py{str}
 }
 
-\begin{document}
-\pyc{from scripts.genFromYaml import main}
-\tableofcontents
-\input{introduction}
-\input{base-mechanics}
-\input{hero-creation}
-\input{money-talk}
-\earlyEnd
-\input{battles}
-\earlyEnd
-\input{social}
-\earlyEnd
-\input{leisure-and-travel}
-\earlyEnd
-\input{supernatural}
-\earlyEnd
-\input{monsters}
-%\input{tips-to-master}
+\newcommand{\earlyEnd}{
+----> current stop <----
 \end{document}
 \endinput
-%This is   a simple document\footnote{with a footnote}.
-%discoveries in \underline{science} 
-%\hypertarget{d6}{Определение инвариантного пространства}
-%\hyperlink{d6}{смотреть здесь!}
+}
+
+\begin{document}
+% \pyc{from scripts.genFromYaml import main}
+% \pyc{str = 'hello'}
+% \py{str}
+
+%\begin{pycode}
+%\begin{python}
+%import sys
+%sys.stdout.reconfigure(encoding='utf-8')
+%
+%print('testing\\newline')
+%print('Проверка\\newline')
+%
+%from scripts._test_script import main
+%main("Первый","Второй","Тритий")
+%\end{python}
+%\end{pycode}
+
+% \input{hero-creation/attributes}
+\input{money-talk}
+
+% \genAndGet{roles}{roles}{Амплуа}
+
+\end{document}
+\endinput
+

@@ -2,10 +2,13 @@ __pycache__
 output
 Threads-of-Fate.pdf
 Threads-of-Fate-light.pdf
+niti_logo_black_white.pdf
+*.docx
 token.txt
 _*
 *.tmp
 ~*
+
 
 ## Core latex/pdflatex auxiliary files:
 *.aux
@@ -284,4 +287,3 @@ TSWLatexianTemp*
 
 # Makeindex log files
 *.lpz
-niti_logo_black_white.pdf
