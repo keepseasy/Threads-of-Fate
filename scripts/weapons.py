@@ -6,14 +6,19 @@ from scripts.genLib import sortDict
 from scripts.genLib import try_to_get
 from scripts.genLib import printerr
 
+
+
 def genLine(key,entity,idx):
-  outStr=''
+  outStr='\\hline'
 # outStr+=bookmark(key,'weapon')+key
-  outStr+='\\index['+idx+']{'+key+'}'+key
+
   if 'особые свойства' in entity:
-   outStr+='*'
+    outStr+='\\multirow[с]{2}{3cm}{'
+  outStr+='\\index['+idx+']{'+key+'}'+key
   if 'фантастическое' in entity:
    outStr+='\\textsuperscript{ф}'
+  if 'особые свойства' in entity:
+    outStr+='}'
   outStr+=' & '
   if 'свойства' in entity:
    features=sortDict(entity.get('свойства')).keys()
@@ -55,12 +60,12 @@ def genLine(key,entity,idx):
 
   val=entity.get('дополнительнй БПв',False)
   if isRanged or val:
-   outStr+='/'
-   if '' in entity:
-    outStr+='+' if val>0 else ''
-    outStr+=str(val)
-   else:
-    printerr('Ошибка генерации: в записи ' + key + ' свойство дополнительнй БПв не задано')
+    outStr+='/'
+    if 'дополнительнй БПв' in entity:
+      outStr+='+' if val>0 else ''
+      outStr+=str(val)
+    else:
+      printerr('Ошибка генерации: в записи ' + key + ' свойство дополнительнй БПв не задано')
   outStr+=' & '
 
   outStr+=try_to_get('тип Пв', entity, key)
@@ -82,18 +87,24 @@ def genLine(key,entity,idx):
   outStr+=' & '
 
   outStr+=entity.get('вес','-')
-  outStr+='\\\\ \\hline '
+
+  if 'особые свойства' in entity:
+    outStr+='\\\\ \\cline{2-10} & \\multicolumn{9}{|p{14cm}|}{'
+    outStr+=entity.get('особые свойства')
+    outStr+='}'
+
+  outStr+='\\\\ \\hline'
 
   return outStr
 
 def genEntity(entityDict,idx,form):
   outStr=''
   outStr+='\\begin{center}'
-  outStr+='\\begin{longtable}{|p{3cm}|p{2.5cm}||c|c|c|c|c||c|c|c|}'
+  outStr+='\\begin{longtable}{|p{3cm}|p{2.5cm}||p{1.2cm}|p{2cm}|p{1.2cm}|p{1cm}|p{0.7cm}||p{0.9cm}|p{0.7cm}|p{0.7cm}|}'
   outStr+='\\hline '
   outStr+='Название & Свойства & ТМС & Дистанция & '
   outStr+='БПв & ТПв & КУ & тСл & СП & Вес\\\\ \\hline '
-  outStr+='\\hline '
+  # outStr+='\\hline '
 
   for key in entityDict:
    entity=entityDict.get(key)
@@ -102,13 +113,10 @@ def genEntity(entityDict,idx,form):
   outStr+='\\end{center}'
 
   for key in entityDict:
-   entity=entityDict.get(key)
-
-   outStr+='\\paragraph{'+key+'}'
-   outStr+=try_to_get('описание', entity, key)
-   special=entity.get('особые свойства',None)
-   if special is not None:
-    outStr+='\\newline\\textbf{Особые свойства(*): }'+special
+    entity=entityDict.get(key)
+    if 'описание' in entity:
+      outStr+='\\paragraph{'+key+':}'
+      outStr+=entity.get('описание')
   return outStr
 
 # [название]:

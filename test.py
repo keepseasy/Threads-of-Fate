@@ -1,3 +1,3 @@
 from scripts.genFromYaml import main
-str = main("tricks","tricks","Боевой")
+str = main("weapons","weapons","Рукопашное")
 #print(str)

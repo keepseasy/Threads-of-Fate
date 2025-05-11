@@ -7,13 +7,12 @@
 \usepackage[utf8]{inputenc}
 \usepackage[russian]{babel}
 \usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
-
 \usepackage[poster]{tcolorbox}
 \usepackage{longtable}
 \usepackage{wrapfig}
 \usepackage{multicol}
+\usepackage{multirow}
 \usepackage{vwcol}
-
 \usepackage{imakeidx}
 \indexsetup{level=\subsection,toclevel=section,noclearpage}
 \makeindex[title=Алфавитный перечень Трюков, name=tricks]
@@ -22,26 +21,22 @@
 \makeindex[title=, name=powers]
 \makeindex[title=Алфавитный перечень Существ, name=monsters]
 \makeindex[title=Алфавитный перечень Архетипов, name=monster-templates]
-
 \usepackage{pythontex}
 \usepackage[hypertexnames=true]{hyperref}
 \hypersetup{
-    colorlinks,
-    citecolor=black,
-    filecolor=black,
-    linkcolor=black,
-    urlcolor=black,
+       colorlinks,
+       citecolor=black,
+       filecolor=black,
+       linkcolor=black,
+       urlcolor=black,
 }
-
 \tolerance=1
 \emergencystretch=\maxdimen
 \hyphenpenalty=10000
 \hbadness=10000
-
 \input{trouble-check-blank}
 \newcommand{\tbd}{\textcolor{orange}{\textbf{\textit{TBD}}}}
 \newcommand{\err}{\textcolor{red}{\textbf{\textit{ERR}}}}
-
 \newcommand{\genAndGet}[3]{
 %\pyc{import sys}
 %\pyc{sys.stdout.reconfigure(encoding='utf-8')}
@@ -51,36 +46,14 @@
 \pyc{str = main(baseName,dataName,form)}
 \py{str}
 }
-
 \newcommand{\earlyEnd}{
 ----> current stop <----
 \end{document}
 \endinput
 }
-
 \begin{document}
-% \pyc{from scripts.genFromYaml import main}
-% \pyc{str = 'hello'}
-% \py{str}
-
-%\begin{pycode}
-%\begin{python}
-%import sys
-%sys.stdout.reconfigure(encoding='utf-8')
-%
-%print('testing\\newline')
-%print('Проверка\\newline')
-%
-%from scripts._test_script import main
-%main("Первый","Второй","Тритий")
-%\end{python}
-%\end{pycode}
-
-% \input{hero-creation/attributes}
-\input{money-talk}
-
-% \genAndGet{roles}{roles}{Амплуа}
-
+\pyc{from scripts.genFromYaml import main}
+ 
+\genAndGet{explosives}{explosives}{Взрывчатка}
 \end{document}
 \endinput
-
