@@ -372,7 +372,7 @@ def prepPowers(props,origins):
  preped=[]
  for prop in props:
   name=list(prop)[0]
-  origin=origins.get(name,{'стоимость':'\\err не найден феномен'})
+  origin=origins.get(name,{'стоимость: \\err не найден феномен'})
   cost=origin.get('стоимость','\\err нет стоимости')
   preped.append({name:None,'стоимость':cost})
  return preped
