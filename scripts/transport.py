@@ -53,6 +53,8 @@ def genLine(key,entity):
    outStr+='М'
  outStr+=' & '
 
+ print(key)
+
  outStr+=try_to_get('Грузоподъемность-вес', entity, key)+' & '
  outStr+=entity.get('Расход','-')+' & '
  outStr+=entity.get('СП','-')
@@ -73,8 +75,6 @@ def genEntity(entityDict,idx,form):
 
  outStr+='\\end{longtable}'
  outStr+='\\end{center}'
- outStr+='* Через черту указана максимальная грузоподъемность полуприцепа, который может перевозить тягач.'
- outStr+='\\newline'
  outStr+='** Скорость транспорта определена в его Описании.'
  for key in entityDict:
   entity=entityDict.get(key)
