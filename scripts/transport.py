@@ -53,8 +53,6 @@ def genLine(key,entity):
    outStr+='М'
  outStr+=' & '
 
- print(key)
-
  outStr+=try_to_get('Грузоподъемность-вес', entity, key)+' & '
  outStr+=entity.get('Расход','-')+' & '
  outStr+=entity.get('СП','-')

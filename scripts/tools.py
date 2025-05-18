@@ -7,11 +7,15 @@ def genEntity(entityDict,idx,form):
  outStr=''
  for key in entityDict:
   entity=entityDict.get(key)
-  outStr+='\\subsection{'+key+'}'
+  outStr+='\\subsubsection{'+key
+  if 'Симбионт' in entity:
+    outStr+='[Симбионт]'
+  outStr+='}'
 
   if 'Запас Энергии' in entity:
    outStr+='\\textbf{Запас Энергии: }'
    outStr+=entity.get('Запас Энергии')
+   outStr+=' Зр'
    outStr+='\\newline'
 
   outStr+='\\textbf{СП: }'
@@ -23,22 +27,22 @@ def genEntity(entityDict,idx,form):
 
   outStr+='\\newline\\textbf{Описание: }'
   outStr+=try_to_get('описание', entity, key)
-  outStr+='\\newline'
+
   if 'Свойства' in entity:
-   outStr+='\\newline\\textbf{Свойства}'
+   outStr+='\\paragraph{Свойства}'
    outStr+=genProps(entity.get('Свойства'))
 
   if 'Изъяны' in entity:
-   outStr+='\\newline\\textbf{Изъяны}'
+   outStr+='\\paragraph{Изъяны}'
    outStr+=genProps(entity.get('Изъяны'))
 
   if 'Функции' in entity:
-   outStr+='\\newline\\textbf{Функции}'
+   outStr+='\\paragraph{Функции}'
    outStr+=genProps(entity.get('Функции'))
 
-  if 'Ходы' in entity:
-   outStr+='\\newline\\textbf{Ходы}'
-   outStr+=genProps(entity.get('Ходы'))
+  # if 'Ходы' in entity:
+  #  outStr+='\\paragraph{Ходы}'
+  #  outStr+=genProps(entity.get('Ходы'))
  return outStr
 
 #- название: (Название)
