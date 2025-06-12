@@ -1,4 +1,6 @@
 % !TEX options=--shell-escape
+
+% \documentclass[t]{beamer}
 \documentclass[a4paper]{book}
 \setcounter{secnumdepth}{3}
 \setcounter{tocdepth}{3}
@@ -51,19 +53,18 @@
 \end{document}
 \endinput
 }
+
+\usepackage{wrapfig}
 \begin{document}
 \pyc{from scripts.genFromYaml import main}
 %-------------------------------------------------------------------------------------
 %--  begin  --------------------------------------------------------------------------
 %-------------------------------------------------------------------------------------
-\subsection{Перечень услуг}
-\genAndGet{leisure}{leisure}{Услуга}
+% \input{test_ptx_out}
+% \genAndGet{weapons}{weapons}{Огнестрельное}
 
-\subsection{Перечень развлечений}
-\genAndGet{leisure}{leisure}{Развлечение}
-
-\subsection{Перечень досуга}
-\genAndGet{leisure}{leisure}{Досуг}
+\input{supernatural}
+% \genAndGet{powerForms}{powerForms}{}
 
 %-------------------------------------------------------------------------------------
 %--  end  ----------------------------------------------------------------------------

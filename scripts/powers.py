@@ -20,15 +20,15 @@ def genEntity(entityDict,idx,form):
    outStr+='\\textbf{Форма: }'+entity.get('Форма','\\err')
    if 'Уточнение Формы' in entity:
     outStr+='['+entity.get('Уточнение Формы')+']'
-   outStr+='\\newline'
-
-  outStr+='\\textbf{Стоимость'
+  #  outStr+='\\newline'
+  outStr+='\\paragraph{} \\textit{'+entity.get('описание','\\err нет описания')+'}'
+  outStr+='\\paragraph{Стоимость'
   if 'поддержание' in entity:
    outStr+='/Поддержание'
   outStr+=': }'+entity.get('стоимость','\\err нет стоимости')+' Эн'
   if 'поддержание' in entity:
    outStr+='/'+entity.get('поддержание')+' Эн'
-  if 'поддержание' in entity and not 'продолжительность' in entity:
+  if 'поддержание' in entity and not 'Длительность' in entity:
    outStr+='\\err есть поддержание но нет продолжительности'
 
 #------------------------------------------------------------------
@@ -48,12 +48,12 @@ def genEntity(entityDict,idx,form):
   if 'сопротивление Наведению' in entity:
    outStr+='\\newline \\textbf{Сопротивление Наведению: }'+entity.get('сопротивление Наведению')
 #------------------------------------------------------------------
-  if 'продолжительность' in entity:
-   outStr+='\\newline \\textbf{Длительность: }'+entity.get('продолжительность')
-  if 'время сотворения' in entity:
-   outStr+='\\newline \\textbf{Время сотворения: }'+entity.get('время сотворения')
+  if 'Длительность' in entity:
+   outStr+='\\newline \\textbf{Длительность: }'+entity.get('Длительность')
+  if 'Время активации' in entity:
+   outStr+='\\newline \\textbf{Время активации: }'+entity.get('Время активации')
 #------------------------------------------------------------------
-  outStr+='\\paragraph{Описание: }'+entity.get('описание','\\err нет описания')
+  outStr+='\\paragraph{Эффект: }'+entity.get('эффект','\\err нет описания эффекта')
   if 'Усиление' in entity:
    enhList=entity.get('Усиление')
    outStr+='\\paragraph{Усиление:}\\begin{itemize}'
@@ -67,6 +67,8 @@ def genEntity(entityDict,idx,form):
     outStr+=' Эн -> '
     outStr+=enh.get('описание','\\err нет описания')
    outStr+='\\end{itemize}'
+  if 'заметки' in entity:
+   outStr+='\\paragraph{}'+entity.get('заметки')
  return outStr
 
 # [название]:
@@ -75,8 +77,8 @@ def genEntity(entityDict,idx,form):
 #   стоимость:
 #   поддержание:
 #   РИЗ:
-#   время сотворения:
-#   продолжительность:
+#   Время активации:
+#   Длительность:
 #   сопротивление Наведению:
 
 #   Форма:

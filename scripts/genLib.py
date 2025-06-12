@@ -34,25 +34,26 @@ def tryInt(val):
  printerr(val +' is not convertable to int')
  return ''
 
-def genProps(props,eType=None):
+# def genProps(props,eType=None):
+def genProps(props,shrot_ver=False):
   props.sort(key=getName)
   strList=[]
   joiner=', '
-  strList.append('\\begin{itemize}')
 
   for prop in props:
-#   print(prop)
     cost=prop.get('стоимость',False)
     name=getName(prop)
     descr=prop.get(name,False)
-    if eType is not None: name=makelink(prop,eType)
+    # if eType is not None: name=makelink(prop,eType)
     if cost: name+='('+str(prop.get('стоимость'))+')'
-    if descr:
+    if descr and not shrot_ver:
       joiner=''
       name='\\item \\textbf{'+name+': }'+descr
     strList.append(name)
-  strList.append('\\end{itemize}')
-  return joiner.join(strList)
+  if joiner=='':
+    return '\\begin{itemize}'+joiner.join(strList)+'\\end{itemize}'
+  else:
+    return joiner.join(strList)
 
 def genSize(val):
  match val:
@@ -83,6 +84,8 @@ def makelink(name,eType,displayName=None):
  return '\\hyperlink{'+eType+str(hash(name))+'}{'+displayName+'}'
 
 def getDict(yamlName):
- if not os.path.isfile(yamlName): return {}
- with open(yamlName, 'r', encoding="utf-8") as jf:
-  return yaml.load(jf, Loader=SafeLoader)
+  if not os.path.isfile(yamlName): 
+    # print('no file: ' + yamlName)
+    return {}
+  with open(yamlName, 'r', encoding="utf-8") as jf:
+    return yaml.load(jf, Loader=SafeLoader)
