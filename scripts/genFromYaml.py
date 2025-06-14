@@ -14,7 +14,7 @@ def pickForm(myDict,myForm):
    newDict[key]=entity
  return newDict
 
-def main(baseName,dataName,form):
+def main(baseName,dataName,form=None):
   texName='scripts/output/'+dataName+'.tex'
   yamlName1='base_content/'+dataName+'.yaml'
   yamlName2='dlc/'+dataName+'.yaml'
@@ -45,7 +45,8 @@ def main(baseName,dataName,form):
     customDict=getDict(yamlName2)
 # print(customDict)
     finalDict=clear(basicDict|customDict,sortKey)
-    finalDict=pickForm(finalDict,form)
+    if not form is None:
+      finalDict=pickForm(finalDict,form)
   return genEntity(finalDict,baseName,form)
 #  f.write(genEntity(finalDict,baseName,form))
 #  f.close()

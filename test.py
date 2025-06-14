@@ -1,5 +1,5 @@
 from scripts.genFromYaml import main
-str = main("powerForms","powerForms","")
+str = main("powers_ritual","powers_ritual")
 #print(str)
 
 # #--------------------------------------------------------------------------

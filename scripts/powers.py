@@ -25,6 +25,8 @@ def genEntity(entityDict,idx,form):
   outStr+='\\paragraph{Стоимость'
   if 'поддержание' in entity:
    outStr+='/Поддержание'
+  if 'риз' in entity:
+   outStr+='[РИЗ]'
   outStr+=': }'+entity.get('стоимость','\\err нет стоимости')+' Эн'
   if 'поддержание' in entity:
    outStr+='/'+entity.get('поддержание')+' Эн'
@@ -44,7 +46,6 @@ def genEntity(entityDict,idx,form):
   else:
    outStr+='\\err у Феномена неправильная Форма'
 #------------------------------------------------------------------
-# aiming resist
   if 'сопротивление Наведению' in entity:
    outStr+='\\newline \\textbf{Сопротивление Наведению: }'+entity.get('сопротивление Наведению')
 #------------------------------------------------------------------
@@ -52,6 +53,9 @@ def genEntity(entityDict,idx,form):
    outStr+='\\newline \\textbf{Длительность: }'+entity.get('Длительность')
   if 'Время активации' in entity:
    outStr+='\\newline \\textbf{Время активации: }'+entity.get('Время активации')
+  if 'Сопротивление' in entity:
+   outStr+='\\newline \\textbf{Сопротивление: }'+entity.get('Сопротивление')
+   
 #------------------------------------------------------------------
   outStr+='\\paragraph{Эффект: }'+entity.get('эффект','\\err нет описания эффекта')
   if 'Усиление' in entity:
